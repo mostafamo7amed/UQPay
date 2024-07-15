@@ -17,5 +17,6 @@ class AssetsData {
   static const transferIcon = "$basePath/transfer.png";
   static const placeHolderIcon = "$basePath/placeholder.png";
   static const sendGiftTrueIcon = "$basePath/true.png";
-
+  static const newTargetIcon = "$basePath/newtarget.png";
+  static const targetIcon = "$basePath/targeticon.png";
 }

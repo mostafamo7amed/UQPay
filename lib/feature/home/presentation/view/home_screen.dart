@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
 import 'package:uq_pay/core/utils/app_manager/app_color.dart';
 import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/home_functions_widget.dart';
+import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/save_account_view.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -108,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Image.asset(AssetsData.empityVisa),
                         Padding(
-                          padding: const EdgeInsets.all(35.0),
+                          padding: const EdgeInsets.only(left: 45.0,right: 45.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -165,7 +167,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           HomeFunctionsWidget(
                             title: 'Save account',
                             asset: AssetsData.saveAccountIcon,
-                            onTap: () {},
+                            onTap: () {
+                              PersistentNavBarNavigator.pushNewScreen(context,
+                                  screen: const SaveAccountView());
+                            },
                           ),
                           HomeFunctionsWidget(
                             title: 'Send gift',
