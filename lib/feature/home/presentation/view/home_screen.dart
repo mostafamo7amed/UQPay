@@ -6,6 +6,7 @@ import 'package:uq_pay/core/utils/app_manager/app_color.dart';
 import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/home_functions_widget.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/save_account_view.dart';
+import 'package:uq_pay/feature/home/presentation/view/widgets/send_gifts.dart/send_gifts_view.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -175,7 +176,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           HomeFunctionsWidget(
                             title: 'Send gift',
                             asset: AssetsData.sendGiftIcon,
-                            onTap: () {},
+                            onTap: () {
+                              PersistentNavBarNavigator.pushNewScreen(context,
+                                  screen: const SendGiftsView());
+                            },
                           ),
                           HomeFunctionsWidget(
                             title: 'Transfar',
@@ -189,12 +193,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                    ),
-                    HomeFunctionsWidget(
-                      isGift: true,
-                      title: 'Giving gift',
-                      asset: AssetsData.sendGiftIcon,
-                      onTap: () {},
                     ),
                   ],
                 ),

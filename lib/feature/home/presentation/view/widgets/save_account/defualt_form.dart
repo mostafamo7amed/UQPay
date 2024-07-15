@@ -9,18 +9,23 @@ Widget defaultFormField({
   required TextInputType type,
   required context,
   suffixWidget,
+  priffixWidget,
   onTap,
+  autoFocus,
   onSubmit,
   onChange,
 }) =>
     SizedBox(
       height: 60,
       child: TextFormField(
+        maxLines: 3,
+        autofocus: autoFocus,
         controller: controller,
         onTap: onTap,
         onFieldSubmitted: onSubmit,
         onChanged: onChange,
         decoration: InputDecoration(
+          prefix: priffixWidget,
           suffix: suffixWidget,
           focusedBorder:  OutlineInputBorder(
             borderSide: BorderSide(color: AppColor.yellowColor, width: 2.0),

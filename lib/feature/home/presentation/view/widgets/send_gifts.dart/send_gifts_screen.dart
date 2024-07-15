@@ -5,16 +5,12 @@ import 'package:uq_pay/core/utils/app_manager/app_color.dart';
 import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
 import 'package:uq_pay/core/widgets/custom_button.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/new_target_details.dart';
+import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/target_graph_view.dart';
+import 'package:uq_pay/feature/home/presentation/view/widgets/send_gifts.dart/send_gift_review_screen.dart';
 
-class AddNewTarget extends StatelessWidget {
-  AddNewTarget({super.key});
-  var nameController = TextEditingController();
-  var numberofmonthController = TextEditingController();
-
-  var numerofdayController = TextEditingController();
-
-  var mounyController = TextEditingController();
+class SendGiftsScreen extends StatelessWidget {
+  SendGiftsScreen({super.key});
+  var accountControler = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,22 +29,28 @@ class AddNewTarget extends StatelessWidget {
                 color: AppColor.wihteColor,
               )),
           title: Text(
-            'New Target',
+            'Send Gift',
             style: Styles.boldTextStyle16.copyWith(color: AppColor.wihteColor),
           ),
           centerTitle: true,
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Image.asset(
-                AssetsData.newTargetIcon,
-                height: 100,
+          actions: [
+            InkWell(
+              onTap: () {
+                PersistentNavBarNavigator.pop(context);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'cancel',
+                  style: Styles.regularTextStyle16
+                      .copyWith(color: AppColor.wihteColor),
+                ),
               ),
             ),
+          ],
+        ),
+        body: Column(
+          children: [
             Expanded(
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -65,70 +67,73 @@ class AddNewTarget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Enter data please',
+                          'Send gift to',
                           style: Styles.textStyle24
                               .copyWith(color: AppColor.yellowColor),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         defaultFormField(
-                            autoFocus: false,
-                            controller: nameController,
-                            label: ' Target Name ',
-                            validate: (value) {},
+                            autoFocus: true,
+                            priffixWidget: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Icon(
+                                
+                                Icons.search,
+                                color: AppColor.grayColor,
+                              ),
+                            ),
+                            controller: accountControler,
+                            label: ' Account ',
+                            validate: (e) {},
                             type: TextInputType.name,
                             context: context),
                         const SizedBox(
                           height: 20,
                         ),
-                        defaultFormField(
-                            autoFocus: false,
-                            controller: numberofmonthController,
-                            label: ' Achievement Timeframe ',
-                            validate: (value) {},
+                       defaultFormField(
+                        autoFocus: false,
+                            controller: accountControler,
+                            label: ' Gift Amount',
+                            validate: (e) {},
                             type: TextInputType.number,
-                            suffixWidget: Text(
-                              'month',
-                              style: Styles.regularTextStyle16
-                                  .copyWith(color: AppColor.grayColor),
-                            ),
-                            context: context),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        defaultFormField(
-                            autoFocus: false,
-                            controller: mounyController,
-                            label: ' Monthly savings amount ',
-                            validate: (value) {},
-                            suffixWidget: Text(
+                             suffixWidget: Text(
                               'SAR',
                               style: Styles.regularTextStyle16
                                   .copyWith(color: AppColor.grayColor),
                             ),
-                            type: TextInputType.number,
                             context: context),
                         const SizedBox(
                           height: 20,
                         ),
                         defaultFormField(
-                            autoFocus: false,
-                            controller: numerofdayController,
-                            label: ' Deduction day ',
-                            validate: (value) {},
-                            type: TextInputType.number,
+                        autoFocus: false,
+                            controller: accountControler,
+                            label: ' Gift Message',
+                            validate: (e) {},
+                            type: TextInputType.multiline,
                             context: context),
                         const SizedBox(
-                          height: 20,
+                          height: 15,
+                        ),
+                         defaultFormField(
+                        autoFocus: false,
+                            controller: accountControler,
+                            label: ' Name ',
+                            validate: (e) {},
+                            type: TextInputType.name,
+                            context: context),
+                        const SizedBox(
+                          height: 15,
                         ),
                         CustomButton(
                           onPressed: () {
                             PersistentNavBarNavigator.pushNewScreen(context,
-                                screen: NewTargetDetails());
+                                screen: const SendGiftReviewScreen());
                           },
-                          text: 'Add',
-                          width: (MediaQuery.of(context).size.width) / 4,
+                          text: 'Next',
+                          width: (MediaQuery.of(context).size.width) / 3.5,
                         ),
                       ],
                     ),

@@ -19,4 +19,6 @@ class AssetsData {
   static const sendGiftTrueIcon = "$basePath/true.png";
   static const newTargetIcon = "$basePath/newtarget.png";
   static const targetIcon = "$basePath/targeticon.png";
+  static const giftIcon = "$basePath/gift.png";
+  static const backgroundVisa = "$basePath/backgroundvisa.png";
 }
