@@ -21,4 +21,7 @@ class AssetsData {
   static const targetIcon = "$basePath/targeticon.png";
   static const giftIcon = "$basePath/gift.png";
   static const backgroundVisa = "$basePath/backgroundvisa.png";
+  static const personRounded = "$basePath/personrounded.png";
+    static const money = "$basePath/money.png";
+
 }

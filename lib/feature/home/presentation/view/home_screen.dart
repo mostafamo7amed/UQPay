@@ -4,12 +4,14 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
 import 'package:uq_pay/core/utils/app_manager/app_color.dart';
 import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
+import 'package:uq_pay/feature/home/presentation/view/widgets/deposit_machines.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/home_functions_widget.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/save_account_view.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/send_gifts.dart/send_gifts_view.dart';
+import 'package:uq_pay/feature/home/presentation/view/widgets/transfer/transfer_view.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -111,7 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Image.asset(AssetsData.empityVisa),
                         Padding(
-                          padding: const EdgeInsets.only(left: 45.0,right: 45.0),
+                          padding:
+                              const EdgeInsets.only(left: 45.0, right: 45.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -184,12 +187,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           HomeFunctionsWidget(
                             title: 'Transfar',
                             asset: AssetsData.transferIcon,
-                            onTap: () {},
+                            onTap: () {
+                              PersistentNavBarNavigator.pushNewScreen(context,
+                                  screen: TransferView());
+                              
+                            },
                           ),
                           HomeFunctionsWidget(
                             title: 'Deposit',
                             asset: AssetsData.placeHolderIcon,
-                            onTap: () {},
+                            onTap: () {
+                              PersistentNavBarNavigator.pushNewScreen(context,
+                                  screen: const DepositMachines());
+                            },
                           ),
                         ],
                       ),

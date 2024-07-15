@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
 import 'package:uq_pay/core/utils/app_manager/app_color.dart';
 import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
 import 'package:uq_pay/core/widgets/custom_button.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/target_graph_view.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/send_gifts.dart/send_gift_review_screen.dart';
 
 class SendGiftsScreen extends StatelessWidget {
