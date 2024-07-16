@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:uq_pay/core/utils/app_manager/app_color.dart';
 import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
-import 'package:uq_pay/core/widgets/custom_button.dart';
 import 'package:uq_pay/core/widgets/seperated_line.dart';
-
-import '../../../../core/utils/app_manager/app_assets.dart';
+import 'package:uq_pay/feature/profile/presentation/view/widgets/profile_info_view.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -30,6 +28,7 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               Stack(
@@ -84,7 +83,7 @@ class SettingsScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SeperatedLine(),
+                          SeperatedLine(),
                           Padding(
                             padding: const EdgeInsets.only(
                                 right: 15, top: 10, left: 15),
@@ -94,19 +93,25 @@ class SettingsScreen extends StatelessWidget {
                                   .copyWith(color: AppColor.grayColor),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 15, right: 15, left: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Profile Information',
-                                  style: Styles.textStyle20
-                                      .copyWith(color: AppColor.blackColor),
-                                ),
-                                const Spacer(),
-                                const Icon(Icons.arrow_forward_ios),
-                              ],
+                          InkWell(
+                            onTap: () {
+                              PersistentNavBarNavigator.pushNewScreen(context,
+                                  screen: const ProfileInfoView());
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 15, right: 15, left: 15),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Profile Information',
+                                    style: Styles.textStyle20
+                                        .copyWith(color: AppColor.blackColor),
+                                  ),
+                                  const Spacer(),
+                                  const Icon(Icons.arrow_forward_ios),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -119,7 +124,7 @@ class SettingsScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - 280,
+                  height: MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
                     color: AppColor.wihteColor,
                   ),
@@ -160,7 +165,7 @@ class SettingsScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SeperatedLine(),
+                      SeperatedLine(),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 15,

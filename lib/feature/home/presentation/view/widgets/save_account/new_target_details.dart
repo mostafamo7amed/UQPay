@@ -26,7 +26,9 @@ class NewTargetDetails extends StatelessWidget {
               )),
           title: Text(
             'Target Details',
-            style: Styles.boldTextStyle16.copyWith(color: AppColor.wihteColor),
+            style:
+                  Styles.textStyle24.copyWith(
+                color: AppColor.wihteColor, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
         ),

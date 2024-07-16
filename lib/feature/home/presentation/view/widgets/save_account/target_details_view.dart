@@ -27,7 +27,8 @@ class TargetDetailsView extends StatelessWidget {
               )),
           title: Text(
             'Target Details',
-            style: Styles.boldTextStyle16.copyWith(color: AppColor.wihteColor),
+            style: Styles.textStyle24.copyWith(
+                color: AppColor.wihteColor, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
         ),
@@ -187,7 +188,7 @@ class TargetDetailsView extends StatelessWidget {
                                 screen: const TargetGraphView());
                           },
                           text: 'View Graph',
-                          width: (MediaQuery.of(context).size.width) / 3.5,
+                          width: (MediaQuery.of(context).size.width) / 3,
                         ),
                       ],
                     ),

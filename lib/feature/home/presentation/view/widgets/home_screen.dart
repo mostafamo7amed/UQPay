@@ -49,9 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Icons.person_outlined,
             size: 28,
           ),
-          title: const Text(
+          title: Text(
             'Good evning ,Muhammad',
-            style: Styles.boldTextStyle16,
+            style: Styles.textStyle20.copyWith(
+                color: AppColor.blackColor, fontWeight: FontWeight.bold),
           ),
           actions: const [
             Padding(
@@ -66,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(height: 20,),
               CarouselSlider(
                 items: imageSliders,
                 carouselController: _controller,
@@ -161,4 +163,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

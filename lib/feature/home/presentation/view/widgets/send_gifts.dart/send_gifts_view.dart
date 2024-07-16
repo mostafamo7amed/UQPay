@@ -25,18 +25,18 @@ class _SendGiftsViewState extends State<SendGiftsView> {
           appBar: AppBar(
             backgroundColor: AppColor.primaryColor,
             titleSpacing: 3,
-            leading:InkWell(
-              onTap: () {
-                PersistentNavBarNavigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back_ios_new,
-                color: AppColor.wihteColor,
-              )),
+            leading: InkWell(
+                onTap: () {
+                  PersistentNavBarNavigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColor.wihteColor,
+                )),
             title: Text(
               'Send Gift',
-              style:
-                  Styles.boldTextStyle16.copyWith(color: AppColor.wihteColor),
+              style: Styles.textStyle24.copyWith(
+                  color: AppColor.wihteColor, fontWeight: FontWeight.bold),
             ),
             centerTitle: true,
           ),
@@ -60,7 +60,7 @@ class _SendGiftsViewState extends State<SendGiftsView> {
                         onTap: (value) {
                           setState(() {
                             currentTab = value;
-                            print(currentTab);
+                            print('current Tab ====== $currentTab');
                           });
                         },
                         indicator: BoxDecoration(
@@ -96,6 +96,7 @@ class _SendGiftsViewState extends State<SendGiftsView> {
                   ),
                   const Expanded(
                     child: TabBarView(
+                      physics: NeverScrollableScrollPhysics(),
                       children: [
                         ReceivedTabView(),
                         SentTabView(),
