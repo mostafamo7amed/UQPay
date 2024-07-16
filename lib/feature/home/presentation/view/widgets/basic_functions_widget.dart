@@ -3,13 +3,17 @@ import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
 import 'package:uq_pay/core/utils/app_manager/app_color.dart';
 import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
 
-class HomeFunctionsWidget extends StatelessWidget {
+class BasicFunctionsWidget extends StatelessWidget {
   final String title;
   final String asset;
   final onTap;
   final bool isGift;
-  const HomeFunctionsWidget({
+  final Color? backgroundColor;
+  final Color? stokeColor;
+  const BasicFunctionsWidget({
     super.key,
+    this.backgroundColor = Colors.white,
+    this.stokeColor = Colors.grey,
     this.isGift = false,
     required this.title,
     required this.asset,
@@ -24,27 +28,27 @@ class HomeFunctionsWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
-            backgroundColor: AppColor.grayColor,
+            backgroundColor:stokeColor?? AppColor.grayColor,
             radius: 35.5,
             child: CircleAvatar(
               radius: 35,
-              backgroundColor: AppColor.wihteColor,
+              backgroundColor: backgroundColor??AppColor.wihteColor,
               child: Stack(alignment: Alignment.bottomRight, children: [
                 Image.asset(
                   asset,
                   height: 30,
                   fit: BoxFit.cover,
                 ),
-                if(isGift)
-                CircleAvatar(
-                  radius: 8,
-                  backgroundColor: AppColor.wihteColor,
-                  child: Image.asset(
-                    AssetsData.sendGiftTrueIcon,
-                    height: 8,
-                    fit: BoxFit.fill,
+                if (isGift)
+                  CircleAvatar(
+                    radius: 8,
+                    backgroundColor: AppColor.wihteColor,
+                    child: Image.asset(
+                      AssetsData.sendGiftTrueIcon,
+                      height: 8,
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                ),
               ]),
             ),
           ),

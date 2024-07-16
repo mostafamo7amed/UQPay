@@ -4,8 +4,9 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
 import 'package:uq_pay/core/utils/app_manager/app_color.dart';
 import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
+import 'package:uq_pay/feature/home/presentation/view/widgets/card/card_info_widget.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/deposit_machines.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/home_functions_widget.dart';
+import 'package:uq_pay/feature/home/presentation/view/widgets/basic_functions_widget.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/save_account_view.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/send_gifts.dart/send_gifts_view.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/transfer/transfer_view.dart';
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .toList();
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColor.backgroundColor,
         appBar: AppBar(
           titleSpacing: 3,
           leading: const Icon(
@@ -106,69 +108,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       topStart: Radius.circular(24),
                       topEnd: Radius.circular(24)),
                 ),
-                child: Column(
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image.asset(AssetsData.empityVisa),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 45.0, right: 45.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Mohammad Jassas',
-                                    style: Styles.textStyle24
-                                        .copyWith(color: AppColor.wihteColor),
-                                  ),
-                                  const Spacer(),
-                                  Icon(
-                                    Icons.star,
-                                    color: AppColor.wihteColor,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                'Current account',
-                                style: Styles.regularTextStyle16
-                                    .copyWith(color: AppColor.wihteColor),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    '4756',
-                                    style: Styles.regularTextStyle16
-                                        .copyWith(color: AppColor.wihteColor),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Image.asset(AssetsData.leadingAccount),
-                                ],
-                              ),
-                              Text(
-                                '\$469.52',
-                                style: Styles.textStyle24
-                                    .copyWith(color: AppColor.wihteColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    children: [
+                      const CardInformationWidget(),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          HomeFunctionsWidget(
+                          BasicFunctionsWidget(
                             title: 'Save account',
                             asset: AssetsData.saveAccountIcon,
                             onTap: () {
@@ -176,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   screen: const SaveAccountView());
                             },
                           ),
-                          HomeFunctionsWidget(
+                          BasicFunctionsWidget(
                             title: 'Send gift',
                             asset: AssetsData.sendGiftIcon,
                             onTap: () {
@@ -184,16 +132,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                   screen: const SendGiftsView());
                             },
                           ),
-                          HomeFunctionsWidget(
+                          BasicFunctionsWidget(
                             title: 'Transfar',
                             asset: AssetsData.transferIcon,
                             onTap: () {
                               PersistentNavBarNavigator.pushNewScreen(context,
                                   screen: TransferView());
-                              
                             },
                           ),
-                          HomeFunctionsWidget(
+                          BasicFunctionsWidget(
                             title: 'Deposit',
                             asset: AssetsData.placeHolderIcon,
                             onTap: () {
@@ -203,8 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )
             ],
@@ -214,3 +161,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
