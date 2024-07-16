@@ -28,4 +28,5 @@ class AssetsData {
   static const inTransfer = "$basePath/in.png";
   static const outTransfer = "$basePath/out.png";
   static const containerTransfer = "$basePath/outpng.png";
+  static const rectangleBack = "$basePath/rectangle.png";
 }

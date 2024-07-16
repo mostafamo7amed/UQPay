@@ -77,7 +77,7 @@ class HomeViewBody extends StatelessWidget {
              const AssetImage(AssetsData.settingIcon,),
              color: AppColor.wihteColor,
           ),
-          title: ("Setting"),
+          title: ("Settings"),
           textStyle: Styles.regularTextStyle16,
           activeColorSecondary: AppColor.wihteColor,
           activeColorPrimary: AppColor.primaryColor,
