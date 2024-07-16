@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
 import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/feature/home/presentation/view/home_screen.dart';
-import 'package:uq_pay/feature/home/presentation/view/cards_screen.dart';
-import 'package:uq_pay/feature/home/presentation/view/settings_screen.dart';
+import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
+import 'package:uq_pay/feature/home/presentation/view/widgets/home_screen.dart';
+import 'package:uq_pay/feature/card/presentation/view/cards_screen.dart';
+import 'package:uq_pay/feature/profile/presentation/view/settings_screen.dart';
 import 'package:uq_pay/feature/home/presentation/view/store_screen.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -17,56 +18,68 @@ class HomeViewBody extends StatelessWidget {
     controller = PersistentTabController(initialIndex: 0);
 
     List<Widget> buildScreens() {
-      return [HomeScreen(), const CardsScreen(),const StoreScreen(), const SettingsScreen()];
+      return [const HomeScreen(), const CardsScreen(),const StoreScreen(), const SettingsScreen()];
     }
 
     List<PersistentBottomNavBarItem> navBarsItems() {
       return [
         PersistentBottomNavBarItem(
-          inactiveIcon:const ImageIcon(
-            AssetImage(AssetsData.homeIcon,),
+          inactiveIcon: ImageIcon(
+            const AssetImage(AssetsData.homeIcon,),
+            color: AppColor.grayColor,
           ),
-          icon: const ImageIcon(
-             AssetImage(AssetsData.homeIcon,),
+          icon: ImageIcon(
+            color: AppColor.wihteColor,
+             const AssetImage(AssetsData.homeIcon,),
           ),
           title: ("Home"),
-          activeColorSecondary: AppColor.lightgrayColor,
+          textStyle: Styles.regularTextStyle16,
+          activeColorSecondary: AppColor.wihteColor,
           activeColorPrimary: AppColor.primaryColor,
           inactiveColorPrimary: AppColor.grayColor,
         ),
         PersistentBottomNavBarItem(
-          inactiveIcon: const ImageIcon(
-             AssetImage(AssetsData.wellatIcon,),
+          inactiveIcon:  ImageIcon(
+             const AssetImage(AssetsData.wellatIcon,),
+             color: AppColor.grayColor,
+          ), 
+          icon:  ImageIcon(
+             const AssetImage(AssetsData.wellatIcon,),
+             color: AppColor.wihteColor,
           ),
-          icon: const ImageIcon(
-             AssetImage(AssetsData.wellatIcon,),
-          ),
-          activeColorSecondary: AppColor.lightgrayColor,
-          title: ("Cards"),
+          activeColorSecondary: AppColor.wihteColor,
+          title: ("Card"),
+          textStyle: Styles.regularTextStyle16,
           activeColorPrimary: AppColor.primaryColor,
           inactiveColorPrimary: AppColor.grayColor,
         ),
         PersistentBottomNavBarItem(
-          inactiveIcon:const ImageIcon(
-            AssetImage(AssetsData.cartIcon,),
+          inactiveIcon: ImageIcon(
+            const AssetImage(AssetsData.cartIcon,),
+            color: AppColor.grayColor,
           ),
-          icon: const ImageIcon(
-             AssetImage(AssetsData.cartIcon,),
+          icon:  ImageIcon(
+             const AssetImage(AssetsData.cartIcon,),
+             color:AppColor.wihteColor,
           ),
           title: ("Store"),
-          activeColorSecondary: AppColor.lightgrayColor,
+          textStyle: Styles.regularTextStyle16,
+          activeColorSecondary: AppColor.wihteColor,
           activeColorPrimary: AppColor.primaryColor,
           inactiveColorPrimary: AppColor.grayColor,
         ),
         PersistentBottomNavBarItem(
-          inactiveIcon:const ImageIcon(
-            AssetImage(AssetsData.settingIcon,),
+          inactiveIcon: ImageIcon(
+            const AssetImage(AssetsData.settingIcon,),
+            color:  AppColor.grayColor,
           ),
-          icon: const ImageIcon(
-             AssetImage(AssetsData.settingIcon,),
+          icon: ImageIcon(
+             const AssetImage(AssetsData.settingIcon,),
+             color: AppColor.wihteColor,
           ),
           title: ("Setting"),
-          activeColorSecondary: AppColor.lightgrayColor,
+          textStyle: Styles.regularTextStyle16,
+          activeColorSecondary: AppColor.wihteColor,
           activeColorPrimary: AppColor.primaryColor,
           inactiveColorPrimary: AppColor.grayColor,
         ),

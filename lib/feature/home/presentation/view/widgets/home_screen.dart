@@ -4,7 +4,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
 import 'package:uq_pay/core/utils/app_manager/app_color.dart';
 import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/card/card_info_widget.dart';
+import 'package:uq_pay/feature/card/presentation/view/widgets/card/card_info_widget.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/deposit_machines.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/basic_functions_widget.dart';
 import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/save_account_view.dart';
