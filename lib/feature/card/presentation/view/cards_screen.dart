@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
-import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/home_screen.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/basic_functions_widget.dart';
-import 'package:uq_pay/feature/card/presentation/view/widgets/card/card_info_widget.dart';
-import 'package:uq_pay/feature/card/presentation/view/widgets/card/latest_operation.dart';
-import 'package:uq_pay/feature/card/presentation/view/widgets/card/view_card_info.dart';
 
+import '../../../../core/utils/app_manager/app_assets.dart';
+import '../../../../core/utils/app_manager/app_color.dart';
+import '../../../../core/utils/app_manager/app_styles.dart';
+import '../../../home/presentation/view/widgets/basic_functions_widget.dart';
+import 'widgets/card/card_info_widget.dart';
+import 'widgets/card/latest_operation.dart';
+import 'widgets/card/view_card_info.dart';
 class CardsScreen extends StatelessWidget {
   const CardsScreen({super.key});
 

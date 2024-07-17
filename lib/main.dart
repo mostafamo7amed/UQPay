@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/core/utils/app_manager/app_routes.dart';
+import 'package:UQPay/core/utils/app_manager/app_color.dart';
+import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 
 void main() {
   runApp(const UQPay());

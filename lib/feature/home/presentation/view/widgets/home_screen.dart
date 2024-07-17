@@ -1,16 +1,16 @@
+import 'package:UQPay/core/utils/app_manager/app_color.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/basic_functions_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
-import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
-import 'package:uq_pay/feature/card/presentation/view/widgets/card/card_info_widget.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/deposit_machines.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/basic_functions_widget.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/save_account_view.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/send_gifts.dart/send_gifts_view.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/transfer/transfer_view.dart';
 
+import '../../../../../core/utils/app_manager/app_assets.dart';
+import '../../../../../core/utils/app_manager/app_styles.dart';
+import '../../../../card/presentation/view/widgets/card/card_info_widget.dart';
+import 'deposit_machines.dart';
+import 'save_account/save_account_view.dart';
+import 'send_gifts.dart/send_gifts_view.dart';
+import 'transfer/transfer_view.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 

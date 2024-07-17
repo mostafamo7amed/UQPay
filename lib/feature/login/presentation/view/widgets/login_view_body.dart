@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
-import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
-import 'package:uq_pay/core/widgets/custom_button.dart';
-import 'package:uq_pay/feature/login/presentation/view/widgets/custom_text_form.dart';
+import 'package:UQPay/core/utils/app_manager/app_assets.dart';
+import 'package:UQPay/core/utils/app_manager/app_color.dart';
+import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/core/widgets/custom_button.dart';
+import 'package:UQPay/feature/login/presentation/view/widgets/custom_text_form.dart';
 
 class LoginViewBody extends StatelessWidget {
   LoginViewBody({super.key});

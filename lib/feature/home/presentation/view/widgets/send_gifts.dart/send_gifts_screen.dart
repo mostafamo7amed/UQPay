@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
-import 'package:uq_pay/core/widgets/custom_button.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/send_gifts.dart/send_gift_review_screen.dart';
+import 'package:UQPay/core/utils/app_manager/app_color.dart';
+import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/core/widgets/custom_button.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/send_gift_review_screen.dart';
 
 class SendGiftsScreen extends StatelessWidget {
   SendGiftsScreen({super.key});

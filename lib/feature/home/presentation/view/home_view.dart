@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/home_view_body.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/home_view_body.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

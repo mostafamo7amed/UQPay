@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
-import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
+
+import '../../../../../../core/utils/app_manager/app_assets.dart';
+import '../../../../../../core/utils/app_manager/app_color.dart';
+import '../../../../../../core/utils/app_manager/app_styles.dart';
 
 class CardInformationWidget extends StatelessWidget {
   const CardInformationWidget({

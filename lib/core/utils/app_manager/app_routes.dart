@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
-import 'package:uq_pay/feature/home/presentation/view/home_view.dart';
-import 'package:uq_pay/feature/login/presentation/view/login_view.dart';
-import 'package:uq_pay/feature/splash/presentation/view/splash_view.dart';
+
+import '../../../feature/home/presentation/view/home_view.dart';
+import '../../../feature/login/presentation/view/login_view.dart';
+import '../../../feature/splash/presentation/view/splash_view.dart';
+
 
 class Routes {
   static const String splashRoute = "/";

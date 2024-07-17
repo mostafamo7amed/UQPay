@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
-import 'package:uq_pay/core/utils/app_manager/app_routes.dart';
+import 'package:UQPay/core/utils/app_manager/app_assets.dart';
+import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});

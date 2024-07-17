@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
-import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
-import 'package:uq_pay/core/widgets/custom_button.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/add_new_target.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/my_targets_view.dart';
+import 'package:UQPay/core/utils/app_manager/app_assets.dart';
+import 'package:UQPay/core/utils/app_manager/app_color.dart';
+import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/core/widgets/custom_button.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/save_account/add_new_target.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/save_account/my_targets_view.dart';
 
 class SaveAccountView extends StatelessWidget {
   const SaveAccountView({super.key});

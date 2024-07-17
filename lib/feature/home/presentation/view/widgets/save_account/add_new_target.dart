@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:uq_pay/core/utils/app_manager/app_assets.dart';
-import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
-import 'package:uq_pay/core/widgets/custom_button.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/save_account/new_target_details.dart';
+
+import '../../../../../../core/utils/app_manager/app_assets.dart';
+import '../../../../../../core/utils/app_manager/app_color.dart';
+import '../../../../../../core/utils/app_manager/app_styles.dart';
+import '../../../../../../core/widgets/custom_button.dart';
+import 'defualt_form.dart';
+import 'new_target_details.dart';
 
 class AddNewTarget extends StatelessWidget {
   AddNewTarget({super.key});

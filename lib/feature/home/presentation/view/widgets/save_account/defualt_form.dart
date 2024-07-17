@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
+
+import '../../../../../../core/utils/app_manager/app_color.dart';
+import '../../../../../../core/utils/app_manager/app_styles.dart';
+
 
 Widget defaultFormField({
   required TextEditingController controller,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:uq_pay/core/utils/app_manager/app_color.dart';
-import 'package:uq_pay/core/utils/app_manager/app_styles.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/send_gifts.dart/received_tab_view.dart';
-import 'package:uq_pay/feature/home/presentation/view/widgets/send_gifts.dart/sent_tab_view.dart';
+import 'package:UQPay/core/utils/app_manager/app_color.dart';
+import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/received_tab_view.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/sent_tab_view.dart';
 
 class SendGiftsView extends StatefulWidget {
   const SendGiftsView({super.key});
