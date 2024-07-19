@@ -1,6 +1,7 @@
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -51,19 +52,31 @@ class OderDetailsView extends StatelessWidget {
                   ),
                 ),
                 CardWidget(
-                  child: Row(
+                  child: Column(
                     children: [
-                      Text(
-                        'BRANCH',
-                        style: Styles.textStyle18
-                            .copyWith(color: AppColor.primaryColor),
+                      Row(
+                        children: [
+                          Text(
+                            'BRANCH',
+                            style: Styles.textStyle18
+                                .copyWith(color: AppColor.primaryColor),
+                          ),
+                          const Spacer(),
+                          Text(
+                            'Nawreeya',
+                            style: Styles.textStyle18
+                                .copyWith(color: AppColor.blackColor),
+                          ),
+                        ],
                       ),
-                      const Spacer(),
-                      Text(
-                        'Nawreeya',
-                        style: Styles.textStyle18
-                            .copyWith(color: AppColor.blackColor),
+                      const SizedBox(
+                        height: 10,
                       ),
+                      CustomButton(
+                        height: 40,
+                        onPressed: () {},
+                        text: 'Open in google maps',
+                      )
                     ],
                   ),
                 ),

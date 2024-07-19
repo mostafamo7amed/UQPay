@@ -78,7 +78,6 @@ class SendGiftsScreen extends StatelessWidget {
                             priffixWidget: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Icon(
-                                
                                 Icons.search,
                                 color: AppColor.grayColor,
                               ),

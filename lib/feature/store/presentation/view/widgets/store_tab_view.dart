@@ -40,7 +40,7 @@ class StoreTabView extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-           HorizentalListStores(
+            HorizentalListStores(
               widthRate: 2,
               heightRate: 2.5,
               categoryModel: storesList,
@@ -55,7 +55,7 @@ class StoreTabView extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-           HorizentalListStores(
+            HorizentalListStores(
               widthRate: 3,
               heightRate: 3,
               categoryModel: storesList,
@@ -70,7 +70,7 @@ class StoreTabView extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-           HorizentalListStores(
+            HorizentalListStores(
               widthRate: 3,
               heightRate: 3,
               categoryModel: storesList,

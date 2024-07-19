@@ -9,18 +9,20 @@ class CustomButton extends StatelessWidget {
       required this.onPressed,
       this.width,
       this.color,
+      this.height,
       this.overlayColor,
       this.textColor});
   final String? text;
   final Color? textColor;
   final double? width;
+  final double? height;
   final Color? color;
   final Color? overlayColor;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 56,
+      height: height?? 56,
       width: width ?? MediaQuery.of(context).size.width,
       child: TextButton(
           onPressed: onPressed,
