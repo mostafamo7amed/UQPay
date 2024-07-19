@@ -2,7 +2,9 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
+import 'package:UQPay/feature/store/presentation/view/widgets/oder_details_view.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class OrdersVerticalListView extends StatelessWidget {
   const OrdersVerticalListView({
@@ -107,7 +109,10 @@ class OrdersVerticalListView extends StatelessWidget {
                   ),
                   const Spacer(),
                   CustomButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      PersistentNavBarNavigator.pushNewScreen(context,
+                          screen: const OderDetailsView());
+                    },
                     color: AppColor.wihteColor,
                     textColor: AppColor.yellowColor,
                     overlayColor: AppColor.wihteColor,
