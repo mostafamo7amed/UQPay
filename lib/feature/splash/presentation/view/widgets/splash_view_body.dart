@@ -13,7 +13,7 @@ class SplashViewBody extends StatefulWidget {
 class _SplashViewBodyState extends State<SplashViewBody> {
   @override
   void initState() {
-    navigateToLoginPage();
+    navigateToNextPage();
     super.initState();
   }
 
@@ -41,9 +41,13 @@ class _SplashViewBodyState extends State<SplashViewBody> {
     );
   }
 
-  void navigateToLoginPage() {
+  void navigateToNextPage() {
     Future.delayed(const Duration(seconds: 3), () {
-      GoRouter.of(context).pushReplacement(Routes.mainRoute);
+      if (true) {
+        GoRouter.of(context).pushReplacement(Routes.loginRoute);
+      } else {
+        GoRouter.of(context).pushReplacement(Routes.mainRoute);
+      }
     });
   }
 }
