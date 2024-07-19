@@ -107,7 +107,7 @@ class LatestOperationView extends StatelessWidget {
                                           children: [
                                             Image.asset(
                                                 AssetsData.containerTransfer),
-                                            Image.asset(AssetsData.inTransfer),
+                                            Image.asset(AssetsData.outTransfer),
                                           ],
                                         ),
                                       ],

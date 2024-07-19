@@ -79,7 +79,7 @@ class ProfileInfoView extends StatelessWidget {
                           padding: const EdgeInsets.all(15),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: AppColor.lightgrayColor,
+                            color: AppColor.lightgrayColor.withOpacity(0.3),
                             borderRadius: const BorderRadiusDirectional.all(
                               Radius.circular(10),
                             ),

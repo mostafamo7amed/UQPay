@@ -26,8 +26,7 @@ class TargetGraphView extends StatelessWidget {
               )),
           title: Text(
             'Target Details',
-            style:
-                  Styles.textStyle24.copyWith(
+            style: Styles.textStyle24.copyWith(
                 color: AppColor.wihteColor, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
@@ -83,7 +82,7 @@ class TargetGraphView extends StatelessWidget {
                           height: 20,
                         ),
                         CircularPercentIndicator(
-                          radius: MediaQuery.of(context).size.width/3,
+                          radius: MediaQuery.of(context).size.width / 3,
                           lineWidth: 25.0,
                           animation: true,
                           animationDuration: 1000,
@@ -96,7 +95,6 @@ class TargetGraphView extends StatelessWidget {
                           ),
                           circularStrokeCap: CircularStrokeCap.round,
                           progressColor: AppColor.primaryColor,
-                          
                         ),
                       ],
                     ),
