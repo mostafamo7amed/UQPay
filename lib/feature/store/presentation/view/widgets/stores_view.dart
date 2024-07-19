@@ -2,8 +2,10 @@ import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
+import 'package:UQPay/feature/store/data/models/product_model.dart';
 import 'package:UQPay/feature/store/data/models/store_category_model.dart';
 import 'package:UQPay/feature/store/data/models/store_model.dart';
+import 'package:UQPay/feature/store/presentation/view/widgets/store_details_view.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/store_item.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -31,7 +33,7 @@ class StoresView extends StatelessWidget {
               },
               child: Icon(
                 Icons.arrow_back_ios_new,
-                color: AppColor.wihteColor,
+                color: AppColor.blackColor,
               )),
           title: Text(
             storeCategory.categoryName,
@@ -78,6 +80,11 @@ class StoresView extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       // navigate to details exercises
+                      PersistentNavBarNavigator.pushNewScreen(context,
+                          screen: StoreDetailsView(
+                              model: ProductModel(
+                                  productImage: storeCategory.categoryImage,
+                                  productName: storeCategory.categoryName)));
                     },
                     child: StoreAndCategoryItem(
                       isGrid: true,
