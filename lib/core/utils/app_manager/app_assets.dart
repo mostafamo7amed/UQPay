@@ -30,4 +30,12 @@ class AssetsData {
   static const containerTransfer = "$basePath/outpng.png";
   static const rectangleBack = "$basePath/rectangle.png";
   static const personMask = "$basePath/mask.png";
+  static const gymImage = "$basePath/gym.png";
+  static const cafeImage = "$basePath/cafe.png";
+  static const clinicImage = "$basePath/clinic.png";
+  static const trainingImage = "$basePath/training.png";
+  static const storeImage = "$basePath/stores.png";
+  static const restoruntImage = "$basePath/restorant.png";
+
+  
 }

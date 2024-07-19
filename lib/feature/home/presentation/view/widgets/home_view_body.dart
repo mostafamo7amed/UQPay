@@ -6,7 +6,7 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/home_screen.dart';
 import 'package:UQPay/feature/card/presentation/view/cards_screen.dart';
 import 'package:UQPay/feature/profile/presentation/view/settings_screen.dart';
-import 'package:UQPay/feature/home/presentation/view/store_screen.dart';
+import 'package:UQPay/feature/store/presentation/view/store_screen.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
