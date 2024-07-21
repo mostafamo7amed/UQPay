@@ -1,3 +1,5 @@
+import 'package:UQPay/feature/card/presentation/view/widgets/card_benefits_view.dart';
+import 'package:UQPay/feature/card/presentation/view/widgets/more_options_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -5,9 +7,10 @@ import '../../../../core/utils/app_manager/app_assets.dart';
 import '../../../../core/utils/app_manager/app_color.dart';
 import '../../../../core/utils/app_manager/app_styles.dart';
 import '../../../../core/widgets/basic_functions_widget.dart';
-import 'widgets/card/card_info_widget.dart';
-import 'widgets/card/latest_operation.dart';
-import 'widgets/card/view_card_info.dart';
+import 'widgets/card_info_widget.dart';
+import 'widgets/latest_operation.dart';
+import 'widgets/view_card_info.dart';
+
 class CardsScreen extends StatelessWidget {
   const CardsScreen({super.key});
 
@@ -115,30 +118,79 @@ class CardsScreen extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 30, vertical: 20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              child: Column(
                                 children: [
-                                  BasicFunctionsWidget(
-                                      title: 'Card Information',
-                                      asset: AssetsData.cardInfo,
-                                      stokeColor: AppColor.yellowColor,
-                                      backgroundColor: AppColor.backgroundColor,
-                                      onTap: () {
-                                        PersistentNavBarNavigator.pushNewScreen(
-                                            context,
-                                            screen: const ViewCardInfo());
-                                      }),
-                                  BasicFunctionsWidget(
-                                      title: 'Latest Operations',
-                                      asset: AssetsData.handMoney,
-                                      stokeColor: AppColor.yellowColor,
-                                      backgroundColor: AppColor.backgroundColor,
-                                      onTap: () {
-                                        PersistentNavBarNavigator.pushNewScreen(
-                                            context,
-                                            screen: const LatestOperationView());
-                                      }),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: BasicFunctionsWidget(
+                                            title: 'Card Information',
+                                            asset: AssetsData.cardInfo,
+                                            stokeColor: AppColor.yellowColor,
+                                            backgroundColor:
+                                                AppColor.backgroundColor,
+                                            onTap: () {
+                                              PersistentNavBarNavigator
+                                                  .pushNewScreen(context,
+                                                      screen:
+                                                          const ViewCardInfo());
+                                            }),
+                                      ),
+                                      Expanded(
+                                        child: BasicFunctionsWidget(
+                                            title: 'Latest Operations',
+                                            asset: AssetsData.handMoney,
+                                            stokeColor: AppColor.yellowColor,
+                                            backgroundColor:
+                                                AppColor.backgroundColor,
+                                            onTap: () {
+                                              PersistentNavBarNavigator
+                                                  .pushNewScreen(context,
+                                                      screen:
+                                                          const LatestOperationView());
+                                            }),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: BasicFunctionsWidget(
+                                            title: 'Card Benifts',
+                                            asset: AssetsData.listDoneImage,
+                                            stokeColor: AppColor.yellowColor,
+                                            backgroundColor:
+                                                AppColor.backgroundColor,
+                                            onTap: () {
+                                              PersistentNavBarNavigator
+                                                  .pushNewScreen(context,
+                                                      screen:
+                                                          const CardBenefitsView());
+                                            }),
+                                      ),
+                                      Expanded(
+                                        child: BasicFunctionsWidget(
+                                            title: 'More Options',
+                                            asset: AssetsData.moreOptinsImage,
+                                            stokeColor: AppColor.yellowColor,
+                                            backgroundColor:
+                                                AppColor.backgroundColor,
+                                            onTap: () {
+                                              PersistentNavBarNavigator
+                                                  .pushNewScreen(context,
+                                                      screen:
+                                                          const MoreOptionsView());
+                                            }),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),

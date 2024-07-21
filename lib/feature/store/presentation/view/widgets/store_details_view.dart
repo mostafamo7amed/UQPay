@@ -1,13 +1,16 @@
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/feature/store/data/models/product_model.dart';
+import 'package:UQPay/feature/store/presentation/view/widgets/make_order_view.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class StoreDetailsView extends StatelessWidget {
-  StoreDetailsView({super.key, required this.model});
-  ProductModel model;
+  StoreDetailsView(
+      {super.key, required this.products, required this.storeName});
+  List<ProductModel> products;
+  String storeName;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class StoreDetailsView extends StatelessWidget {
                 color: AppColor.blackColor,
               )),
           title: Text(
-            model.productName,
+            storeName,
             style: Styles.textStyle24.copyWith(
                 color: AppColor.blackColor, fontWeight: FontWeight.bold),
           ),
@@ -34,7 +37,7 @@ class StoreDetailsView extends StatelessWidget {
         ),
         body: GridView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          itemCount: 9,
+          itemCount: products.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 10,
@@ -43,11 +46,12 @@ class StoreDetailsView extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
               onTap: () {
-                // navigate to details exercises
+                PersistentNavBarNavigator.pushNewScreen(context,
+                    screen: MakeOrderView(product: products[index]));
               },
               child: ProductItem(
                 isGrid: true,
-                productModel: model,
+                productModel: products[index],
                 widthRate: 2,
               ),
             );

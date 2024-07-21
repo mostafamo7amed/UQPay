@@ -28,15 +28,14 @@ class BasicFunctionsWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
-            backgroundColor:stokeColor?? AppColor.grayColor,
+            backgroundColor: stokeColor ?? AppColor.grayColor,
             radius: 35.5,
             child: CircleAvatar(
               radius: 35,
-              backgroundColor: backgroundColor??AppColor.wihteColor,
+              backgroundColor: backgroundColor ?? AppColor.wihteColor,
               child: Stack(alignment: Alignment.bottomRight, children: [
                 Image.asset(
                   asset,
-                  height: 30,
                   fit: BoxFit.cover,
                 ),
                 if (isGift)

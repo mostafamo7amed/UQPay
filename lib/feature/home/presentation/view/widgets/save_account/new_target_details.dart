@@ -183,26 +183,12 @@ class NewTargetDetails extends StatelessWidget {
                           height: 15,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomButton(
                               onPressed: () {},
                               text: 'Done',
                               width: (MediaQuery.of(context).size.width) / 4,
-                            ),
-                            CustomButton(
-                              onPressed: () {
-                                PersistentNavBarNavigator.pop(context);
-                              },
-                              text: 'Edit',
-                              width: (MediaQuery.of(context).size.width) / 4,
-                              color: AppColor.greenColor,
-                            ),
-                            CustomButton(
-                              onPressed: () {},
-                              text: 'Delete',
-                              width: (MediaQuery.of(context).size.width) / 4,
-                              color: AppColor.redColor,
                             ),
                           ],
                         ),

@@ -1,15 +1,20 @@
+import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
+import 'package:UQPay/feature/store/data/models/product_model.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/oder_details_view.dart';
+import 'package:UQPay/feature/store/presentation/view/widgets/view_order_details.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class OrdersVerticalListView extends StatelessWidget {
-  const OrdersVerticalListView({
+  OrdersVerticalListView({
     super.key,
+    this.hideProgress = false,
   });
+  bool? hideProgress = false;
 
   @override
   Widget build(BuildContext context) {
@@ -100,18 +105,24 @@ class OrdersVerticalListView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomButton(
-                    onPressed: () {},
-                    color: AppColor.wihteColor,
-                    textColor: AppColor.yellowColor,
-                    text: 'Reoder',
-                    width: MediaQuery.of(context).size.width / 3,
-                  ),
-                  const Spacer(),
+                  hideProgress == false
+                      ? CustomButton(
+                          onPressed: () {},
+                          color: AppColor.wihteColor,
+                          textColor: AppColor.yellowColor,
+                          text: 'Reoder',
+                          width: MediaQuery.of(context).size.width / 3,
+                        )
+                      : SizedBox(),
+                  hideProgress == false ? const Spacer() : SizedBox(),
                   CustomButton(
                     onPressed: () {
                       PersistentNavBarNavigator.pushNewScreen(context,
-                          screen: const OderDetailsView());
+                          screen: ViewOrderDetails(
+                            product: ProductModel(
+                                productName: 'Bari alqaws stud',
+                                productImage: AssetsData.store2),
+                          ));
                     },
                     color: AppColor.wihteColor,
                     textColor: AppColor.yellowColor,

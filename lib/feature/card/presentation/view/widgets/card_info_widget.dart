@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/utils/app_manager/app_assets.dart';
-import '../../../../../../core/utils/app_manager/app_color.dart';
-import '../../../../../../core/utils/app_manager/app_styles.dart';
+import '../../../../../core/utils/app_manager/app_assets.dart';
+import '../../../../../core/utils/app_manager/app_color.dart';
+import '../../../../../core/utils/app_manager/app_styles.dart';
 
 class CardInformationWidget extends StatelessWidget {
   const CardInformationWidget({
@@ -14,7 +14,10 @@ class CardInformationWidget extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Image.asset(AssetsData.backgroundVisa,height: 240,),
+        Image.asset(
+          AssetsData.backgroundVisa,
+          height: 240,
+        ),
         Padding(
           padding: const EdgeInsets.only(left: 30.0, right: 30.0),
           child: SizedBox(
@@ -26,8 +29,8 @@ class CardInformationWidget extends StatelessWidget {
                   children: [
                     Text(
                       'Mohammad Jassas',
-                      style:
-                          Styles.textStyle24.copyWith(color: AppColor.wihteColor),
+                      style: Styles.textStyle24
+                          .copyWith(color: AppColor.wihteColor),
                     ),
                     const Spacer(),
                     Icon(
@@ -51,8 +54,9 @@ class CardInformationWidget extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  '\$469.52',
-                  style: Styles.textStyle24.copyWith(color: AppColor.wihteColor),
+                  '469.52 SAR',
+                  style:
+                      Styles.textStyle24.copyWith(color: AppColor.wihteColor),
                 ),
               ],
             ),

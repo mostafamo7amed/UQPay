@@ -28,10 +28,19 @@ class StoreAndCategoryItem extends StatelessWidget {
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Center(
-            child: Image.asset(categoryModel != null
-                ? categoryModel!.categoryImage
-                : storeModel!.storeCategory.categoryImage),
+          Positioned(
+            top: 5,
+            child: Container(
+              width: (MediaQuery.of(context).size.width - 20) / widthRate,
+              decoration: BoxDecoration(
+                  color: AppColor.wihteColor,
+                  borderRadius: const BorderRadius.all(Radius.circular(15))),
+              child: Image.asset(
+                categoryModel != null
+                    ? categoryModel!.categoryImage
+                    : storeModel!.storeIamge,
+              ),
+            ),
           ),
           Container(
             padding: const EdgeInsets.all(4),
@@ -46,7 +55,7 @@ class StoreAndCategoryItem extends StatelessWidget {
             child: Text(
               categoryModel != null
                   ? categoryModel!.categoryName
-                  : storeModel!.storeCategory.categoryName,
+                  : storeModel!.storeName,
               style: Styles.textStyle20.copyWith(color: AppColor.blackColor),
               maxLines: 1,
               textAlign: TextAlign.center,

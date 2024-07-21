@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import '../../../../../../core/utils/app_manager/app_assets.dart';
-import '../../../../../../core/utils/app_manager/app_color.dart';
-import '../../../../../../core/utils/app_manager/app_styles.dart';
+import '../../../../../core/utils/app_manager/app_assets.dart';
+import '../../../../../core/utils/app_manager/app_color.dart';
+import '../../../../../core/utils/app_manager/app_styles.dart';
 import 'card_info_widget.dart';
 
 class ViewCardInfo extends StatelessWidget {

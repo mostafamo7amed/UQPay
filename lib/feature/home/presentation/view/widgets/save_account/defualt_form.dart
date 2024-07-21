@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/utils/app_manager/app_color.dart';
 import '../../../../../../core/utils/app_manager/app_styles.dart';
 
-
 Widget defaultFormField({
   required TextEditingController controller,
-  required String label,
+  String? label,
   required validate,
   required TextInputType type,
   required context,
@@ -29,7 +28,7 @@ Widget defaultFormField({
         decoration: InputDecoration(
           prefix: priffixWidget,
           suffix: suffixWidget,
-          focusedBorder:  OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColor.yellowColor, width: 2.0),
             borderRadius: const BorderRadius.all(Radius.circular(16)),
           ),
@@ -37,10 +36,10 @@ Widget defaultFormField({
             borderSide: BorderSide(color: AppColor.yellowColor, width: 2.0),
             borderRadius: const BorderRadius.all(Radius.circular(16)),
           ),
-          label: Text(label, style: Styles.textStyle18),
+          label: Text(label ?? '', style: Styles.textStyle18),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: AppColor.yellowColor, width: 2.0),
-            borderRadius:  const BorderRadius.all(Radius.circular(16)),
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
           ),
           labelStyle:
               Styles.regularTextStyle16.copyWith(color: AppColor.blackColor),

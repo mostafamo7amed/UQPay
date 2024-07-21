@@ -1,3 +1,4 @@
+import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -95,6 +96,29 @@ class TargetGraphView extends StatelessWidget {
                           ),
                           circularStrokeCap: CircularStrokeCap.round,
                           progressColor: AppColor.primaryColor,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomButton(
+                              onPressed: () {},
+                              text: 'Edit',
+                              width: (MediaQuery.of(context).size.width) / 4,
+                              color: AppColor.greenColor,
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            CustomButton(
+                              onPressed: () {},
+                              text: 'Delete',
+                              width: (MediaQuery.of(context).size.width) / 4,
+                              color: AppColor.redColor,
+                            ),
+                          ],
                         ),
                       ],
                     ),

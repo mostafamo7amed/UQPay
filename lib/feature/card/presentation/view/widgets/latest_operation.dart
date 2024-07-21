@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-import '../../../../../../core/utils/app_manager/app_assets.dart';
-import '../../../../../../core/utils/app_manager/app_color.dart';
-import '../../../../../../core/utils/app_manager/app_styles.dart';
+import '../../../../../core/utils/app_manager/app_assets.dart';
+import '../../../../../core/utils/app_manager/app_color.dart';
+import '../../../../../core/utils/app_manager/app_styles.dart';
 import 'card_info_widget.dart';
 
 class LatestOperationView extends StatelessWidget {
@@ -53,6 +53,19 @@ class LatestOperationView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const CardInformationWidget(),
+                        Row(
+                          children: [
+                            const Spacer(),
+                            Text(
+                              '25/4/2024',
+                              style: Styles.regularTextStyle14
+                                  .copyWith(color: AppColor.primaryColor),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
                         ListView.separated(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
@@ -87,17 +100,29 @@ class LatestOperationView extends StatelessWidget {
                                               '25/4/2024',
                                               style: Styles.regularTextStyle14
                                                   .copyWith(
-                                                      color:
-                                                          AppColor.primaryColor),
+                                                      color: AppColor
+                                                          .primaryColor),
                                             ),
                                           ],
                                         ),
                                         const Spacer(),
-                                        Text(
-                                          '200 SAR',
-                                          style: Styles.regularTextStyle14
-                                              .copyWith(
-                                                  color: AppColor.primaryColor),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              '200 SAR',
+                                              style: Styles.regularTextStyle16
+                                                  .copyWith(
+                                                      color: AppColor
+                                                          .primaryColor),
+                                            ),
+                                            Text(
+                                              '460 SAR',
+                                              style: Styles.regularTextStyle14
+                                                  .copyWith(
+                                                      color: AppColor
+                                                          .primaryColor),
+                                            ),
+                                          ],
                                         ),
                                         const SizedBox(
                                           width: 10,

@@ -1,15 +1,20 @@
-import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/amount_sent_gift_view.dart';
-import 'package:dropdown_search/dropdown_search.dart';
+import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/send_gift_review_screen.dart';
 
-class SendGiftsScreen extends StatelessWidget {
-  SendGiftsScreen({super.key});
-  var accountControler = TextEditingController();
+class MassegeSendGiftView extends StatefulWidget {
+  const MassegeSendGiftView({super.key});
 
+  @override
+  State<MassegeSendGiftView> createState() => _AmountSentGiftViewState();
+}
+
+class _AmountSentGiftViewState extends State<MassegeSendGiftView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,33 +71,67 @@ class SendGiftsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Send gift to',
+                          'Send gift',
+                          style: Styles.textStyle24
+                              .copyWith(color: AppColor.yellowColor),
+                        ),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset(
+                              AssetsData.backgroundVisa,
+                              height: 240,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, right: 30.0),
+                              child: SizedBox(
+                                height: 150,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Spacer(),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'To : Rafal Mousa',
+                                          style: Styles.regularTextStyle16
+                                              .copyWith(
+                                                  color: AppColor.wihteColor),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Image.asset(AssetsData.leadingAccount),
+                                      ],
+                                    ),
+                                    Text(
+                                      '200.00 SAR',
+                                      style: Styles.textStyle24
+                                          .copyWith(color: AppColor.wihteColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          'Gift Message',
                           style: Styles.textStyle24
                               .copyWith(color: AppColor.yellowColor),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
-                        DropdownSearch<String>(
-                          popupProps: const PopupProps.menu(
-                            showSelectedItems: true,
-                            showSearchBox: true,
-                          
-                          ),
-                          items: const [
-                            "Wala",
-                            "Ahmed",
-                            "Mohamed",
-                          ],
-                          dropdownDecoratorProps: DropDownDecoratorProps(
-                            dropdownSearchDecoration: InputDecoration(
-                              prefix: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Icon(
-                                  Icons.search,
-                                  color: AppColor.grayColor,
-                                ),
-                              ),
+                        SizedBox(
+                          height: 120,
+                          child: TextFormField(
+                            maxLines: null, // Set this
+                            expands: true,
+                            textAlignVertical: TextAlignVertical.top,
+                            keyboardType: TextInputType.multiline,
+                            decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: AppColor.yellowColor, width: 2.0),
@@ -105,8 +144,6 @@ class SendGiftsScreen extends StatelessWidget {
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(16)),
                               ),
-                              label: const Text('Search',
-                                  style: Styles.textStyle18),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: AppColor.yellowColor, width: 2.0),
@@ -116,9 +153,19 @@ class SendGiftsScreen extends StatelessWidget {
                               labelStyle: Styles.regularTextStyle16
                                   .copyWith(color: AppColor.blackColor),
                             ),
+                            validator: (value) {},
                           ),
-                          onChanged: (value) {},
                         ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        defaultFormField(
+                            autoFocus: false,
+                            controller: TextEditingController(),
+                            label: ' Name ',
+                            validate: (e) {},
+                            type: TextInputType.name,
+                            context: context),
                         const SizedBox(
                           height: 20,
                         ),
@@ -128,7 +175,7 @@ class SendGiftsScreen extends StatelessWidget {
                             CustomButton(
                               onPressed: () {
                                 PersistentNavBarNavigator.pushNewScreen(context,
-                                    screen: const AmountSentGiftView());
+                                    screen: const SendGiftReviewScreen());
                               },
                               text: 'Next',
                               width: (MediaQuery.of(context).size.width) / 3.5,

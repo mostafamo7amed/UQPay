@@ -5,11 +5,12 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 
 class CustomTextField extends StatelessWidget {
    const CustomTextField({
-    super.key,this.hintText,this.inputType,this.suffixIcon,this.isObscureText = false,required this.controller,this.validator
+    super.key,this.maxlines,this.hintText,this.inputType,this.suffixIcon,this.isObscureText = false,required this.controller,this.validator
   });
    final String? hintText;
    final Widget? suffixIcon;
    final bool isObscureText;
+   final int? maxlines;
    final TextInputType? inputType;
    final TextEditingController controller;
    final String? Function(String?)? validator;
@@ -24,6 +25,7 @@ class CustomTextField extends StatelessWidget {
       keyboardType: inputType,
       controller: controller,
       obscureText: isObscureText,
+      maxLines: maxlines,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
         filled: true,

@@ -6,7 +6,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../core/utils/app_manager/app_assets.dart';
 import '../../../../../core/utils/app_manager/app_styles.dart';
-import '../../../../card/presentation/view/widgets/card/card_info_widget.dart';
+import '../../../../card/presentation/view/widgets/card_info_widget.dart';
 import 'deposit_machines.dart';
 import 'save_account/save_account_view.dart';
 import 'send_gifts.dart/send_gifts_view.dart';

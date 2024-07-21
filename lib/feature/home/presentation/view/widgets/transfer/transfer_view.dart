@@ -1,3 +1,4 @@
+import 'package:UQPay/feature/home/presentation/view/widgets/transfer/fast_transfer_fav_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
@@ -58,7 +59,49 @@ class TransferView extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const FastTransferHorizentalList(),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            PersistentNavBarNavigator.pushNewScreen(context,
+                                screen: FastTransferFavView());
+                          },
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(24)),
+                              color: AppColor.lightgrayColor,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: AppColor.yellowColor,
+                                  size: 45,
+                                ),
+                                Text(
+                                  'Add',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Styles.regularTextStyle16
+                                      .copyWith(color: AppColor.blackColor),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const FastTransferHorizentalList(),
+                      ],
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -167,41 +210,42 @@ class FastTransferHorizentalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 100,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => Container(
-          width: 100,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(24)),
-            color: AppColor.lightgrayColor,
+    return Expanded(
+      child: SizedBox(
+        height: 100,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => Container(
+            width: 100,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(24)),
+              color: AppColor.lightgrayColor,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AssetsData.personRounded,
+                  height: 56,
+                ),
+                Text(
+                  'Wala',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Styles.regularTextStyle16
+                      .copyWith(color: AppColor.blackColor),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+              ],
+            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                AssetsData.personRounded,
-                height: 56,
-              ),
-              Text(
-                'Wala',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Styles.regularTextStyle16
-                    .copyWith(color: AppColor.blackColor),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-            ],
+          separatorBuilder: (context, index) => const SizedBox(
+            width: 5,
           ),
+          itemCount: 10,
         ),
-        separatorBuilder: (context, index) => const SizedBox(
-          width: 5,
-        ),
-        itemCount: 10,
       ),
     );
   }
