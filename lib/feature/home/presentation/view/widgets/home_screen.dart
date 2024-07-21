@@ -1,5 +1,5 @@
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
-import 'package:UQPay/feature/home/presentation/view/widgets/basic_functions_widget.dart';
+import 'package:UQPay/core/widgets/basic_functions_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';

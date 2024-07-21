@@ -37,6 +37,6 @@ class AssetsData {
   static const storeImage = "$basePath/stores.png";
   static const restoruntImage = "$basePath/restorant.png";
   static const successOrder = "$basePath/successorder.png";
-
-  
+  static const depositImage = "$basePath/deposit.png";
+  static const usersImage = "$basePath/users.png";
 }

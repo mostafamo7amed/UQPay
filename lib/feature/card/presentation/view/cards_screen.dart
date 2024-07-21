@@ -4,7 +4,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../core/utils/app_manager/app_assets.dart';
 import '../../../../core/utils/app_manager/app_color.dart';
 import '../../../../core/utils/app_manager/app_styles.dart';
-import '../../../home/presentation/view/widgets/basic_functions_widget.dart';
+import '../../../../core/widgets/basic_functions_widget.dart';
 import 'widgets/card/card_info_widget.dart';
 import 'widgets/card/latest_operation.dart';
 import 'widgets/card/view_card_info.dart';
