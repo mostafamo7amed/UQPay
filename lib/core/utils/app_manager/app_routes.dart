@@ -1,10 +1,9 @@
-import 'package:UQPay/feature/admin/presentation/view/admin_home_view.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_home_tab.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../feature/home/presentation/view/home_view.dart';
 import '../../../feature/login/presentation/view/login_view.dart';
 import '../../../feature/splash/presentation/view/splash_view.dart';
-
 
 class Routes {
   static const String splashRoute = "/";
@@ -29,16 +28,16 @@ abstract class AppRouter {
           return const LoginView();
         },
       ),
-       GoRoute(
+      GoRoute(
         path: Routes.mainRoute,
         builder: (context, state) {
           return const HomeView();
         },
       ),
-       GoRoute(
+      GoRoute(
         path: Routes.adminHomeRoute,
         builder: (context, state) {
-          return const AdminHomeView();
+          return const AdminHomeTab();
         },
       ),
     ],

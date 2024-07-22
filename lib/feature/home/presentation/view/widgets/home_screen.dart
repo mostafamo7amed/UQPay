@@ -1,5 +1,6 @@
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/widgets/basic_functions_widget.dart';
+import 'package:UQPay/feature/home/presentation/view/notification_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -11,6 +12,7 @@ import 'deposit_machines.dart';
 import 'save_account/save_account_view.dart';
 import 'send_gifts.dart/send_gifts_view.dart';
 import 'transfer/transfer_view.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -54,12 +56,18 @@ class _HomeScreenState extends State<HomeScreen> {
             style: Styles.textStyle20.copyWith(
                 color: AppColor.blackColor, fontWeight: FontWeight.bold),
           ),
-          actions: const [
+          actions: [
             Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.notifications_none_outlined,
-                size: 28,
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () {
+                  PersistentNavBarNavigator.pushNewScreen(context,
+                      screen: const NotificationView());
+                },
+                child: const Icon(
+                  Icons.notifications_none_outlined,
+                  size: 28,
+                ),
               ),
             ),
           ],
@@ -67,7 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               CarouselSlider(
                 items: imageSliders,
                 carouselController: _controller,

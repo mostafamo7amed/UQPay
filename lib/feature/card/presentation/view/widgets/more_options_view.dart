@@ -57,7 +57,7 @@ class MoreOptionsView extends StatelessWidget {
                         ),
                         Text(
                           'Card Management',
-                          style: Styles.textStyle24
+                          style: Styles.textStyle20
                               .copyWith(color: AppColor.blackColor),
                         ),
                         const SizedBox(
@@ -89,7 +89,7 @@ class MoreOptionsView extends StatelessWidget {
                                   ),
                                   Text(
                                     'Renew the card',
-                                    style: Styles.textStyle18
+                                    style: Styles.regularTextStyle14
                                         .copyWith(color: AppColor.blackColor),
                                   ),
                                   const Spacer(),
@@ -110,8 +110,8 @@ class MoreOptionsView extends StatelessWidget {
                                     width: 10,
                                   ),
                                   Text(
-                                    'Pause the card temporarily ',
-                                    style: Styles.textStyle18
+                                    'Pause the card temporarily',
+                                    style: Styles.regularTextStyle14
                                         .copyWith(color: AppColor.blackColor),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -134,7 +134,7 @@ class MoreOptionsView extends StatelessWidget {
                                   ),
                                   Text(
                                     'View card data',
-                                    style: Styles.textStyle18
+                                    style: Styles.regularTextStyle14
                                         .copyWith(color: AppColor.blackColor),
                                   ),
                                   const Spacer(),
@@ -156,7 +156,7 @@ class MoreOptionsView extends StatelessWidget {
                                   ),
                                   Text(
                                     'Enable online payments',
-                                    style: Styles.textStyle18
+                                    style: Styles.regularTextStyle14
                                         .copyWith(color: AppColor.blackColor),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -176,7 +176,7 @@ class MoreOptionsView extends StatelessWidget {
                         ),
                         Text(
                           'Safety',
-                          style: Styles.textStyle24
+                          style: Styles.textStyle20
                               .copyWith(color: AppColor.blackColor),
                         ),
                         const SizedBox(
@@ -206,7 +206,7 @@ class MoreOptionsView extends StatelessWidget {
                               ),
                               Text(
                                 'Security settings',
-                                style: Styles.textStyle18
+                                style: Styles.regularTextStyle14
                                     .copyWith(color: AppColor.blackColor),
                               ),
                               const Spacer(),

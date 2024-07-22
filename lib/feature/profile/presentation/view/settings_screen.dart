@@ -1,3 +1,6 @@
+import 'package:UQPay/feature/profile/presentation/view/widgets/about_us_view.dart';
+import 'package:UQPay/feature/profile/presentation/view/widgets/privacy_policy_view.dart';
+import 'package:UQPay/feature/profile/presentation/view/widgets/terms_and_conditions_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
@@ -177,51 +180,69 @@ class SettingsScreen extends StatelessWidget {
                               .copyWith(color: AppColor.grayColor),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              'About us',
-                              style: Styles.textStyle20
-                                  .copyWith(color: AppColor.blackColor),
-                            ),
-                            const Spacer(),
-                            const Icon(Icons.arrow_forward_ios),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 10),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Privacy policy',
-                              style: Styles.textStyle20
-                                  .copyWith(color: AppColor.blackColor),
-                            ),
-                            const Spacer(),
-                            const Icon(Icons.arrow_forward_ios),
-                          ],
+                      InkWell(
+                        onTap: () {
+                          PersistentNavBarNavigator.pushNewScreen(context,
+                              screen: const AboutUsView());
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'About us',
+                                style: Styles.textStyle20
+                                    .copyWith(color: AppColor.blackColor),
+                              ),
+                              const Spacer(),
+                              const Icon(Icons.arrow_forward_ios),
+                            ],
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
+                      InkWell(
+                        onTap: () {
+                          PersistentNavBarNavigator.pushNewScreen(context,
+                              screen: const PrivacyPolicyView());
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 10),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Privacy policy',
+                                style: Styles.textStyle20
+                                    .copyWith(color: AppColor.blackColor),
+                              ),
+                              const Spacer(),
+                              const Icon(Icons.arrow_forward_ios),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Terms and conditions',
-                              style: Styles.textStyle20
-                                  .copyWith(color: AppColor.blackColor),
-                            ),
-                            const Spacer(),
-                            const Icon(Icons.arrow_forward_ios),
-                          ],
+                      ),
+                      InkWell(
+                        onTap: () {
+                          PersistentNavBarNavigator.pushNewScreen(context,
+                              screen: const TermsAndConditionsView());
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Terms and conditions',
+                                style: Styles.textStyle20
+                                    .copyWith(color: AppColor.blackColor),
+                              ),
+                              const Spacer(),
+                              const Icon(Icons.arrow_forward_ios),
+                            ],
+                          ),
                         ),
                       ),
                     ],

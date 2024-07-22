@@ -5,18 +5,15 @@ import 'package:UQPay/feature/store/data/models/product_model.dart';
 import 'package:UQPay/feature/store/data/models/store_model.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/category_horizental_list.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/store_horizental_list.dart';
-import 'package:UQPay/feature/store/presentation/view/widgets/store_item.dart';
-import 'package:UQPay/feature/store/presentation/view/widgets/stores_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../data/models/store_category_model.dart';
 
 class StoreTabView extends StatelessWidget {
   StoreTabView({super.key});
 
-  final List<StoreCategoryModel> storesList = [
+  final List<StoreCategoryModel> categoryList = [
     StoreCategoryModel(categoryName: 'Gym', categoryImage: AssetsData.gymImage),
     StoreCategoryModel(
         categoryName: 'Cafe', categoryImage: AssetsData.cafeImage),
@@ -70,7 +67,8 @@ class StoreTabView extends StatelessWidget {
             HorizentalListCategory(
               widthRate: 2,
               heightRate: 2.5,
-              categoryModel: storesList,
+              catygoryList: categoryList,
+              stores: stores,
             ),
             const SizedBox(
               height: 40,
@@ -82,7 +80,11 @@ class StoreTabView extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            HorizentalListStore(widthRate: 3, heightRate: 3, storeList: stores),
+            HorizentalListStore(
+              widthRate: 3,
+              heightRate: 3,
+              storeList: stores,
+            ),
             const SizedBox(
               height: 10,
             ),
@@ -96,7 +98,8 @@ class StoreTabView extends StatelessWidget {
             HorizentalListCategory(
               widthRate: 3,
               heightRate: 3,
-              categoryModel: storesList,
+              catygoryList: categoryList,
+              stores: stores,
             ),
             const SizedBox(
               height: 10,

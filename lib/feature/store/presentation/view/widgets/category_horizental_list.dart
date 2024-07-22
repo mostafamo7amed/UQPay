@@ -1,5 +1,4 @@
-import 'package:UQPay/feature/store/presentation/view/widgets/category_details_view.dart';
-import 'package:UQPay/feature/store/presentation/view/widgets/store_details_view.dart';
+import 'package:UQPay/feature/store/data/models/store_model.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/store_item.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/stores_view.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +10,13 @@ class HorizentalListCategory extends StatelessWidget {
     super.key,
     required this.widthRate,
     required this.heightRate,
-    required this.categoryModel,
+    required this.stores,
+    required this.catygoryList,
   });
   final double widthRate;
   final double heightRate;
-  final List<StoreCategoryModel> categoryModel;
+  final List<StoreModel> stores;
+  final List<StoreCategoryModel> catygoryList;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +31,13 @@ class HorizentalListCategory extends StatelessWidget {
         itemBuilder: (context, index) => InkWell(
           onTap: () {
             PersistentNavBarNavigator.pushNewScreen(context,
-                screen: CategoryDetailsView(
-                  categories: categoryModel,
-                  categoryName: categoryModel[index].categoryName,
+                screen: StoresView(
+                  categoryName: catygoryList[index].categoryName,
+                  store: stores,
                 ));
           },
           child: StoreAndCategoryItem(
-              widthRate: widthRate, categoryModel: categoryModel[index]),
+              widthRate: widthRate, categoryModel: catygoryList[index]),
         ),
       ),
     );

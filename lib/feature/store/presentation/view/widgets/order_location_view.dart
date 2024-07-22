@@ -1,8 +1,12 @@
+import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
 import 'package:UQPay/feature/store/data/models/product_model.dart';
+import 'package:UQPay/feature/store/presentation/view/widgets/oder_details_view.dart';
+import 'package:UQPay/feature/store/presentation/view/widgets/pickup_oder_details_view.dart';
+import 'package:UQPay/feature/store/presentation/view/widgets/view_order_details.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -74,8 +78,8 @@ class StoreLocationWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Center(
-                      child: const Text(
+                    const Center(
+                      child: Text(
                         "Order detail",
                         style: Styles.textStyle20,
                       ),
@@ -87,8 +91,8 @@ class StoreLocationWidget extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    Center(
-                      child: const Text(
+                    const Center(
+                      child: Text(
                         'Order No: 345678',
                         style: Styles.textStyle18,
                       ),
@@ -154,7 +158,10 @@ class StoreLocationWidget extends StatelessWidget {
                         CustomButton(
                           height: 40,
                           width: MediaQuery.of(context).size.width / 3,
-                          onPressed: () {},
+                          onPressed: () {
+                            PersistentNavBarNavigator.pushNewScreen(context,
+                                screen: const PickupOderDetailsView());
+                          },
                           text: 'Confirm',
                         ),
                       ],

@@ -1,3 +1,5 @@
+import 'package:UQPay/feature/card/presentation/view/widgets/cachback_view.dart';
+import 'package:UQPay/feature/card/presentation/view/widgets/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -56,62 +58,58 @@ class CardBenefitsView extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            color: AppColor.lightgrayColor,
-                            borderRadius: const BorderRadiusDirectional.all(
-                              Radius.circular(16),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                AssetsData.cashBack,
-                                color: AppColor.yellowColor,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'CashBack',
-                                textAlign: TextAlign.center,
-                                style: Styles.textStyle18.copyWith(
-                                  color: AppColor.blackColor,
+                        InkWell(
+                          onTap: () {
+                            PersistentNavBarNavigator.pushNewScreen(context,
+                                screen: const CachbackView());
+                          },
+                          child: ContainerCircleWidget(
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  AssetsData.cashBack,
+                                  color: AppColor.yellowColor,
                                 ),
-                              ),
-                            ],
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'CashBack',
+                                  textAlign: TextAlign.center,
+                                  style: Styles.textStyle18.copyWith(
+                                    color: AppColor.blackColor,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            color: AppColor.lightgrayColor,
-                            borderRadius: const BorderRadiusDirectional.all(
-                              Radius.circular(16),
+                        InkWell(
+                          onTap: () {
+                            PersistentNavBarNavigator.pushNewScreen(context,
+                                screen: const PaymentView());
+                          },
+                          child: ContainerCircleWidget(
+                            child: Row(
+                              children: [
+                                Image.asset(AssetsData.handMoney),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Payments',
+                                  textAlign: TextAlign.center,
+                                  style: Styles.textStyle18.copyWith(
+                                    color: AppColor.blackColor,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          child: Row(
-                            children: [
-                              Image.asset(AssetsData.handMoney),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Payments',
-                                textAlign: TextAlign.center,
-                                style: Styles.textStyle18.copyWith(
-                                  color: AppColor.blackColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -121,6 +119,29 @@ class CardBenefitsView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ContainerCircleWidget extends StatelessWidget {
+  ContainerCircleWidget({
+    super.key,
+    required this.child,
+  });
+  Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: AppColor.lightgrayColor,
+        borderRadius: const BorderRadiusDirectional.all(
+          Radius.circular(16),
+        ),
+      ),
+      child: child,
     );
   }
 }

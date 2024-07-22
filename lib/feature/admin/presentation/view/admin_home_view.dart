@@ -1,121 +1,111 @@
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_home_tab.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/settings_view.dart';
+import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
-import 'package:flutter/material.dart';
-
-import '../../../../core/widgets/basic_functions_widget.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/home_screen.dart';
+import 'package:UQPay/feature/card/presentation/view/cards_screen.dart';
+import 'package:UQPay/feature/profile/presentation/view/settings_screen.dart';
+import 'package:UQPay/feature/store/presentation/view/store_screen.dart';
 
 class AdminHomeView extends StatelessWidget {
   const AdminHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColor.primaryColor,
-        ),
-        backgroundColor: AppColor.primaryColor,
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
+    PersistentTabController controller;
+
+    controller = PersistentTabController(initialIndex: 0);
+
+    List<Widget> buildScreens() {
+      return [const AdminHomeTab(), const CardsScreen(), const AdminSettingsTab()];
+    }
+
+    List<PersistentBottomNavBarItem> navBarsItems() {
+      return [
+        PersistentBottomNavBarItem(
+          inactiveIcon: ImageIcon(
+            const AssetImage(AssetsData.homeIcon,),
+            color: AppColor.grayColor,
+          ),
+          icon: ImageIcon(
             color: AppColor.wihteColor,
-            borderRadius: const BorderRadiusDirectional.only(
-                topStart: Radius.circular(24), topEnd: Radius.circular(24)),
+             const AssetImage(AssetsData.homeIcon,),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 200,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            color: AppColor.primaryColor,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-                        child: SizedBox(
-                          height: 150,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Good morning',
-                                style: Styles.textStyle24
-                                    .copyWith(color: AppColor.wihteColor),
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    AssetsData.person,
-                                    color: AppColor.wihteColor,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Ali Ahmed',
-                                    style: Styles.textStyle20
-                                        .copyWith(color: AppColor.wihteColor),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                'Administrator',
-                                style: Styles.textStyle20
-                                    .copyWith(color: AppColor.wihteColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    BasicFunctionsWidget(
-                      title: 'Users',
-                      asset: AssetsData.usersImage,
-                      onTap: () {},
-                    ),
-                    BasicFunctionsWidget(
-                      title: 'Recharge',
-                      asset: AssetsData.depositImage,
-                      onTap: () {},
-                    ),
-                    BasicFunctionsWidget(
-                      title: 'Deposit',
-                      asset: AssetsData.placeHolderIcon,
-                      onTap: () {},
-                    ),
-                    BasicFunctionsWidget(
-                      title: 'Settings',
-                      asset: AssetsData.settingIcon,
-                      onTap: () {},
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          title: ("Home"),
+          textStyle: Styles.regularTextStyle16,
+          activeColorSecondary: AppColor.wihteColor,
+          activeColorPrimary: AppColor.primaryColor,
+          inactiveColorPrimary: AppColor.grayColor,
         ),
-      ),
+        PersistentBottomNavBarItem(
+          inactiveIcon:  ImageIcon(
+             const AssetImage(AssetsData.wellatIcon,),
+             color: AppColor.grayColor,
+          ), 
+          icon:  ImageIcon(
+             const AssetImage(AssetsData.wellatIcon,),
+             color: AppColor.wihteColor,
+          ),
+          activeColorSecondary: AppColor.wihteColor,
+          title: ("Card"),
+          textStyle: Styles.regularTextStyle16,
+          activeColorPrimary: AppColor.primaryColor,
+          inactiveColorPrimary: AppColor.grayColor,
+        ),
+        PersistentBottomNavBarItem(
+          inactiveIcon: ImageIcon(
+            const AssetImage(AssetsData.cartIcon,),
+            color: AppColor.grayColor,
+          ),
+          icon:  ImageIcon(
+             const AssetImage(AssetsData.cartIcon,),
+             color:AppColor.wihteColor,
+          ),
+          title: ("Store"),
+          textStyle: Styles.regularTextStyle16,
+          activeColorSecondary: AppColor.wihteColor,
+          activeColorPrimary: AppColor.primaryColor,
+          inactiveColorPrimary: AppColor.grayColor,
+        ),
+        PersistentBottomNavBarItem(
+          inactiveIcon: ImageIcon(
+            const AssetImage(AssetsData.settingIcon,),
+            color:  AppColor.grayColor,
+          ),
+          icon: ImageIcon(
+             const AssetImage(AssetsData.settingIcon,),
+             color: AppColor.wihteColor,
+          ),
+          title: ("Settings"),
+          textStyle: Styles.regularTextStyle16,
+          activeColorSecondary: AppColor.wihteColor,
+          activeColorPrimary: AppColor.primaryColor,
+          inactiveColorPrimary: AppColor.grayColor,
+        ),
+      ];
+    }
+
+    return PersistentTabView(
+      context,
+      controller: controller,
+      screens: buildScreens(),
+      items: navBarsItems(),
+      handleAndroidBackButtonPress: false, // Default is true.
+      resizeToAvoidBottomInset:
+          true, // This needs to be true if you want to move up the screen on a non-scrollable screen when keyboard appears. Default is true.
+      stateManagement: false, // Default is true.
+      hideNavigationBarWhenKeyboardAppears: true,
+      popBehaviorOnSelectedNavBarItemPress: PopBehavior.all,
+      padding: const EdgeInsets.all(10),
+      backgroundColor: AppColor.wihteColor,
+      isVisible: true,
+      confineToSafeArea: true,
+      navBarHeight: 64,
+      navBarStyle:
+          NavBarStyle.style7, // Choose the nav bar style with this property
     );
   }
 }

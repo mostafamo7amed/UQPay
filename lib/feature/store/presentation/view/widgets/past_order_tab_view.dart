@@ -6,6 +6,9 @@ class PastOrderTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  OrdersVerticalListView();
+    return OrdersVerticalListView(
+      detailsTap: () {},
+      reorderTap: () {},
+    );
   }
 }
