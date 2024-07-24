@@ -9,7 +9,6 @@ class AssetsData {
   static const cartIcon = "$basePath/cart.png";
   static const settingIcon = "$basePath/settings.png";
   static const offer = "$basePath/offer.png";
-  static const empityVisa = "$basePath/empityvisa.png";
   static const person = "$basePath/person.png";
   static const leadingAccount = "$basePath/leadingaccount.png";
   static const saveAccountIcon = "$basePath/piggy.png";

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AdminSettingsView extends StatelessWidget {
-  const AdminSettingsView({super.key});
+class AdminRechargeCardView extends StatelessWidget {
+  const AdminRechargeCardView({super.key});
 
   @override
   Widget build(BuildContext context) {

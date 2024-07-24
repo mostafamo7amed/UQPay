@@ -1,6 +1,8 @@
-import 'package:UQPay/feature/admin/presentation/view/widgets/admin_home_tab.dart';
+import 'package:UQPay/feature/admin/presentation/view/admin_home_view.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_deposit_machine_view.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_recharge_card_view.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/manage_company_view.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../feature/home/presentation/view/home_view.dart';
 import '../../../feature/login/presentation/view/login_view.dart';
 import '../../../feature/splash/presentation/view/splash_view.dart';
@@ -10,6 +12,10 @@ class Routes {
   static const String loginRoute = "/login";
   static const String mainRoute = "/main";
   static const String adminHomeRoute = "/adminHome";
+  static const String adminDepositRoute = "/adminDeposite";
+  static const String adminRechargeRoute = "/adminRecharge";
+  static const String adminManageCompanyRoute = "/adminCompany";
+  static const String adminSettingsRoute = "/adminSettings";
 }
 
 abstract class AppRouter {
@@ -37,7 +43,25 @@ abstract class AppRouter {
       GoRoute(
         path: Routes.adminHomeRoute,
         builder: (context, state) {
-          return const AdminHomeTab();
+          return const AdminHomeView();
+        },
+      ),
+       GoRoute(
+        path: Routes.adminDepositRoute,
+        builder: (context, state) {
+          return const AdminDepositMachineView();
+        },
+      ),
+       GoRoute(
+        path: Routes.adminManageCompanyRoute,
+        builder: (context, state) {
+          return const ManageCompanyView();
+        },
+      ),
+       GoRoute(
+        path: Routes.adminRechargeRoute,
+        builder: (context, state) {
+          return const AdminRechargeCardView();
         },
       ),
     ],

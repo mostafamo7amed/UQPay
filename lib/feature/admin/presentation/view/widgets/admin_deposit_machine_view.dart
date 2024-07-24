@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AdminSettingsView extends StatelessWidget {
-  const AdminSettingsView({super.key});
+class AdminDepositMachineView extends StatelessWidget {
+  const AdminDepositMachineView({super.key});
 
   @override
   Widget build(BuildContext context) {
