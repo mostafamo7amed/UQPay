@@ -2,6 +2,7 @@ import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/basic_functions_widget.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_cashback_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_offer_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,8 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
 
   final List<String> imgList = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4FWr_nYB_swH83rh5u92hGHq80hsCdrnAng&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTmaMkIH2UqR0BaUtNNedCcJjRlXmcAnkBnQoH2XpMA0SSp3m2YrSSrNoie5pAD3HowGk&usqp=CAU',
+    'https://media-uk-india-banners.landmarkshops.in/Home-Centre/HC-Mobile-2-Offer-060917.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIghsO8g53bPJ45SEsd8doVtKUck0ZYrRbuA&s',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpg0ddGu4guMHQZhktsiywY1UWF4Roh4txInG5GBR5HPQ-TnsNNiBMA5yJ8gYha0xixkQ&usqp=CAU'
   ];
 
@@ -139,7 +141,12 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                                     child: BasicFunctionsWidget(
                                       title: 'Manage cachbaks',
                                       asset: AssetsData.cashBack,
-                                      onTap: () {},
+                                      onTap: () {
+                                        PersistentNavBarNavigator.pushNewScreen(
+                                            context,
+                                            screen:
+                                                const CompanyUpdateCashbackView());
+                                      },
                                     ),
                                   ),
                                 ],

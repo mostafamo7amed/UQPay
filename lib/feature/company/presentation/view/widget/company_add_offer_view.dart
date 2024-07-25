@@ -1,21 +1,15 @@
 import 'dart:io';
 
+import 'package:UQPay/core/functions/pickImage_fun.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-class CompanyAddOfferView extends StatefulWidget {
-  const CompanyAddOfferView({super.key});
+class CompanyAddOfferView extends StatelessWidget {
+   CompanyAddOfferView({super.key});
 
-  @override
-  State<CompanyAddOfferView> createState() => _CompanyAddOfferViewState();
-}
-
-class _CompanyAddOfferViewState extends State<CompanyAddOfferView> {
   File? offerImage;
-  var picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +60,7 @@ class _CompanyAddOfferViewState extends State<CompanyAddOfferView> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          getOfferImage();
+                          pikImageFile(offerImage);
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(vertical: 10),
@@ -133,14 +127,5 @@ class _CompanyAddOfferViewState extends State<CompanyAddOfferView> {
         ),
       ),
     );
-  }
-
-  Future<void> getOfferImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      offerImage = File(pickedFile.path);
-    } else {
-      print('no image selected');
-    }
   }
 }

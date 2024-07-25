@@ -34,7 +34,7 @@ class CompanyOfferView extends StatelessWidget {
         floatingActionButton: GestureDetector(
           onTap: () {
             PersistentNavBarNavigator.pushNewScreen(context,
-                screen: const CompanyAddOfferView());
+                screen: CompanyAddOfferView());
           },
           child: Container(
             width: MediaQuery.of(context).size.width / 2.5,
@@ -95,7 +95,7 @@ class CompanyOfferView extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Image.network(
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4FWr_nYB_swH83rh5u92hGHq80hsCdrnAng&s',
+                              'https://media-uk-india-banners.landmarkshops.in/Home-Centre/HC-Mobile-2-Offer-060917.jpg',
                               fit: BoxFit.cover,
                             ),
                           ),

@@ -5,8 +5,8 @@ import 'package:UQPay/feature/card/presentation/view/widgets/card_info_widget.da
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-class CachbackView extends StatelessWidget {
-  const CachbackView({super.key});
+class CashbackView extends StatelessWidget {
+  const CashbackView({super.key});
 
   @override
   Widget build(BuildContext context) {

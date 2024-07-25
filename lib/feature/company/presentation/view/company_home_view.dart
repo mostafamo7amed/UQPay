@@ -48,13 +48,13 @@ class CompanyHomeView extends StatelessWidget {
         PersistentBottomNavBarItem(
           inactiveIcon: ImageIcon(
             const AssetImage(
-              AssetsData.discount,
+              AssetsData.cartIcon,
             ),
             color: AppColor.grayColor,
           ),
           icon: ImageIcon(
             const AssetImage(
-              AssetsData.discount,
+              AssetsData.cartIcon,
             ),
             color: AppColor.wihteColor,
           ),

@@ -1,4 +1,4 @@
-import 'package:UQPay/feature/card/presentation/view/widgets/cachback_view.dart';
+import 'package:UQPay/feature/card/presentation/view/widgets/cashback_view.dart';
 import 'package:UQPay/feature/card/presentation/view/widgets/payment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -61,7 +61,7 @@ class CardBenefitsView extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(context,
-                                screen: const CachbackView());
+                                screen: const CashbackView());
                           },
                           child: ContainerCircleWidget(
                             child: Row(
