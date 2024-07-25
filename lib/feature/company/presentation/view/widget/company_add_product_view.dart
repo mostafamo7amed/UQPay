@@ -1,14 +1,12 @@
 import 'dart:io';
 
 import 'package:UQPay/core/functions/pickImage_fun.dart';
-import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class CompanyAddProductView extends StatefulWidget {
@@ -71,6 +69,7 @@ class _CompanyAddProductViewState extends State<CompanyAddProductView> {
                           style: Styles.textStyle24
                               .copyWith(color: AppColor.yellowColor),
                         ),
+                        
                         Container(
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           height: 120,

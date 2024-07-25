@@ -65,7 +65,7 @@ class CompanyViewProductView extends StatelessWidget {
                             ),
                             image: DecorationImage(
                               image: NetworkImage(
-                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsmclv_H61WP7SHs4yMz0WIR2QLxqRnRnmOw&s')
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK_p-3PSabMItwpdqtL9zAy1Hwk2ioosBm3Q&s')
                                   ,
                               fit: BoxFit.cover,
                             ),

@@ -24,14 +24,12 @@ class CompanyOfferView extends StatelessWidget {
                 color: AppColor.wihteColor,
               )),
           title: Text(
-            
             'Offers',
             style: Styles.textStyle24.copyWith(
                 color: AppColor.wihteColor, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
         ),
-         
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: GestureDetector(
           onTap: () {
@@ -45,7 +43,7 @@ class CompanyOfferView extends StatelessWidget {
                 shape: BoxShape.rectangle,
                 color: AppColor.primaryColor),
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -88,17 +86,20 @@ class CompanyOfferView extends StatelessWidget {
                       color: AppColor.wihteColor,
                     ),
                     child: SizedBox(
-                      height: 220,
+                      height: 200,
                       child: Stack(
                         clipBehavior: Clip.hardEdge,
                         alignment: Alignment.center,
                         fit: StackFit.expand,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Image.network(
-                              'https://media-uk-india-banners.landmarkshops.in/Home-Centre/HC-Mobile-2-Offer-060917.jpg',
-                              fit: BoxFit.cover,
+                          Container(
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpg0ddGu4guMHQZhktsiywY1UWF4Roh4txInG5GBR5HPQ-TnsNNiBMA5yJ8gYha0xixkQ&usqp=CAU')),
                             ),
                           ),
                           Positioned(
@@ -116,7 +117,7 @@ class CompanyOfferView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  itemCount: 3,
+                  itemCount: 4,
                 ),
               ),
             ),

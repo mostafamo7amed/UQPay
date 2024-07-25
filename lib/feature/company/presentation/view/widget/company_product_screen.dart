@@ -18,15 +18,6 @@ class CompanyProductScreen extends StatelessWidget {
         backgroundColor: AppColor.primaryColor,
         appBar: AppBar(
           backgroundColor: AppColor.primaryColor,
-          titleSpacing: 3,
-          leading: InkWell(
-              onTap: () {
-                PersistentNavBarNavigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back_ios_new,
-                color: AppColor.wihteColor,
-              )),
           title: Text(
             'Products',
             style: Styles.textStyle24.copyWith(
@@ -115,11 +106,16 @@ class CompanyProductItem extends StatelessWidget {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsmclv_H61WP7SHs4yMz0WIR2QLxqRnRnmOw&s',
+                padding: const EdgeInsets.all(8),
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 4.3,
+                  height: MediaQuery.of(context).size.width / 4.3,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK_p-3PSabMItwpdqtL9zAy1Hwk2ioosBm3Q&s')),
                   ),
                 ),
               ),

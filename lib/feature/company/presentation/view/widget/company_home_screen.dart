@@ -3,6 +3,7 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/basic_functions_widget.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_cashback_view.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_notification_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_offer_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_orders_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -54,6 +55,21 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
             style: Styles.textStyle20.copyWith(
                 color: AppColor.blackColor, fontWeight: FontWeight.bold),
           ),
+           actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () {
+                  PersistentNavBarNavigator.pushNewScreen(context,
+                      screen: const CompanyNotificationView());
+                },
+                child: const Icon(
+                  Icons.notifications_none_outlined,
+                  size: 28,
+                ),
+              ),
+            ),
+          ],
         ),
         body: Column(
           children: [
