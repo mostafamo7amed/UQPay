@@ -2,6 +2,7 @@ import 'package:UQPay/feature/admin/presentation/view/admin_home_view.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_deposit_machine_view.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_recharge_card_view.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/manage_company_view.dart';
+import 'package:UQPay/feature/company/presentation/view/company_home_view.dart';
 import 'package:go_router/go_router.dart';
 import '../../../feature/home/presentation/view/home_view.dart';
 import '../../../feature/login/presentation/view/login_view.dart';
@@ -16,6 +17,7 @@ class Routes {
   static const String adminRechargeRoute = "/adminRecharge";
   static const String adminManageCompanyRoute = "/adminCompany";
   static const String adminSettingsRoute = "/adminSettings";
+  static const String companyRoute = "/company";
 }
 
 abstract class AppRouter {
@@ -62,6 +64,12 @@ abstract class AppRouter {
         path: Routes.adminRechargeRoute,
         builder: (context, state) {
           return const AdminRechargeCardView();
+        },
+      ),
+       GoRoute(
+        path: Routes.companyRoute,
+        builder: (context, state) {
+          return const CompanyHomeView();
         },
       ),
     ],

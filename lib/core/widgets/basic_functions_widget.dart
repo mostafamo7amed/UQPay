@@ -51,6 +51,9 @@ class BasicFunctionsWidget extends StatelessWidget {
               ]),
             ),
           ),
+          const SizedBox(
+            height: 5,
+          ),
           Text(
             title,
             style: Styles.textStyle12,

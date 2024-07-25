@@ -43,4 +43,5 @@ class AssetsData {
   static const cashBack = "$basePath/cashBack.png";
   static const store1 = "$basePath/store1.png";
   static const store2 = "$basePath/store2.png";
+  static const discount = "$basePath/discount.png";
 }

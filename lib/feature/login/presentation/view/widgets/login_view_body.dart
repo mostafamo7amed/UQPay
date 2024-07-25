@@ -69,7 +69,7 @@ class LoginViewBody extends StatelessWidget {
                     onTap: () {
                       //cubit.changeObscure();
                     },
-                    child: Icon(Icons.visibility), //cubit.eyeIcon,
+                    child: const Icon(Icons.visibility), //cubit.eyeIcon,
                   ),
                   validator: (value) {
                     return;
@@ -81,7 +81,7 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 CustomButton(
                   onPressed: () {
-                    GoRouter.of(context).pushReplacement(Routes.mainRoute);
+                    GoRouter.of(context).pushReplacement(Routes.companyRoute);
                   },
                   text: 'Login',
                 )

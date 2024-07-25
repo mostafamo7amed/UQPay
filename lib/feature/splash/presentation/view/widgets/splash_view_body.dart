@@ -43,11 +43,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
 
   void navigateToNextPage() {
     Future.delayed(const Duration(seconds: 3), () {
-      if (true) {
-        GoRouter.of(context).pushReplacement(Routes.adminHomeRoute);
-      } else {
-        GoRouter.of(context).pushReplacement(Routes.mainRoute);
-      }
+      GoRouter.of(context).pushReplacement(Routes.loginRoute);
     });
   }
 }

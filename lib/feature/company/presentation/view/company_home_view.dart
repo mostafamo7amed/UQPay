@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
-import 'package:UQPay/feature/home/presentation/view/widgets/home_screen.dart';
-import 'package:UQPay/feature/card/presentation/view/cards_screen.dart';
-import 'package:UQPay/feature/profile/presentation/view/settings_screen.dart';
-import 'package:UQPay/feature/store/presentation/view/store_screen.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_home_screen.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_product_screen.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_settings_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-class HomeViewBody extends StatelessWidget {
-  const HomeViewBody({super.key});
+class CompanyHomeView extends StatelessWidget {
+  const CompanyHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +18,9 @@ class HomeViewBody extends StatelessWidget {
 
     List<Widget> buildScreens() {
       return [
-        const HomeScreen(),
-        const CardsScreen(),
-        const StoreScreen(),
-        const SettingsScreen()
+        const CompanyHomeScreen(),
+        const CompanyProductScreen(),
+        const CompanySettingsScreen(),
       ];
     }
 
@@ -50,36 +48,17 @@ class HomeViewBody extends StatelessWidget {
         PersistentBottomNavBarItem(
           inactiveIcon: ImageIcon(
             const AssetImage(
-              AssetsData.wellatIcon,
+              AssetsData.discount,
             ),
             color: AppColor.grayColor,
           ),
           icon: ImageIcon(
             const AssetImage(
-              AssetsData.wellatIcon,
+              AssetsData.discount,
             ),
             color: AppColor.wihteColor,
           ),
-          activeColorSecondary: AppColor.wihteColor,
-          title: ("Card"),
-          textStyle: Styles.regularTextStyle16,
-          activeColorPrimary: AppColor.primaryColor,
-          inactiveColorPrimary: AppColor.grayColor,
-        ),
-        PersistentBottomNavBarItem(
-          inactiveIcon: ImageIcon(
-            const AssetImage(
-              AssetsData.cartIcon,
-            ),
-            color: AppColor.grayColor,
-          ),
-          icon: ImageIcon(
-            const AssetImage(
-              AssetsData.cartIcon,
-            ),
-            color: AppColor.wihteColor,
-          ),
-          title: ("Store"),
+          title: ("Products"),
           textStyle: Styles.regularTextStyle16,
           activeColorSecondary: AppColor.wihteColor,
           activeColorPrimary: AppColor.primaryColor,
