@@ -4,6 +4,7 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/basic_functions_widget.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_cashback_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_offer_view.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_orders_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -65,7 +66,7 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
               options: CarouselOptions(
                   autoPlay: true,
                   enlargeCenterPage: true,
-                  aspectRatio: 1.8,
+                  aspectRatio: 2,
                   onPageChanged: (index, reason) {
                     setState(() {
                       _current = index;
@@ -101,61 +102,87 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                       topEnd: Radius.circular(24)),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          border: Border.all(
-                            color: AppColor.yellowColor,
-                            width: 1,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0, vertical: 20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            border: Border.all(
+                              color: AppColor.yellowColor,
+                              width: 1,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(15)),
                           ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(15)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: BasicFunctionsWidget(
-                                      title: 'Manage offers',
-                                      asset: AssetsData.discount,
-                                      onTap: () {
-                                        PersistentNavBarNavigator.pushNewScreen(
-                                            context,
-                                            screen: const CompanyOfferView());
-                                      },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: BasicFunctionsWidget(
+                                        title: 'Manage offers',
+                                        asset: AssetsData.discount,
+                                        onTap: () {
+                                          PersistentNavBarNavigator
+                                              .pushNewScreen(context,
+                                                  screen:
+                                                      const CompanyOfferView());
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: BasicFunctionsWidget(
-                                      title: 'Manage cachbaks',
-                                      asset: AssetsData.cashBack,
-                                      onTap: () {
-                                        PersistentNavBarNavigator.pushNewScreen(
-                                            context,
-                                            screen:
-                                                const CompanyUpdateCashbackView());
-                                      },
+                                    Expanded(
+                                      child: BasicFunctionsWidget(
+                                        title: 'Manage cachbaks',
+                                        asset: AssetsData.cashBack,
+                                        onTap: () {
+                                          PersistentNavBarNavigator.pushNewScreen(
+                                              context,
+                                              screen:
+                                                  const CompanyUpdateCashbackView());
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: BasicFunctionsWidget(
+                                        title: 'Orders',
+                                        asset: AssetsData.cartIcon,
+                                        onTap: () {
+                                          PersistentNavBarNavigator
+                                              .pushNewScreen(context,
+                                                  screen:
+                                                      const CompanyOrdersView());
+                                        },
+                                      ),
+                                    ),
+                                    const Expanded(child: SizedBox()),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

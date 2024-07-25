@@ -24,12 +24,14 @@ class CompanyOfferView extends StatelessWidget {
                 color: AppColor.wihteColor,
               )),
           title: Text(
+            
             'Offers',
             style: Styles.textStyle24.copyWith(
                 color: AppColor.wihteColor, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
         ),
+         
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: GestureDetector(
           onTap: () {

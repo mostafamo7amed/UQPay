@@ -1,14 +1,8 @@
-import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
-import 'package:UQPay/feature/store/data/models/product_model.dart';
-import 'package:UQPay/feature/store/presentation/view/widgets/oder_details_view.dart';
-import 'package:UQPay/feature/store/presentation/view/widgets/view_order_details.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class OrdersVerticalListView extends StatelessWidget {
   OrdersVerticalListView({

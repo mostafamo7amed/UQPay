@@ -48,8 +48,10 @@ class CompanyViewProductView extends StatelessWidget {
                 ),
                 child: SingleChildScrollView(
                   child: Padding(
+                  
                     padding: const EdgeInsets.all(25.0),
                     child: Column(
+                      
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                       
@@ -59,6 +61,7 @@ class CompanyViewProductView extends StatelessWidget {
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(
                               Radius.circular(10.0),
+                            
                             ),
                             image: DecorationImage(
                               image: NetworkImage(
@@ -87,8 +90,8 @@ class CompanyViewProductView extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                                'Amount',
-                                style: Styles.regularTextStyle16
+                          'Amount',
+                              style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
@@ -101,12 +104,12 @@ class CompanyViewProductView extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                                'Product type',
-                                style: Styles.regularTextStyle16
+                          'Product type',
+                          style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.primaryColor),
                               ),
-                              Text(
-                                'Service',
+                        Text(
+                          'Service',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -131,9 +134,8 @@ class CompanyViewProductView extends StatelessWidget {
                           onPressed: () {},
                           text: 'Hide',
                           width: (MediaQuery.of(context).size.width) / 4,
-                        ),
-                        ),
-                       
+                          ),
+                        ),                       
                       ],
                     ),
                   ),
