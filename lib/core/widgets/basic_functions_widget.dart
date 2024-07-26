@@ -5,7 +5,8 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 
 class BasicFunctionsWidget extends StatelessWidget {
   final String title;
-  final String asset;
+  final String? asset;
+  final IconData? icon;
   final onTap;
   final bool isGift;
   final Color? backgroundColor;
@@ -15,8 +16,9 @@ class BasicFunctionsWidget extends StatelessWidget {
     this.backgroundColor = Colors.white,
     this.stokeColor = Colors.grey,
     this.isGift = false,
+    this.icon,
     required this.title,
-    required this.asset,
+    this.asset,
     required this.onTap,
   });
 
@@ -34,10 +36,16 @@ class BasicFunctionsWidget extends StatelessWidget {
               radius: 35,
               backgroundColor: backgroundColor ?? AppColor.wihteColor,
               child: Stack(alignment: Alignment.bottomRight, children: [
-                Image.asset(
-                  asset,
-                  fit: BoxFit.cover,
-                ),
+                asset != null
+                    ? Image.asset(
+                        asset!,
+                        fit: BoxFit.cover,
+                      )
+                    : Icon(
+                        icon,
+                        color: AppColor.grayColor,
+                        size: 30,
+                      ),
                 if (isGift)
                   CircleAvatar(
                     radius: 8,

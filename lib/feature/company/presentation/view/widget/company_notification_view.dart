@@ -1,6 +1,7 @@
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_notification_item.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_orders_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -31,8 +32,12 @@ class CompanyNotificationView extends StatelessWidget {
         ),
         body: ListView.builder(
           physics: const BouncingScrollPhysics(),
-          itemBuilder: (context, index) =>
-              NotificationItemWidget(size: MediaQuery.of(context).size),
+          itemBuilder: (context, index) => InkWell(
+              onTap: () {
+                PersistentNavBarNavigator.pushNewScreen(context,
+                    screen: const CompanyOrdersView());
+              },
+              child: NotificationItemWidget(size: MediaQuery.of(context).size)),
           itemCount: 1,
         ),
       ),

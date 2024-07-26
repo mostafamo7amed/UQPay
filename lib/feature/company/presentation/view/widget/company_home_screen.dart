@@ -6,6 +6,7 @@ import 'package:UQPay/feature/company/presentation/view/widget/company_cashback_
 import 'package:UQPay/feature/company/presentation/view/widget/company_notification_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_offer_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_orders_view.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_product_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -55,7 +56,7 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
             style: Styles.textStyle20.copyWith(
                 color: AppColor.blackColor, fontWeight: FontWeight.bold),
           ),
-           actions: [
+          actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
@@ -180,8 +181,8 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                                   children: [
                                     Expanded(
                                       child: BasicFunctionsWidget(
-                                        title: 'Orders',
-                                        asset: AssetsData.cartIcon,
+                                        title: 'Manage orders',
+                                        icon: Icons.shopping_cart_checkout,
                                         onTap: () {
                                           PersistentNavBarNavigator
                                               .pushNewScreen(context,
@@ -190,7 +191,18 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                                         },
                                       ),
                                     ),
-                                    const Expanded(child: SizedBox()),
+                                    Expanded(
+                                      child: BasicFunctionsWidget(
+                                        title: 'Manage products',
+                                        icon: Icons.shopify,
+                                        onTap: () {
+                                          PersistentNavBarNavigator.pushNewScreen(
+                                              context,
+                                              screen:
+                                                  const CompanyProductScreen());
+                                        },
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],

@@ -19,7 +19,7 @@ class CompanyHomeView extends StatelessWidget {
     List<Widget> buildScreens() {
       return [
         const CompanyHomeScreen(),
-        const CompanyProductScreen(),
+       
         const CompanySettingsScreen(),
       ];
     }
@@ -45,25 +45,25 @@ class CompanyHomeView extends StatelessWidget {
           activeColorPrimary: AppColor.primaryColor,
           inactiveColorPrimary: AppColor.grayColor,
         ),
-        PersistentBottomNavBarItem(
-          inactiveIcon: ImageIcon(
-            const AssetImage(
-              AssetsData.cartIcon,
-            ),
-            color: AppColor.grayColor,
-          ),
-          icon: ImageIcon(
-            const AssetImage(
-              AssetsData.cartIcon,
-            ),
-            color: AppColor.wihteColor,
-          ),
-          title: ("Products"),
-          textStyle: Styles.regularTextStyle16,
-          activeColorSecondary: AppColor.wihteColor,
-          activeColorPrimary: AppColor.primaryColor,
-          inactiveColorPrimary: AppColor.grayColor,
-        ),
+        // PersistentBottomNavBarItem(
+        //   inactiveIcon: ImageIcon(
+        //     const AssetImage(
+        //       AssetsData.cartIcon,
+        //     ),
+        //     color: AppColor.grayColor,
+        //   ),
+        //   icon: ImageIcon(
+        //     const AssetImage(
+        //       AssetsData.cartIcon,
+        //     ),
+        //     color: AppColor.wihteColor,
+        //   ),
+        //   title: ("Products"),
+        //   textStyle: Styles.regularTextStyle16,
+        //   activeColorSecondary: AppColor.wihteColor,
+        //   activeColorPrimary: AppColor.primaryColor,
+        //   inactiveColorPrimary: AppColor.grayColor,
+        // ),
         PersistentBottomNavBarItem(
           inactiveIcon: ImageIcon(
             const AssetImage(

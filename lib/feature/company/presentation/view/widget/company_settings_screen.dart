@@ -1,8 +1,12 @@
+import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_profile_info_view.dart';
+import 'package:UQPay/feature/login/presentation/view/login_view.dart';
 import 'package:UQPay/feature/profile/presentation/view/widgets/about_us_view.dart';
 import 'package:UQPay/feature/profile/presentation/view/widgets/privacy_policy_view.dart';
 import 'package:UQPay/feature/profile/presentation/view/widgets/terms_and_conditions_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
@@ -174,6 +178,7 @@ class CompanySettingsScreen extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 15,
+                            vertical: 10,
                           ),
                           child: Row(
                             children: [
@@ -195,7 +200,8 @@ class CompanySettingsScreen extends StatelessWidget {
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),
+                              horizontal: 15, 
+                              vertical: 10),
                           child: Row(
                             children: [
                               Text(
@@ -217,6 +223,7 @@ class CompanySettingsScreen extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 15,
+                            vertical: 10,
                           ),
                           child: Row(
                             children: [
@@ -227,6 +234,29 @@ class CompanySettingsScreen extends StatelessWidget {
                               ),
                               const Spacer(),
                               const Icon(Icons.arrow_forward_ios),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          GoRouter.of(context)
+                              .pushReplacement(Routes.loginRoute);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 10,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Logout',
+                                style: Styles.textStyle20
+                                    .copyWith(color: AppColor.blackColor),
+                              ),
+                              const Spacer(),
+                              const Icon(Icons.logout),
                             ],
                           ),
                         ),
