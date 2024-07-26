@@ -23,6 +23,14 @@ class CompanyProductScreen extends StatelessWidget {
             style: Styles.textStyle24.copyWith(
                 color: AppColor.wihteColor, fontWeight: FontWeight.bold),
           ),
+          leading: InkWell(
+              onTap: () {
+                PersistentNavBarNavigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back_ios_new,
+                color: AppColor.wihteColor,
+              )),
           centerTitle: true,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

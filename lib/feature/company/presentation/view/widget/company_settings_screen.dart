@@ -240,6 +240,7 @@ class CompanySettingsScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
+                          
                           GoRouter.of(context)
                               .pushReplacement(Routes.loginRoute);
                         },

@@ -69,7 +69,6 @@ class _CompanyAddProductViewState extends State<CompanyAddProductView> {
                           style: Styles.textStyle24
                               .copyWith(color: AppColor.yellowColor),
                         ),
-                        
                         Container(
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           height: 120,
