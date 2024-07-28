@@ -1,8 +1,12 @@
 import 'package:UQPay/feature/admin/presentation/view/admin_home_view.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_deposit_machine_view.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_recharge_card_view.dart';
-import 'package:UQPay/feature/admin/presentation/view/widgets/manage_company_view.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_manage_company_view.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_settings_view.dart';
 import 'package:UQPay/feature/company/presentation/view/company_home_view.dart';
+import 'package:UQPay/feature/profile/presentation/view/widgets/about_us_view.dart';
+import 'package:UQPay/feature/profile/presentation/view/widgets/privacy_policy_view.dart';
+import 'package:UQPay/feature/profile/presentation/view/widgets/terms_and_conditions_view.dart';
 import 'package:go_router/go_router.dart';
 import '../../../feature/home/presentation/view/home_view.dart';
 import '../../../feature/login/presentation/view/login_view.dart';
@@ -18,6 +22,9 @@ class Routes {
   static const String adminManageCompanyRoute = "/adminCompany";
   static const String adminSettingsRoute = "/adminSettings";
   static const String companyRoute = "/company";
+  static const String aboutUsRoute = "/aboutUs";
+  static const String termConditionsRoute = "/termConditions";
+  static const String privecyPolicyRoute = "/privecyPolicy";
 }
 
 abstract class AppRouter {
@@ -55,9 +62,15 @@ abstract class AppRouter {
         },
       ),
        GoRoute(
+        path: Routes.adminSettingsRoute,
+        builder: (context, state) {
+          return const AdminSettingsView();
+        },
+      ),
+       GoRoute(
         path: Routes.adminManageCompanyRoute,
         builder: (context, state) {
-          return const ManageCompanyView();
+          return const AdminManageCompanyView();
         },
       ),
        GoRoute(
@@ -72,6 +85,25 @@ abstract class AppRouter {
           return const CompanyHomeView();
         },
       ),
+             GoRoute(
+        path: Routes.aboutUsRoute,
+        builder: (context, state) {
+          return const AboutUsView();
+        },
+      ),
+             GoRoute(
+        path: Routes.termConditionsRoute,
+        builder: (context, state) {
+          return const TermsAndConditionsView();
+        },
+      ),
+             GoRoute(
+        path: Routes.privecyPolicyRoute,
+        builder: (context, state) {
+          return const PrivacyPolicyView();
+        },
+      ),
+      
     ],
   );
 }

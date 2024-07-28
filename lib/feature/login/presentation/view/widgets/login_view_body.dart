@@ -81,7 +81,7 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 CustomButton(
                   onPressed: () {
-                    GoRouter.of(context).pushReplacement(Routes.companyRoute);
+                    GoRouter.of(context).pushReplacement(Routes.adminHomeRoute);
                   },
                   text: 'Login',
                 )

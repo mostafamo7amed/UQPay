@@ -15,7 +15,7 @@ class TermsAndConditionsView extends StatelessWidget {
           titleSpacing: 3,
           leading: InkWell(
               onTap: () {
-                PersistentNavBarNavigator.pop(context);
+                Navigator.pop(context);
               },
               child: Icon(
                 Icons.arrow_back_ios_new,

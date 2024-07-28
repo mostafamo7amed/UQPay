@@ -4,8 +4,6 @@ import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-
 import '../../../../core/widgets/basic_functions_widget.dart';
 
 class AdminHomeView extends StatelessWidget {
@@ -104,7 +102,10 @@ class AdminHomeView extends StatelessWidget {
                                     child: BasicFunctionsWidget(
                                       title: 'Recharge cards',
                                       asset: AssetsData.depositImage,
-                                      onTap: () {},
+                                      onTap: () {
+                                        GoRouter.of(context)
+                                            .push(Routes.adminRechargeRoute);
+                                      },
                                     ),
                                   ),
                                 ],
@@ -120,14 +121,20 @@ class AdminHomeView extends StatelessWidget {
                                     child: BasicFunctionsWidget(
                                       title: 'Deposit machines',
                                       asset: AssetsData.placeHolderIcon,
-                                      onTap: () {},
+                                      onTap: () {
+                                        GoRouter.of(context)
+                                            .push(Routes.adminDepositRoute);
+                                      },
                                     ),
                                   ),
                                   Expanded(
                                     child: BasicFunctionsWidget(
                                       title: 'Settings',
                                       asset: AssetsData.settingIcon,
-                                      onTap: () {},
+                                      onTap: () {
+                                        GoRouter.of(context)
+                                            .push(Routes.adminSettingsRoute);
+                                      },
                                     ),
                                   ),
                                 ],

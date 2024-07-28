@@ -1,11 +1,10 @@
 import 'package:UQPay/core/widgets/seperated_line.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../../../core/utils/app_manager/app_color.dart';
 import '../../../../../../core/utils/app_manager/app_styles.dart';
 
-class ManageCompanyView extends StatelessWidget {
-  const ManageCompanyView({super.key});
+class AdminManageCompanyView extends StatelessWidget {
+  const AdminManageCompanyView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class ManageCompanyView extends StatelessWidget {
           titleSpacing: 3,
           leading: InkWell(
               onTap: () {
-                PersistentNavBarNavigator.pop(context);
+                Navigator.pop(context);
               },
               child: Icon(
                 Icons.arrow_back_ios_new,

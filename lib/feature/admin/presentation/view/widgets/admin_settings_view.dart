@@ -1,17 +1,12 @@
-import 'package:UQPay/core/utils/app_manager/app_routes.dart';
-import 'package:UQPay/feature/profile/presentation/view/widgets/about_us_view.dart';
-import 'package:UQPay/feature/profile/presentation/view/widgets/privacy_policy_view.dart';
-import 'package:UQPay/feature/profile/presentation/view/widgets/terms_and_conditions_view.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
+import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
-import 'package:UQPay/feature/profile/presentation/view/widgets/profile_info_view.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+class AdminSettingsView extends StatelessWidget {
+  const AdminSettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +16,14 @@ class SettingsScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColor.primaryColor,
           titleSpacing: 3,
-          leading: Icon(
-            Icons.settings,
-            color: AppColor.wihteColor,
-            size: 40,
-          ),
+          leading: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back_ios_new,
+                color: AppColor.wihteColor,
+              )),
           title: Text(
             'Settings',
             style: Styles.textStyle24.copyWith(
@@ -71,7 +69,7 @@ class SettingsScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Icon(
-                                  Icons.person_3_outlined,
+                                  Icons.admin_panel_settings_outlined,
                                   size: 35,
                                   color: AppColor.grayColor,
                                 ),
@@ -79,7 +77,7 @@ class SettingsScreen extends StatelessWidget {
                                   width: 10,
                                 ),
                                 Text(
-                                  'Mohammad Jassas',
+                                  'Ali Ahmed',
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   style: Styles.textStyle20
@@ -99,10 +97,7 @@ class SettingsScreen extends StatelessWidget {
                             ),
                           ),
                           InkWell(
-                            onTap: () {
-                              PersistentNavBarNavigator.pushNewScreen(context,
-                                  screen: const ProfileInfoView());
-                            },
+                            onTap: () {},
                             child: Padding(
                               padding: const EdgeInsets.only(
                                   top: 15, right: 15, left: 15),
@@ -137,41 +132,6 @@ class SettingsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(top: 5, right: 15, left: 15),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Passcode',
-                              style: Styles.textStyle20
-                                  .copyWith(color: AppColor.blackColor),
-                            ),
-                            const Spacer(),
-                            const Icon(Icons.arrow_forward_ios),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(top: 5, right: 15, left: 15),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Push Notification',
-                              style: Styles.textStyle20
-                                  .copyWith(color: AppColor.blackColor),
-                            ),
-                            const Spacer(),
-                            Switch(
-                                activeColor: AppColor.greenColor,
-                                inactiveTrackColor: AppColor.lightgrayColor,
-                                value: true,
-                                onChanged: (value) {}),
-                          ],
-                        ),
-                      ),
-                      SeperatedLine(),
-                      Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 15,
                           vertical: 10,
@@ -184,8 +144,7 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          PersistentNavBarNavigator.pushNewScreen(context,
-                              screen: const AboutUsView());
+                          GoRouter.of(context).push(Routes.aboutUsRoute);
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -207,8 +166,7 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          PersistentNavBarNavigator.pushNewScreen(context,
-                              screen: const PrivacyPolicyView());
+                          GoRouter.of(context).push(Routes.privecyPolicyRoute);
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -228,8 +186,7 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          PersistentNavBarNavigator.pushNewScreen(context,
-                              screen: const TermsAndConditionsView());
+                          GoRouter.of(context).push(Routes.termConditionsRoute);
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -249,9 +206,8 @@ class SettingsScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                       InkWell(
+                      InkWell(
                         onTap: () {
-                          
                           GoRouter.of(context)
                               .pushReplacement(Routes.loginRoute);
                         },
