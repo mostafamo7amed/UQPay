@@ -29,54 +29,62 @@ class AdminDepositMachineView extends StatelessWidget {
           ),
           centerTitle: true,
         ),
-        bottomSheet: Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(25), topRight: Radius.circular(25)),
-            color: AppColor.wihteColor,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Select machine location:',
-                  style: Styles.textStyle20,
+        body: InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                backgroundColor: AppColor.backgroundColor,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20))),
+                context: context,
+                builder: (context) => Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Select machine location:',
+                        style: Styles.textStyle20,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      defaultFormField(
+                          autoFocus: false,
+                          controller: TextEditingController(),
+                          label: ' Latitude ',
+                          validate: (value) {},
+                          type: const TextInputType.numberWithOptions(
+                              signed: true),
+                          context: context),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      defaultFormField(
+                          autoFocus: false,
+                          controller: TextEditingController(),
+                          label: ' Longitude ',
+                          validate: (value) {},
+                          type: const TextInputType.numberWithOptions(
+                              signed: true),
+                          context: context),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CustomButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        text: 'Add location',
+                      )
+                    ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                defaultFormField(
-                    autoFocus: false,
-                    controller: TextEditingController(),
-                    label: ' Latitude ',
-                    validate: (value) {},
-                    type: const TextInputType.numberWithOptions(signed: true),
-                    context: context),
-                const SizedBox(
-                  height: 10,
-                ),
-                defaultFormField(
-                    autoFocus: false,
-                    controller: TextEditingController(),
-                    label: ' Longitude ',
-                    validate: (value) {},
-                    type: const TextInputType.numberWithOptions(signed: true),
-                    context: context),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomButton(
-                  onPressed: () {},
-                  text: 'Add location',
-                )
-              ],
-            ),
-          ),
-        ),
-        body: SizedBox(),
+              );
+            },
+            child: Center(child: Text('tap here to select location'))),
       ),
     );
   }
