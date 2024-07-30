@@ -1,5 +1,7 @@
+import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../../core/utils/app_manager/app_color.dart';
 import '../../../../../../core/utils/app_manager/app_styles.dart';
 
@@ -31,7 +33,9 @@ class AdminManageCompanyView extends StatelessWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push(Routes.adminAddCompanyRoute);
+          },
           child: Container(
             width: MediaQuery.of(context).size.width / 3,
             decoration: BoxDecoration(

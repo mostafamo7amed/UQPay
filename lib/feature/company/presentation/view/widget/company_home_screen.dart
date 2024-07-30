@@ -152,7 +152,8 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                                         asset: AssetsData.discount,
                                         onTap: () {
                                           PersistentNavBarNavigator
-                                              .pushNewScreen(context,
+                                              .pushNewScreen(
+                                                context,
                                                   screen:
                                                       const CompanyOfferView());
                                         },

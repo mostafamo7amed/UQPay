@@ -1,4 +1,5 @@
 import 'package:UQPay/feature/admin/presentation/view/admin_home_view.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_add_company_view.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_deposit_machine_view.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_recharge_card_view.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_manage_company_view.dart';
@@ -16,15 +17,18 @@ class Routes {
   static const String splashRoute = "/";
   static const String loginRoute = "/login";
   static const String mainRoute = "/main";
+  static const String aboutUsRoute = "/aboutUs";
+  static const String termConditionsRoute = "/termConditions";
+  static const String privecyPolicyRoute = "/privecyPolicy";
+  //---------------------
   static const String adminHomeRoute = "/adminHome";
   static const String adminDepositRoute = "/adminDeposite";
   static const String adminRechargeRoute = "/adminRecharge";
   static const String adminManageCompanyRoute = "/adminCompany";
   static const String adminSettingsRoute = "/adminSettings";
+  static const String adminAddCompanyRoute = "/adminAddCompany";
+  //----------------------
   static const String companyRoute = "/company";
-  static const String aboutUsRoute = "/aboutUs";
-  static const String termConditionsRoute = "/termConditions";
-  static const String privecyPolicyRoute = "/privecyPolicy";
 }
 
 abstract class AppRouter {
@@ -55,55 +59,60 @@ abstract class AppRouter {
           return const AdminHomeView();
         },
       ),
-       GoRoute(
+      GoRoute(
         path: Routes.adminDepositRoute,
         builder: (context, state) {
           return const AdminDepositMachineView();
         },
       ),
-       GoRoute(
+      GoRoute(
         path: Routes.adminSettingsRoute,
         builder: (context, state) {
           return const AdminSettingsView();
         },
       ),
-       GoRoute(
+      GoRoute(
         path: Routes.adminManageCompanyRoute,
         builder: (context, state) {
           return const AdminManageCompanyView();
         },
       ),
-       GoRoute(
+      GoRoute(
         path: Routes.adminRechargeRoute,
         builder: (context, state) {
           return const AdminRechargeCardView();
         },
       ),
-       GoRoute(
+      GoRoute(
         path: Routes.companyRoute,
         builder: (context, state) {
           return const CompanyHomeView();
         },
       ),
-             GoRoute(
+      GoRoute(
         path: Routes.aboutUsRoute,
         builder: (context, state) {
           return const AboutUsView();
         },
       ),
-             GoRoute(
+      GoRoute(
         path: Routes.termConditionsRoute,
         builder: (context, state) {
           return const TermsAndConditionsView();
         },
       ),
-             GoRoute(
+      GoRoute(
         path: Routes.privecyPolicyRoute,
         builder: (context, state) {
           return const PrivacyPolicyView();
         },
       ),
-      
+      GoRoute(
+        path: Routes.adminAddCompanyRoute,
+        builder: (context, state) {
+          return AdminAddCompanyView();
+        },
+      ),
     ],
   );
 }

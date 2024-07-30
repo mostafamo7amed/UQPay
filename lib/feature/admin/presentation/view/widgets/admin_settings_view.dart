@@ -91,7 +91,7 @@ class AdminSettingsView extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 right: 15, top: 10, left: 15),
                             child: Text(
-                              'Account Settings',
+                              'Account Information',
                               style: Styles.textStyle20
                                   .copyWith(color: AppColor.grayColor),
                             ),
@@ -104,7 +104,7 @@ class AdminSettingsView extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Text(
-                                    'Profile Information',
+                                    'Change Password',
                                     style: Styles.textStyle20
                                         .copyWith(color: AppColor.blackColor),
                                   ),
