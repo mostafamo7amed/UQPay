@@ -16,7 +16,8 @@ class CardInformationWidget extends StatelessWidget {
       children: [
         Image.asset(
           AssetsData.backgroundVisa,
-          height: 240,
+          height: 200,
+          fit: BoxFit.fill,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 30.0, right: 30.0),
@@ -50,7 +51,7 @@ class CardInformationWidget extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    Image.asset(AssetsData.leadingAccount),
+                    Image.asset(AssetsData.leadingAccount,),
                   ],
                 ),
                 Text(

@@ -50,6 +50,16 @@ class AdminDepositMachineView extends StatelessWidget {
                 defaultFormField(
                     autoFocus: false,
                     controller: TextEditingController(),
+                    label: ' Name ',
+                    validate: (value) {},
+                    type: const TextInputType.numberWithOptions(signed: true),
+                    context: context),
+                const SizedBox(
+                  height: 10,
+                ),
+                defaultFormField(
+                    autoFocus: false,
+                    controller: TextEditingController(),
                     label: ' Latitude ',
                     validate: (value) {},
                     type: const TextInputType.numberWithOptions(signed: true),

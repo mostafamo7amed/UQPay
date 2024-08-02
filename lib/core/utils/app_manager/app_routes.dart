@@ -1,5 +1,6 @@
-import 'package:UQPay/feature/admin/presentation/view/admin_home_view.dart';
+import 'package:UQPay/feature/admin/presentation/view/admin_home_screen.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_add_company_view.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_change_password.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_deposit_machine_view.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_recharge_card_view.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_manage_company_view.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String adminRechargeRoute = "/adminRecharge";
   static const String adminManageCompanyRoute = "/adminCompany";
   static const String adminSettingsRoute = "/adminSettings";
+  static const String adminChangePassword="/adminChangePassword";
   static const String adminAddCompanyRoute = "/adminAddCompany";
   //----------------------
   static const String companyRoute = "/company";
@@ -56,7 +58,7 @@ abstract class AppRouter {
       GoRoute(
         path: Routes.adminHomeRoute,
         builder: (context, state) {
-          return const AdminHomeView();
+          return const AdminHomeScreen();
         },
       ),
       GoRoute(
@@ -111,6 +113,12 @@ abstract class AppRouter {
         path: Routes.adminAddCompanyRoute,
         builder: (context, state) {
           return AdminAddCompanyView();
+        },
+      ),
+      GoRoute(
+        path: Routes.adminChangePassword,
+        builder: (context, state) {
+          return const AdminChangePassword();
         },
       ),
     ],

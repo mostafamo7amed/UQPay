@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/widgets/basic_functions_widget.dart';
 
-class AdminHomeView extends StatelessWidget {
-  const AdminHomeView({super.key});
+class AdminHomeScreen extends StatelessWidget {
+  const AdminHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +15,13 @@ class AdminHomeView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColor.primaryColor,
-          titleSpacing: 20,
-          title: Text(
-            'Good morning, Ali',
-            style: Styles.textStyle24.copyWith(
-                color: AppColor.wihteColor, fontWeight: FontWeight.bold),
-          ),
+
         ),
         backgroundColor: AppColor.primaryColor,
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 30,
-              ),
               Container(
                 height: MediaQuery.of(context).size.height * .9,
                 decoration: BoxDecoration(
@@ -46,25 +38,69 @@ class AdminHomeView extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Image.asset(
-                            AssetsData.person,
-                            color: AppColor.blackColor,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Ali Ahmed',
-                            style: Styles.textStyle20
-                                .copyWith(color: AppColor.blackColor),
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                // PersistentNavBarNavigator.pushNewScreen(context,
+                                //     screen: const NotificationView());
+                              },
+                              child: const Icon(
+                                Icons.notifications_none_outlined,
+                                size: 28,
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                      Text(
-                        'Administrator',
-                        style: Styles.textStyle18
-                            .copyWith(color: AppColor.grayColor),
+                      const SizedBox(
+                        height: 10,
                       ),
+                      Container(
+                        padding: const EdgeInsets.all(14),
+                        width: MediaQuery.of(context).size.width,
+                        height: 175,
+                        decoration: BoxDecoration(
+                          color: AppColor.primaryColor.withOpacity(.8),
+                          
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Good morning',
+                              style: Styles.textStyle24.copyWith(
+                                  color: AppColor.wihteColor, fontWeight: FontWeight.bold),
+                            ),
+                            const Spacer(),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  AssetsData.person,
+                                  color: AppColor.wihteColor,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Ali Ahmed',
+                                  style: Styles.textStyle20
+                                      .copyWith(color: AppColor.wihteColor),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              'Administrator',
+                              style: Styles.textStyle18
+                                  .copyWith(color: AppColor.wihteColor),
+                            ),
+                          ],
+                        ),
+                      ),
+
                       const SizedBox(
                         height: 50,
                       ),

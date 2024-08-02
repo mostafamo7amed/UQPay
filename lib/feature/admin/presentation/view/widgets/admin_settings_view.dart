@@ -97,7 +97,9 @@ class AdminSettingsView extends StatelessWidget {
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              GoRouter.of(context).push(Routes.adminChangePassword);
+                            },
                             child: Padding(
                               padding: const EdgeInsets.only(
                                   top: 15, right: 15, left: 15),
@@ -208,6 +210,7 @@ class AdminSettingsView extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
+                          GoRouter.of(context).pop();
                           GoRouter.of(context)
                               .pushReplacement(Routes.loginRoute);
                         },

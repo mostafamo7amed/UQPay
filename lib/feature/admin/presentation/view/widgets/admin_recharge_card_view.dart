@@ -106,7 +106,7 @@ class _AdminRechargeCardViewState extends State<AdminRechargeCardView> {
                                     color: AppColor.primaryColor,
                                     height: 45,
                                     width:
-                                        MediaQuery.of(context).size.width / 5.5,
+                                        MediaQuery.of(context).size.width / 4.5,
                                   )
                                 ],
                               ),
