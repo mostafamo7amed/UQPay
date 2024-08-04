@@ -7,8 +7,8 @@ import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defual
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
-class AdminAddCompanyView extends StatelessWidget {
-  AdminAddCompanyView({super.key});
+class AdminAddCompanyScreen extends StatelessWidget {
+  AdminAddCompanyScreen({super.key});
   File? campanyImage;
 
   @override

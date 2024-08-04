@@ -52,7 +52,10 @@ class LatestOperationView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CardInformationWidget(),
+                        const Padding(
+                          padding:  EdgeInsets.all(10.0),
+                          child: CardInformationWidget(),
+                        ),
                         Row(
                           children: [
                             const Spacer(),

@@ -7,10 +7,16 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/transfer/confirm_transfer.dart';
 
-class TransferView extends StatelessWidget {
-  TransferView({super.key});
+class TransferView extends StatefulWidget {
+  const TransferView({super.key});
 
+  @override
+  State<TransferView> createState() => _TransferViewState();
+}
+
+class _TransferViewState extends State<TransferView> {
   List<String> accounts = ['wala', 'noha', 'mariem', 'ahmed'];
+
   String? selectedName;
 
   @override
@@ -140,10 +146,14 @@ class TransferView extends StatelessWidget {
                               value: selectedName,
                               items: accounts.map((name) {
                                 return DropdownMenuItem(
-                                    value: name, child: Text(name));
+                                    value: name,
+                                    child: Text(name));
                               }).toList(),
                               onChanged: (value) {
-                                selectedName = value;
+                                setState(() {
+                                  selectedName = value;
+                                });
+
                               }),
                         ],
                       ),

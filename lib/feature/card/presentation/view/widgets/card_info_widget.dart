@@ -14,10 +14,15 @@ class CardInformationWidget extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Image.asset(
-          AssetsData.backgroundVisa,
-          height: 200,
-          fit: BoxFit.fill,
+        SizedBox(
+          height:200 ,
+          width: MediaQuery.of(context).size.width,
+          child: Image.asset(
+
+            AssetsData.backgroundVisa,
+
+            fit: BoxFit.cover,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 30.0, right: 30.0),

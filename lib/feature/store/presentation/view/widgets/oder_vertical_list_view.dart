@@ -2,6 +2,7 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
+import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:flutter/material.dart';
 
 class OrdersVerticalListView extends StatelessWidget {
@@ -10,10 +11,13 @@ class OrdersVerticalListView extends StatelessWidget {
     this.hideProgress = false,
     required this.detailsTap,
     required this.reorderTap,
+    required this.orderModel,
+
   });
   bool? hideProgress = false;
   void Function()? detailsTap;
   void Function()? reorderTap;
+  OrderModel orderModel;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class OrdersVerticalListView extends StatelessWidget {
                     child: SizedBox(
                       width: 100,
                       child: Image.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsmclv_H61WP7SHs4yMz0WIR2QLxqRnRnmOw&s',
+                        orderModel.storeModel.storeIamge,
                       ),
                     ),
                   ),
@@ -46,12 +50,12 @@ class OrdersVerticalListView extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          'Fitness Gym',
+                          orderModel.storeModel.storeName,
                           style: Styles.textStyle20
                               .copyWith(color: AppColor.blackColor),
                         ),
                         Text(
-                          'Order no: 342525',
+                          'Order no: ${orderModel.number}',
                           style: Styles.regularTextStyle14
                               .copyWith(color: AppColor.blackColor),
                         ),
@@ -69,7 +73,7 @@ class OrdersVerticalListView extends StatelessWidget {
                               ),
                               const Spacer(),
                               Text(
-                                '240.00 SAR',
+                                '${orderModel.amount} SAR',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.grayColor),
                               ),
@@ -82,13 +86,13 @@ class OrdersVerticalListView extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                'Payment status',
+                                'Order Type',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.grayColor),
                               ),
                               const Spacer(),
                               Text(
-                                'Paid in full',
+                                orderModel.orderType,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.grayColor),
                               ),

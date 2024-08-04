@@ -2,9 +2,14 @@ import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_deposit_machine_screen.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_manage_company_screen.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_notification_screen.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_recharge_card_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/widgets/basic_functions_widget.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import '../../../../../core/widgets/basic_functions_widget.dart';
 
 class AdminHomeScreen extends StatelessWidget {
   const AdminHomeScreen({super.key});
@@ -15,7 +20,6 @@ class AdminHomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColor.primaryColor,
-
         ),
         backgroundColor: AppColor.primaryColor,
         body: SingleChildScrollView(
@@ -43,8 +47,8 @@ class AdminHomeScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
                               onTap: () {
-                                // PersistentNavBarNavigator.pushNewScreen(context,
-                                //     screen: const NotificationView());
+                                PersistentNavBarNavigator.pushNewScreen(context,
+                                     screen: const AdminNotificationScreen());
                               },
                               child: const Icon(
                                 Icons.notifications_none_outlined,
@@ -60,12 +64,10 @@ class AdminHomeScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(14),
                         width: MediaQuery.of(context).size.width,
-                        height: 175,
+                        height: 190,
                         decoration: BoxDecoration(
                           color: AppColor.primaryColor.withOpacity(.8),
-                          
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-
+                          borderRadius: const BorderRadius.all(Radius.circular(15)),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +75,8 @@ class AdminHomeScreen extends StatelessWidget {
                             Text(
                               'Good morning',
                               style: Styles.textStyle24.copyWith(
-                                  color: AppColor.wihteColor, fontWeight: FontWeight.bold),
+                                  color: AppColor.wihteColor,
+                                  fontWeight: FontWeight.bold),
                             ),
                             const Spacer(),
                             Row(
@@ -100,7 +103,6 @@ class AdminHomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-
                       const SizedBox(
                         height: 50,
                       ),
@@ -126,54 +128,47 @@ class AdminHomeScreen extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: BasicFunctionsWidget(
-                                      title: 'Manage company',
+                                      title: 'Company',
                                       asset: AssetsData.usersImage,
                                       onTap: () {
-                                        GoRouter.of(context).push(
-                                            Routes.adminManageCompanyRoute);
+                                        PersistentNavBarNavigator.pushNewScreen(
+                                            context,
+                                            screen:
+                                            const AdminManageCompanyScreen());
                                       },
                                     ),
                                   ),
+                                  const SizedBox(width: 5,),
                                   Expanded(
                                     child: BasicFunctionsWidget(
-                                      title: 'Recharge cards',
-                                      asset: AssetsData.depositImage,
+                                      title: 'Deposit machine',
+                                      asset: AssetsData.placeHolderIcon,
                                       onTap: () {
-                                        GoRouter.of(context)
-                                            .push(Routes.adminRechargeRoute);
+                                        PersistentNavBarNavigator.pushNewScreen(
+                                            context,
+                                            screen:
+                                                const AdminDepositMachineScreen());
                                       },
                                     ),
                                   ),
+                                  const SizedBox(width: 5,),
+                                  Expanded(
+                                    child: BasicFunctionsWidget(
+                                      title: 'Recharge card',
+                                      asset: AssetsData.depositImage,
+                                      onTap: () {
+                                        PersistentNavBarNavigator.pushNewScreen(
+                                            context,
+                                            screen:
+                                                const AdminRechargeCardScreen());
+                                      },
+                                    ),
+                                  ),
+
                                 ],
                               ),
                               const SizedBox(
                                 height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: BasicFunctionsWidget(
-                                      title: 'Deposit machines',
-                                      asset: AssetsData.placeHolderIcon,
-                                      onTap: () {
-                                        GoRouter.of(context)
-                                            .push(Routes.adminDepositRoute);
-                                      },
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: BasicFunctionsWidget(
-                                      title: 'Settings',
-                                      asset: AssetsData.settingIcon,
-                                      onTap: () {
-                                        GoRouter.of(context)
-                                            .push(Routes.adminSettingsRoute);
-                                      },
-                                    ),
-                                  ),
-                                ],
                               ),
                             ],
                           ),

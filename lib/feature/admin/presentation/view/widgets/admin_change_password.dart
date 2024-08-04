@@ -5,8 +5,8 @@ import '../../../../../core/utils/app_manager/app_styles.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_text_form.dart';
 
-class AdminChangePassword extends StatelessWidget {
-  const AdminChangePassword({super.key});
+class AdminChangePasswordScreen extends StatelessWidget {
+  const AdminChangePasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

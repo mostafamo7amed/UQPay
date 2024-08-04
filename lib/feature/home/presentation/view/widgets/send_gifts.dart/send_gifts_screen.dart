@@ -1,3 +1,4 @@
+import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/amount_sent_gift_view.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +7,21 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 
-class SendGiftsScreen extends StatelessWidget {
+import '../../../../../../core/utils/app_manager/app_assets.dart';
+
+class SendGiftsScreen extends StatefulWidget {
   SendGiftsScreen({super.key});
+
+  @override
+  State<SendGiftsScreen> createState() => _SendGiftsScreenState();
+}
+
+class _SendGiftsScreenState extends State<SendGiftsScreen> {
   var accountControler = TextEditingController();
+
+  List<String> accounts = ['wala', 'noha', 'mariem', 'ahmed'];
+
+  String? selectedName;
 
   @override
   Widget build(BuildContext context) {
@@ -73,51 +86,59 @@ class SendGiftsScreen extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        DropdownSearch<String>(
-                          popupProps: const PopupProps.menu(
-                            showSelectedItems: true,
-                            showSearchBox: true,
-                          
-                          ),
-                          items: const [
-                            "Wala",
-                            "Ahmed",
-                            "Mohamed",
-                          ],
-                          dropdownDecoratorProps: DropDownDecoratorProps(
-                            dropdownSearchDecoration: InputDecoration(
-                              prefix: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Icon(
-                                  Icons.search,
-                                  color: AppColor.grayColor,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor.yellowColor, width: 2.0),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(16)),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor.yellowColor, width: 2.0),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(16)),
-                              ),
-                              label: const Text('Search',
-                                  style: Styles.textStyle18),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor.yellowColor, width: 2.0),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(16)),
-                              ),
-                              labelStyle: Styles.regularTextStyle16
-                                  .copyWith(color: AppColor.blackColor),
+                        defaultFormField(
+                            autoFocus: false,
+                            controller: TextEditingController(),
+                            validate: (e) {},
+                            type: TextInputType.text,
+                            label: 'Search',
+                            priffixWidget: const Icon(
+                              Icons.search,
                             ),
+                            context: context),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          height: 70,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(24)),
+                            color: AppColor.lightgrayColor,
                           ),
-                          onChanged: (value) {},
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                AssetsData.personRounded,
+                                height: 56,
+                              ),
+                              Expanded(
+                                child: DropdownButton(
+                                    isExpanded: true,
+                                    padding: EdgeInsets.all(8),
+                                    alignment: Alignment.centerLeft,
+                                    icon: const Icon(
+                                      Icons.keyboard_arrow_down_sharp,
+                                      size: 35,
+                                    ),
+                                    hint: const Text(
+                                      'Select Account',
+                                      style: Styles.textStyle18,
+                                    ),
+                                    value: selectedName,
+                                    items: accounts.map((name) {
+                                      return DropdownMenuItem(
+                                          value: name, child: Text(name));
+                                    }).toList(),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedName = value;
+                                      });
+                                    }),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 20,

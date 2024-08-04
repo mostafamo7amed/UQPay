@@ -48,7 +48,10 @@ class CardsScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const CardInformationWidget(),
+                        const Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: CardInformationWidget(),
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: Container(

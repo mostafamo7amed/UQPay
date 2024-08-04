@@ -8,6 +8,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../../core/utils/app_manager/app_assets.dart';
 import '../../../../../core/utils/app_manager/app_styles.dart';
 import '../../../../card/presentation/view/widgets/card_info_widget.dart';
+import '../../../../card/presentation/view/widgets/view_card_info.dart';
 import 'deposit_machines.dart';
 import 'save_account/save_account_view.dart';
 import 'send_gifts.dart/send_gifts_view.dart';
@@ -127,7 +128,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const CardInformationWidget(),
+                      InkWell(
+                          onTap: () {
+                            PersistentNavBarNavigator.pushNewScreen(context, screen: const ViewCardInfo());
+                          },
+                          child: const CardInformationWidget()),
                       const SizedBox(
                         height: 20,
                       ),

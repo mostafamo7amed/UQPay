@@ -54,7 +54,10 @@ class CardBenefitsView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CardInformationWidget(),
+                        const Padding(
+                          padding:  EdgeInsets.all(10.0),
+                          child:  CardInformationWidget(),
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -87,6 +90,36 @@ class CardBenefitsView extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
+
+                        InkWell(
+                          onTap: () {
+
+                          },
+                          child: ContainerCircleWidget(
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                    AssetsData.settingIcon,
+                                  color: AppColor.yellowColor,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Control & Manage',
+                                  textAlign: TextAlign.center,
+                                  style: Styles.textStyle18.copyWith(
+                                    color: AppColor.blackColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+
                         InkWell(
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(context,

@@ -47,7 +47,10 @@ class LoginViewBody extends StatelessWidget {
                   hintText: 'Enter Username',
                   inputType: TextInputType.name,
                   validator: (value) {
-                    return;
+                    if (_usernameController.text.isEmpty) {
+                      return 'Please enter your username';
+                    }
+                    return null;
                   },
                   controller: _usernameController,
                 ),
@@ -72,7 +75,7 @@ class LoginViewBody extends StatelessWidget {
                     child: const Icon(Icons.visibility), //cubit.eyeIcon,
                   ),
                   validator: (value) {
-                    return;
+                    return null;
                   },
                   controller: _passwordController,
                 ),
@@ -81,7 +84,17 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 CustomButton(
                   onPressed: () {
-                    GoRouter.of(context).pushReplacement(Routes.adminHomeRoute);
+                    if (_formKey.currentState!.validate()) {
+                      if (_usernameController.text.contains('Admin')) {
+                        GoRouter.of(context)
+                            .pushReplacement(Routes.adminHomeRoute);
+                      } else if (_usernameController.text.contains('Company')) {
+                        GoRouter.of(context)
+                            .pushReplacement(Routes.companyRoute);
+                      } else if (_usernameController.text.contains('Student')) {
+                        GoRouter.of(context).pushReplacement(Routes.mainRoute);
+                      }
+                    }
                   },
                   text: 'Login',
                 )

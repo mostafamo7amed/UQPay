@@ -1,10 +1,13 @@
 import 'package:UQPay/core/widgets/custom_button.dart';
+import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+
+import '../../../../../../core/widgets/seperated_line.dart';
 
 class TargetGraphView extends StatelessWidget {
   const TargetGraphView({super.key});
@@ -26,7 +29,7 @@ class TargetGraphView extends StatelessWidget {
                 color: AppColor.wihteColor,
               )),
           title: Text(
-            'Target Details',
+            'Target Graph',
             style: Styles.textStyle24.copyWith(
                 color: AppColor.wihteColor, fontWeight: FontWeight.bold),
           ),
@@ -104,7 +107,60 @@ class TargetGraphView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return Dialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Center(
+                                              child: Text(
+                                                "Edit Target months",
+                                                style: Styles.textStyle20,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            SeperatedLine(),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            defaultFormField(
+                                              autoFocus: false,
+                                                controller: TextEditingController(), 
+                                                validate: (e){}, 
+                                                type: TextInputType.number,
+                                                label: 'Enter number of months',
+                                                suffixWidget: Text('Month',style: Styles.semiBoldTextStyle14.copyWith(color: AppColor.grayColor),),
+                                                context: context),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Center(
+                                              child: CustomButton(
+                                                onPressed: (){},
+                                                width: MediaQuery.of(context).size.width/4,
+                                                text: 'Save',
+                                              ),
+                                            ),
+
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
                               text: 'Edit',
                               width: (MediaQuery.of(context).size.width) / 4,
                               color: AppColor.greenColor,
@@ -132,3 +188,5 @@ class TargetGraphView extends StatelessWidget {
     );
   }
 }
+
+

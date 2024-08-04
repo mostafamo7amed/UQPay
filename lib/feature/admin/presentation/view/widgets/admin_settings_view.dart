@@ -2,8 +2,13 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_change_password.dart';
+import 'package:UQPay/feature/profile/presentation/view/widgets/about_us_view.dart';
+import 'package:UQPay/feature/profile/presentation/view/widgets/privacy_policy_view.dart';
+import 'package:UQPay/feature/profile/presentation/view/widgets/terms_and_conditions_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class AdminSettingsView extends StatelessWidget {
   const AdminSettingsView({super.key});
@@ -16,14 +21,8 @@ class AdminSettingsView extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColor.primaryColor,
           titleSpacing: 3,
-          leading: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back_ios_new,
-                color: AppColor.wihteColor,
-              )),
+          centerTitle: true,
+
           title: Text(
             'Settings',
             style: Styles.textStyle24.copyWith(
@@ -98,7 +97,7 @@ class AdminSettingsView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              GoRouter.of(context).push(Routes.adminChangePassword);
+                              PersistentNavBarNavigator.pushNewScreen(context, screen: const AdminChangePasswordScreen());
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(
@@ -146,7 +145,7 @@ class AdminSettingsView extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          GoRouter.of(context).push(Routes.aboutUsRoute);
+                          PersistentNavBarNavigator.pushNewScreen(context, screen: const AboutUsView());
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -168,7 +167,7 @@ class AdminSettingsView extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          GoRouter.of(context).push(Routes.privecyPolicyRoute);
+                          PersistentNavBarNavigator.pushNewScreen(context, screen: const PrivacyPolicyView());
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -188,7 +187,7 @@ class AdminSettingsView extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          GoRouter.of(context).push(Routes.termConditionsRoute);
+                          PersistentNavBarNavigator.pushNewScreen(context, screen: const TermsAndConditionsView());
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -210,7 +209,7 @@ class AdminSettingsView extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          GoRouter.of(context).pop();
+
                           GoRouter.of(context)
                               .pushReplacement(Routes.loginRoute);
                         },

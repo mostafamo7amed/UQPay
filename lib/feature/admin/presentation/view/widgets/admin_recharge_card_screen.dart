@@ -4,14 +4,14 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
-class AdminRechargeCardView extends StatefulWidget {
-  const AdminRechargeCardView({super.key});
+class AdminRechargeCardScreen extends StatefulWidget {
+  const AdminRechargeCardScreen({super.key});
 
   @override
-  State<AdminRechargeCardView> createState() => _AdminRechargeCardViewState();
+  State<AdminRechargeCardScreen> createState() => _AdminRechargeCardScreenState();
 }
 
-class _AdminRechargeCardViewState extends State<AdminRechargeCardView> {
+class _AdminRechargeCardScreenState extends State<AdminRechargeCardScreen> {
   int accountSelected = 0;
   @override
   Widget build(BuildContext context) {

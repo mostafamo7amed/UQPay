@@ -1,6 +1,8 @@
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_add_offer_view.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_view_offers_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -86,7 +88,7 @@ class CompanyOfferView extends StatelessWidget {
                       color: AppColor.wihteColor,
                     ),
                     child: SizedBox(
-                      height: 200,
+                      height: 230,
                       child: Stack(
                         clipBehavior: Clip.hardEdge,
                         alignment: Alignment.center,
@@ -103,15 +105,36 @@ class CompanyOfferView extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            top: 5,
-                            right: 5,
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: AppColor.redColor.withRed(235),
-                                  size: 35,
-                                )),
+                            bottom: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+
+                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                color: AppColor.wihteColor.withOpacity(0.7)
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  CustomButton(
+                                    onPressed: (){
+                                      PersistentNavBarNavigator.pushNewScreen(context, screen: const CompanyViewOffersView());
+                                    },
+                                    height: 50,
+                                    text: 'View',
+                                  width: MediaQuery.of(context).size.width/4,),
+                                  CustomButton(
+                                    onPressed: (){},
+                                    text: 'Delete',
+                                    height: 50,
+                                    color: AppColor.redColor,
+                                    width: MediaQuery.of(context).size.width/4,
+                                  ),
+
+                                ],
+                              ),
+                            ),
                           )
                         ],
                       ),

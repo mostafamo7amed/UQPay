@@ -118,46 +118,22 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                         ),
                         Row(
                           children: [
-                            Expanded(
-                              child: Container(
-                                padding: const EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: AppColor.lightgrayColor,
-                                  borderRadius:
-                                      const BorderRadiusDirectional.all(
-                                    Radius.circular(16),
-                                  ),
-                                ),
-                                child: Text(
-                                  '100.00 SAR',
-                                  textAlign: TextAlign.center,
-                                  style: Styles.textStyle18.copyWith(
-                                    color: AppColor.primaryColor,
-                                  ),
-                                ),
-                              ),
+                            AmountContainer(
+                              onTap: (){
+                                PersistentNavBarNavigator.pushNewScreen(context,
+                                    screen: const MassegeSendGiftView());
+                              },
+                              amount: 100.00,
                             ),
                             const SizedBox(
                               width: 10,
                             ),
-                            Expanded(
-                              child: Container(
-                                padding: const EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: AppColor.lightgrayColor,
-                                  borderRadius:
-                                      const BorderRadiusDirectional.all(
-                                    Radius.circular(16),
-                                  ),
-                                ),
-                                child: Text(
-                                  '200.00 SAR',
-                                  textAlign: TextAlign.center,
-                                  style: Styles.textStyle18.copyWith(
-                                    color: AppColor.primaryColor,
-                                  ),
-                                ),
-                              ),
+                            AmountContainer(
+                              onTap: (){
+                                PersistentNavBarNavigator.pushNewScreen(context,
+                                    screen: const MassegeSendGiftView());
+                              },
+                              amount: 200.00,
                             ),
                           ],
                         ),
@@ -166,46 +142,22 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                         ),
                         Row(
                           children: [
-                            Expanded(
-                              child: Container(
-                                padding: const EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: AppColor.lightgrayColor,
-                                  borderRadius:
-                                      const BorderRadiusDirectional.all(
-                                    Radius.circular(16),
-                                  ),
-                                ),
-                                child: Text(
-                                  '500.00 SAR',
-                                  textAlign: TextAlign.center,
-                                  style: Styles.textStyle18.copyWith(
-                                    color: AppColor.primaryColor,
-                                  ),
-                                ),
-                              ),
+                            AmountContainer(
+                              onTap: (){
+                                PersistentNavBarNavigator.pushNewScreen(context,
+                                    screen: const MassegeSendGiftView());
+                              },
+                              amount: 500.00,
                             ),
                             const SizedBox(
                               width: 10,
                             ),
-                            Expanded(
-                              child: Container(
-                                padding: const EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: AppColor.lightgrayColor,
-                                  borderRadius:
-                                      const BorderRadiusDirectional.all(
-                                    Radius.circular(16),
-                                  ),
-                                ),
-                                child: Text(
-                                  '1000.00 SAR',
-                                  textAlign: TextAlign.center,
-                                  style: Styles.textStyle18.copyWith(
-                                    color: AppColor.primaryColor,
-                                  ),
-                                ),
-                              ),
+                            AmountContainer(
+                              onTap: (){
+                                PersistentNavBarNavigator.pushNewScreen(context,
+                                    screen: const MassegeSendGiftView());
+                              },
+                              amount: 1000.00,
                             ),
                           ],
                         ),
@@ -298,6 +250,41 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class AmountContainer extends StatelessWidget {
+  AmountContainer({
+    super.key,
+    required this.amount,
+    required this.onTap,
+  });
+  void Function()? onTap;
+  double amount;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: AppColor.lightgrayColor,
+            borderRadius:
+                const BorderRadiusDirectional.all(
+              Radius.circular(16),
+            ),
+          ),
+          child: Text(
+            '$amount SAR',
+            textAlign: TextAlign.center,
+            style: Styles.textStyle18.copyWith(
+              color: AppColor.primaryColor,
+            ),
+          ),
         ),
       ),
     );

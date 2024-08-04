@@ -1,3 +1,4 @@
+import 'package:UQPay/feature/card/presentation/view/widgets/view_card_info.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -88,28 +89,6 @@ class MoreOptionsView extends StatelessWidget {
                                     width: 10,
                                   ),
                                   Text(
-                                    'Renew the card',
-                                    style: Styles.regularTextStyle14
-                                        .copyWith(color: AppColor.blackColor),
-                                  ),
-                                  const Spacer(),
-                                  const Icon(Icons.arrow_forward_ios),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.payment,
-                                    size: 35,
-                                    color: AppColor.yellowColor,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
                                     'Pause the card temporarily',
                                     style: Styles.regularTextStyle14
                                         .copyWith(color: AppColor.blackColor),
@@ -122,24 +101,29 @@ class MoreOptionsView extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.payment,
-                                    size: 35,
-                                    color: AppColor.yellowColor,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'View card data',
-                                    style: Styles.regularTextStyle14
-                                        .copyWith(color: AppColor.blackColor),
-                                  ),
-                                  const Spacer(),
-                                  const Icon(Icons.arrow_forward_ios),
-                                ],
+                              InkWell(
+                                onTap: (){
+                                  PersistentNavBarNavigator.pushNewScreen(context, screen: const ViewCardInfo());
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.payment,
+                                      size: 35,
+                                      color: AppColor.yellowColor,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      'View card data',
+                                      style: Styles.regularTextStyle14
+                                          .copyWith(color: AppColor.blackColor),
+                                    ),
+                                    const Spacer(),
+                                    const Icon(Icons.arrow_forward_ios),
+                                  ],
+                                ),
                               ),
                               const SizedBox(
                                 height: 10,

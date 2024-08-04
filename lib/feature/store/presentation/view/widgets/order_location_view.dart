@@ -160,7 +160,7 @@ class StoreLocationWidget extends StatelessWidget {
                           width: MediaQuery.of(context).size.width / 3,
                           onPressed: () {
                             PersistentNavBarNavigator.pushNewScreen(context,
-                                screen: const PickupOderDetailsView());
+                                screen: const OderDetailsView());
                           },
                           text: 'Confirm',
                         ),

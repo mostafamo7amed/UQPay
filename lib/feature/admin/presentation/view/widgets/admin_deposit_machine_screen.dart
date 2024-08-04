@@ -4,8 +4,8 @@ import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
 import 'package:flutter/material.dart';
 
-class AdminDepositMachineView extends StatelessWidget {
-  const AdminDepositMachineView({super.key});
+class AdminDepositMachineScreen extends StatelessWidget {
+  const AdminDepositMachineScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
