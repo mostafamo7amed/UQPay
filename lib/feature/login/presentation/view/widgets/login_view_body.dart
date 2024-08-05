@@ -1,4 +1,5 @@
 import 'package:UQPay/core/utils/app_manager/app_routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
@@ -84,8 +85,20 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 CustomButton(
                   onPressed: () {
+
                     if (_formKey.currentState!.validate()) {
                       if (_usernameController.text.contains('Admin')) {
+                        FirebaseFirestore.instance
+                            .collection('Users')
+                            .doc('1')
+                            .set({
+                          'name':'ahmed'
+                        })
+                            .then((value) {
+
+                        }).catchError((e) {
+
+                        });
                         GoRouter.of(context)
                             .pushReplacement(Routes.adminHomeRoute);
                       } else if (_usernameController.text.contains('Company')) {

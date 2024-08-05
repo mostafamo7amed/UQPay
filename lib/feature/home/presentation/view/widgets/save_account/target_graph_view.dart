@@ -138,7 +138,9 @@ class TargetGraphView extends StatelessWidget {
                                             defaultFormField(
                                               autoFocus: false,
                                                 controller: TextEditingController(), 
-                                                validate: (e){}, 
+                                                validate: (e){
+
+                                                },
                                                 type: TextInputType.number,
                                                 label: 'Enter number of months',
                                                 suffixWidget: Text('Month',style: Styles.semiBoldTextStyle14.copyWith(color: AppColor.grayColor),),
