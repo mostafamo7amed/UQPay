@@ -1,8 +1,11 @@
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/widgets/basic_functions_widget.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:UQPay/feature/home/presentation/view/notification_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../core/utils/app_manager/app_assets.dart';
@@ -43,6 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: MediaQuery.of(context).size.width)),
             ))
         .toList();
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    var cubit = HomeCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.backgroundColor,
@@ -53,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
             size: 28,
           ),
           title: Text(
-            'Good evning ,Muhammad',
+            'Good evening ,${cubit.userModel!=null?cubit.userModel!.name!:''}',
             style: Styles.textStyle20.copyWith(
                 color: AppColor.blackColor, fontWeight: FontWeight.bold),
           ),
@@ -73,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
+        body:cubit.userModel!=null? SingleChildScrollView(
           child: Column(
             children: [
               const SizedBox(
@@ -130,9 +139,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       InkWell(
                           onTap: () {
-                            PersistentNavBarNavigator.pushNewScreen(context, screen: const ViewCardInfo());
+                            PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen:  ViewCardInfo(userModel: cubit.userModel!,));
                           },
-                          child: const CardInformationWidget()),
+                          child: CardInformationWidget(userModel:cubit.userModel! ,)),
                       const SizedBox(
                         height: 20,
                       ),
@@ -156,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ),
                           BasicFunctionsWidget(
-                            title: 'Transfar',
+                            title: 'Transfer',
                             asset: AssetsData.transferIcon,
                             onTap: () {
                               PersistentNavBarNavigator.pushNewScreen(context,
@@ -179,8 +190,10 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-        ),
+        ): const Center(child: CircularProgressIndicator(),),
       ),
     );
+  },
+);
   }
 }

@@ -1,6 +1,9 @@
 import 'package:UQPay/feature/card/presentation/view/widgets/card_benefits_view.dart';
 import 'package:UQPay/feature/card/presentation/view/widgets/more_options_view.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../core/utils/app_manager/app_assets.dart';
@@ -16,6 +19,12 @@ class CardsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    var cubit =HomeCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -48,9 +57,9 @@ class CardsScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: CardInformationWidget(),
+                         Padding(
+                          padding:const EdgeInsets.all(10.0),
+                          child: CardInformationWidget(userModel: cubit.userModel!,),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -74,7 +83,7 @@ class CardsScreen extends StatelessWidget {
                                                 color: AppColor.primaryColor),
                                       ),
                                       Text(
-                                        '3500 SAR',
+                                        '${cubit.userModel!.cardAmount!} SAR',
                                         style: Styles.regularTextStyle16
                                             .copyWith(
                                                 color: AppColor.blackColor),
@@ -93,7 +102,7 @@ class CardsScreen extends StatelessWidget {
                                                 color: AppColor.primaryColor),
                                       ),
                                       Text(
-                                        '250 SAR',
+                                        '${cubit.userModel!.cashBacks!} SAR',
                                         style: Styles.regularTextStyle16
                                             .copyWith(
                                                 color: AppColor.blackColor),
@@ -137,8 +146,7 @@ class CardsScreen extends StatelessWidget {
                                             onTap: () {
                                               PersistentNavBarNavigator
                                                   .pushNewScreen(context,
-                                                      screen:
-                                                          const ViewCardInfo());
+                                                      screen: ViewCardInfo(userModel: cubit.userModel!,));
                                             }),
                                       ),
                                       Expanded(
@@ -151,8 +159,7 @@ class CardsScreen extends StatelessWidget {
                                             onTap: () {
                                               PersistentNavBarNavigator
                                                   .pushNewScreen(context,
-                                                      screen:
-                                                          const LatestOperationView());
+                                                      screen: LatestOperationView(userModel: cubit.userModel!,));
                                             }),
                                       ),
                                     ],
@@ -166,7 +173,7 @@ class CardsScreen extends StatelessWidget {
                                     children: [
                                       Expanded(
                                         child: BasicFunctionsWidget(
-                                            title: 'Card Benifts',
+                                            title: 'Card Benefits',
                                             asset: AssetsData.listDoneImage,
                                             stokeColor: AppColor.yellowColor,
                                             backgroundColor:
@@ -174,8 +181,7 @@ class CardsScreen extends StatelessWidget {
                                             onTap: () {
                                               PersistentNavBarNavigator
                                                   .pushNewScreen(context,
-                                                      screen:
-                                                          const CardBenefitsView());
+                                                      screen: CardBenefitsView(userModel: cubit.userModel!,));
                                             }),
                                       ),
                                       Expanded(
@@ -188,8 +194,7 @@ class CardsScreen extends StatelessWidget {
                                             onTap: () {
                                               PersistentNavBarNavigator
                                                   .pushNewScreen(context,
-                                                      screen:
-                                                          const MoreOptionsView());
+                                                      screen: MoreOptionsView(userModel: cubit.userModel!,));
                                             }),
                                       ),
                                     ],
@@ -209,5 +214,7 @@ class CardsScreen extends StatelessWidget {
         ),
       ),
     );
+  },
+);
   }
 }

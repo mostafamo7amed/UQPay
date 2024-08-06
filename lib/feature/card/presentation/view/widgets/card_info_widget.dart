@@ -1,3 +1,4 @@
+import 'package:UQPay/feature/home/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/app_manager/app_assets.dart';
@@ -7,7 +8,9 @@ import '../../../../../core/utils/app_manager/app_styles.dart';
 class CardInformationWidget extends StatelessWidget {
   const CardInformationWidget({
     super.key,
+    required this.userModel,
   });
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class CardInformationWidget extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'Mohammad Jassas',
+                      userModel.name!,
                       style: Styles.textStyle24
                           .copyWith(color: AppColor.wihteColor),
                     ),
@@ -45,11 +48,11 @@ class CardInformationWidget extends StatelessWidget {
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
                   children: [
                     Text(
-                      '4756',
+                      userModel.cardNumber!.substring(0,4),
                       style: Styles.regularTextStyle16
                           .copyWith(color: AppColor.wihteColor),
                     ),
@@ -60,7 +63,7 @@ class CardInformationWidget extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  '469.52 SAR',
+                  '${userModel.cardAmount!} SAR',
                   style:
                       Styles.textStyle24.copyWith(color: AppColor.wihteColor),
                 ),

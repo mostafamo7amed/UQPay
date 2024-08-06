@@ -1,15 +1,14 @@
 import 'package:UQPay/feature/card/presentation/view/widgets/view_card_info.dart';
+import 'package:UQPay/feature/home/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-import '../../../../../core/utils/app_manager/app_assets.dart';
 import '../../../../../core/utils/app_manager/app_color.dart';
 import '../../../../../core/utils/app_manager/app_styles.dart';
-import 'card_info_widget.dart';
 
 class MoreOptionsView extends StatelessWidget {
-  const MoreOptionsView({super.key});
-
+  const MoreOptionsView({super.key,required this.userModel});
+  final UserModel userModel;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -103,7 +102,7 @@ class MoreOptionsView extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: (){
-                                  PersistentNavBarNavigator.pushNewScreen(context, screen: const ViewCardInfo());
+                                  PersistentNavBarNavigator.pushNewScreen(context, screen: ViewCardInfo(userModel: userModel,));
                                 },
                                 child: Row(
                                   children: [

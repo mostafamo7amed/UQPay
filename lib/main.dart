@@ -1,7 +1,9 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'core/utils/bloc_observer/bloc_observer.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -9,6 +11,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Bloc.observer = MyBlocObserver();
   runApp(const UQPay());
 }
 

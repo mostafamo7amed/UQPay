@@ -1,5 +1,6 @@
 import 'package:UQPay/feature/card/presentation/view/widgets/cashback_view.dart';
 import 'package:UQPay/feature/card/presentation/view/widgets/payment_view.dart';
+import 'package:UQPay/feature/home/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -9,8 +10,8 @@ import '../../../../../core/utils/app_manager/app_styles.dart';
 import 'card_info_widget.dart';
 
 class CardBenefitsView extends StatelessWidget {
-  const CardBenefitsView({super.key});
-
+  const CardBenefitsView({super.key,required this.userModel});
+  final UserModel userModel;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -54,9 +55,9 @@ class CardBenefitsView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding:  EdgeInsets.all(10.0),
-                          child:  CardInformationWidget(),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child:  CardInformationWidget(userModel: userModel,),
                         ),
                         const SizedBox(
                           height: 20,
@@ -64,7 +65,7 @@ class CardBenefitsView extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(context,
-                                screen: const CashbackView());
+                                screen: CashbackView(userModel: userModel,));
                           },
                           child: ContainerCircleWidget(
                             child: Row(
@@ -123,7 +124,7 @@ class CardBenefitsView extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(context,
-                                screen: const PaymentView());
+                                screen: PaymentView( userModel: userModel,));
                           },
                           child: ContainerCircleWidget(
                             child: Row(

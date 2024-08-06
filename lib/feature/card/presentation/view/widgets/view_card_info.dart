@@ -1,3 +1,4 @@
+import 'package:UQPay/feature/home/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../../core/utils/app_manager/app_assets.dart';
@@ -6,7 +7,8 @@ import '../../../../../core/utils/app_manager/app_styles.dart';
 import 'card_info_widget.dart';
 
 class ViewCardInfo extends StatelessWidget {
-  const ViewCardInfo({super.key});
+  const ViewCardInfo({super.key,required this.userModel});
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +92,7 @@ class ViewCardInfo extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Text(
-                              '',
+                              userModel.id!,
                               style: Styles.boldTextStyle16
                                   .copyWith(color: AppColor.blackColor),
                             ),
@@ -118,7 +120,7 @@ class ViewCardInfo extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Text(
-                              '',
+                              userModel.email!,
                               style: Styles.boldTextStyle16
                                   .copyWith(color: AppColor.blackColor),
                             ),
@@ -140,9 +142,9 @@ class ViewCardInfo extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const Padding(
+                        Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: const CardInformationWidget(),
+                          child: CardInformationWidget(userModel: userModel,),
                         ),
                       ],
                     ),

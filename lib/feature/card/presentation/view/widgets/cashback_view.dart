@@ -2,11 +2,13 @@ import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/feature/card/presentation/view/widgets/card_info_widget.dart';
+import 'package:UQPay/feature/home/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class CashbackView extends StatelessWidget {
-  const CashbackView({super.key});
+  const CashbackView({super.key,required this.userModel});
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,10 @@ class CashbackView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const CardInformationWidget(),
+                        CardInformationWidget(userModel: userModel,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: Container(
@@ -69,7 +74,7 @@ class CashbackView extends StatelessWidget {
                                         .copyWith(color: AppColor.primaryColor),
                                   ),
                                   Text(
-                                    '250 SAR',
+                                    '${userModel.cashBacks} SAR',
                                     style: Styles.regularTextStyle16
                                         .copyWith(color: AppColor.blackColor),
                                   ),

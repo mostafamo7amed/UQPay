@@ -4,10 +4,12 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../../core/utils/app_manager/app_assets.dart';
 import '../../../../../core/utils/app_manager/app_color.dart';
 import '../../../../../core/utils/app_manager/app_styles.dart';
+import '../../../../home/data/models/user_model.dart';
 import 'card_info_widget.dart';
 
 class LatestOperationView extends StatelessWidget {
-  const LatestOperationView({super.key});
+  const LatestOperationView({super.key,required this.userModel});
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +54,9 @@ class LatestOperationView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding:  EdgeInsets.all(10.0),
-                          child: CardInformationWidget(),
+                         Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: CardInformationWidget(userModel: userModel ,),
                         ),
                         Row(
                           children: [

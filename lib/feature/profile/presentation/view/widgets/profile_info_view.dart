@@ -1,3 +1,4 @@
+import 'package:UQPay/feature/home/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
@@ -6,7 +7,8 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
 
 class ProfileInfoView extends StatelessWidget {
-  const ProfileInfoView({super.key});
+  const ProfileInfoView({super.key,required this.userModel});
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,10 @@ class ProfileInfoView extends StatelessWidget {
                             child: Stack(
                                 alignment: Alignment.bottomRight,
                                 children: [
+                                  userModel.image!=''?
+                                  Image.network(userModel.image!,
+                                    fit: BoxFit.cover,
+                                  ):
                                   Image.asset(
                                     AssetsData.personMask,
                                     fit: BoxFit.cover,
@@ -68,7 +74,7 @@ class ProfileInfoView extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Mohammed Ali',
+                          userModel.name!,
                           style: Styles.textStyle20
                               .copyWith(color: AppColor.blackColor),
                         ),
@@ -96,7 +102,7 @@ class ProfileInfoView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                '442345678',
+                                userModel.id!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -109,32 +115,15 @@ class ProfileInfoView extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              Text(
-                                'ID Number',
-                                style: Styles.regularTextStyle16
-                                    .copyWith(color: AppColor.primaryColor),
-                              ),
-                              Text(
-                                '1117234567',
-                                style: Styles.regularTextStyle16
-                                    .copyWith(color: AppColor.blackColor),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              SeperatedLine(
-                                color: AppColor.grayColor,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
+
+
                               Text(
                                 'University Email',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                's442345678@st.uqu.edu.sa',
+                                userModel.email!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -153,7 +142,7 @@ class ProfileInfoView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                'Male',
+                                userModel.gender!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -172,7 +161,7 @@ class ProfileInfoView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                '2002-02-19',
+                                userModel.birthDate!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -191,7 +180,7 @@ class ProfileInfoView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                '966572844309',
+                                userModel.mobileNumber!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -204,32 +193,14 @@ class ProfileInfoView extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              Text(
-                                'Main Department',
-                                style: Styles.regularTextStyle16
-                                    .copyWith(color: AppColor.primaryColor),
-                              ),
-                              Text(
-                                'Jamoum University College',
-                                style: Styles.regularTextStyle16
-                                    .copyWith(color: AppColor.blackColor),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              SeperatedLine(
-                                color: AppColor.grayColor,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
+
                               Text(
                                 'Department',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                'Computer Science - Jamoum University College',
+                                userModel.department!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),

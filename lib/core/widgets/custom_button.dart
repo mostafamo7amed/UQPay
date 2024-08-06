@@ -11,31 +11,45 @@ class CustomButton extends StatelessWidget {
       this.color,
       this.height,
       this.overlayColor,
-      this.textColor});
+      this.textColor,
+      this.isLoading = false});
   final String? text;
   final Color? textColor;
   final double? width;
   final double? height;
   final Color? color;
+  final bool? isLoading;
   final Color? overlayColor;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height?? 56,
+      height: height ?? 56,
       width: width ?? MediaQuery.of(context).size.width,
-      child: TextButton(
-          onPressed: onPressed,
-          style: TextButton.styleFrom(
-              overlayColor: overlayColor,
-              backgroundColor: color ?? AppColor.primaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16))),
-          child: Text(
-            text ?? '',
-            style: Styles.boldTextStyle16
-                .copyWith(color: textColor ?? AppColor.wihteColor),
-          )),
+      child: isLoading!
+          ? const Center(
+              child: SizedBox(
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                  backgroundColor: Colors.white,
+                ),
+              ),
+            )
+          : TextButton(
+              onPressed: onPressed,
+              style: TextButton.styleFrom(
+                  overlayColor: overlayColor,
+                  backgroundColor: color ?? AppColor.primaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16))),
+              child: Text(
+                text ?? '',
+                style: Styles.boldTextStyle16
+                    .copyWith(color: textColor ?? AppColor.wihteColor),
+              ),
+            ),
     );
   }
 }
