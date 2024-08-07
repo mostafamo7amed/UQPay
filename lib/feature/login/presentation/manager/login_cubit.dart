@@ -3,10 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:location/location.dart';
 
 import '../../../../core/functions/toast.dart';
 import '../../../../core/utils/app_manager/app_color.dart';
 import '../../../../core/utils/app_manager/app_routes.dart';
+
+
 
 part 'login_state.dart';
 
@@ -14,6 +17,29 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   static LoginCubit getCubit(context) => BlocProvider.of(context);
+
+  Future getLocationPermission() async {
+
+    Location location = Location();
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return;
+      }
+    }
+
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+  }
+
 
   bool obscure = true;
   Icon eyeIcon = Icon(

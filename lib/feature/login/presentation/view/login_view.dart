@@ -9,7 +9,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(),
+      create: (context) => LoginCubit()..getLocationPermission(),
       child: LoginViewBody(),
     );
   }

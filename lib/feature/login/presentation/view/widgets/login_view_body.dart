@@ -29,22 +29,22 @@ class LoginViewBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
-       /* UserModel model = UserModel(
-          's442345678@stu.uqu.edu.sa',
-          'Mohamed Ali',
-          '442345678',
-          'kk',
+        UserModel model = UserModel(
+          's441002711@stu.uqu.edu.sa',
+          'Ali Emad',
+          '441002711',
+          '',
           '',
           '12345678910234',
           'Student',
-          1300.0,
-          '2002-02-18',
+          2600.0,
+          '2002-01-14',
           'Male',
-          '7hcagmClQdfliBaKp2gd0KRyhNT2',
-          '+966572844309',
+          '6xynpIsipjPS3xttmQvIwxSEh5z2',
+          '+966472844309',
           'Computer Science',
 
-          150.00,
+          50.00,
 
         );
         FirebaseFirestore.instance
@@ -52,7 +52,7 @@ class LoginViewBody extends StatelessWidget {
             .doc(model.uid)
             .set(model.toMap()!)
             .then((value) {})
-            .catchError((e) {});*/
+            .catchError((e) {});
         var cubit = LoginCubit.getCubit(context);
         return SafeArea(
             child: Scaffold(

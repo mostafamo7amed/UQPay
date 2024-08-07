@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             asset: AssetsData.transferIcon,
                             onTap: () {
                               PersistentNavBarNavigator.pushNewScreen(context,
-                                  screen: TransferView());
+                                  screen: const TransferView());
                             },
                           ),
                           BasicFunctionsWidget(
@@ -179,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             asset: AssetsData.placeHolderIcon,
                             onTap: () {
                               PersistentNavBarNavigator.pushNewScreen(context,
-                                  screen: const DepositMachines());
+                                  screen:const DepositMachines());
                             },
                           ),
                         ],

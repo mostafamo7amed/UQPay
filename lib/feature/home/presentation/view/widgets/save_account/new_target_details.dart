@@ -1,15 +1,39 @@
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 
+import '../../../manager/cubit/home_cubit.dart';
+
 class NewTargetDetails extends StatelessWidget {
-  const NewTargetDetails({super.key});
+  const NewTargetDetails({
+    super.key,
+    required this.numberOfDays,
+    required this.targetName,
+    required this.numberOfMonths,
+    required this.amount,
+  });
+
+  final int numberOfDays;
+  final String targetName;
+  final int numberOfMonths;
+  final double amount;
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+    if(state is HomeAddTargetSuccessState){
+      Navigator.pop(context);
+      Navigator.pop(context);
+    }
+  },
+  builder: (context, state) {
+    var cubit = HomeCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -59,7 +83,7 @@ class NewTargetDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Target Name',
+                          targetName,
                           style: Styles.textStyle24
                               .copyWith(color: AppColor.yellowColor),
                         ),
@@ -91,7 +115,7 @@ class NewTargetDetails extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              '250',
+                              '$amount',
                               style: Styles.textStyle18
                                   .copyWith(color: AppColor.blackColor),
                             ),
@@ -114,7 +138,7 @@ class NewTargetDetails extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              '10',
+                              '$numberOfMonths',
                               style: Styles.textStyle18
                                   .copyWith(color: AppColor.blackColor),
                             ),
@@ -137,7 +161,7 @@ class NewTargetDetails extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              '28',
+                              '$numberOfDays',
                               style: Styles.textStyle18
                                   .copyWith(color: AppColor.blackColor),
                             ),
@@ -168,7 +192,7 @@ class NewTargetDetails extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              '2500',
+                              "${cubit.targetAmount??''}",
                               style: Styles.textStyle18
                                   .copyWith(color: AppColor.blackColor),
                             ),
@@ -186,8 +210,12 @@ class NewTargetDetails extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                cubit.addNewTarget(amount, numberOfMonths, numberOfDays, targetName);
+
+                                },
                               text: 'Done',
+                              isLoading: state is HomeAddTargetLoadingState,
                               width: (MediaQuery.of(context).size.width) / 4,
                             ),
                           ],
@@ -202,5 +230,7 @@ class NewTargetDetails extends StatelessWidget {
         ),
       ),
     );
+  },
+);
   }
 }
