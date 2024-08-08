@@ -1,3 +1,5 @@
+import 'package:UQPay/core/functions/get_operation_date_now.dart';
+import 'package:UQPay/feature/home/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
@@ -5,7 +7,9 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 
 class ConfirmTransferView extends StatelessWidget {
-  const ConfirmTransferView({super.key});
+  const ConfirmTransferView({super.key,required this.amount, required this.receiverUser});
+  final UserModel receiverUser;
+  final double amount;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +87,7 @@ class ConfirmTransferView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                '1000 SAR',
+                                '$amount SAR',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -96,7 +100,7 @@ class ConfirmTransferView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                'Dana Nahari',
+                                '${receiverUser.name}',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -109,7 +113,7 @@ class ConfirmTransferView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                '25/5/2024',
+                                getOperationDateNow(),
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),

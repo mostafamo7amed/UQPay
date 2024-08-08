@@ -1,4 +1,7 @@
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
@@ -10,73 +13,83 @@ class MyTargetsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColor.primaryColor,
-        appBar: AppBar(
-          backgroundColor: AppColor.primaryColor,
-          titleSpacing: 3,
-          leading: InkWell(
-              onTap: () {
-                PersistentNavBarNavigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back_ios_new,
-                color: AppColor.wihteColor,
-              )),
-          title: Text(
-            'My Targets',
-            style:
-                  Styles.textStyle24.copyWith(
-                color: AppColor.wihteColor, fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.notifications_none_outlined,
-                size: 28,
-                color: AppColor.wihteColor,
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var cubit = HomeCubit.getCubit(context);
+        return SafeArea(
+          child: Scaffold(
+            backgroundColor: AppColor.primaryColor,
+            appBar: AppBar(
+              backgroundColor: AppColor.primaryColor,
+              titleSpacing: 3,
+              leading: InkWell(
+                  onTap: () {
+                    PersistentNavBarNavigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.arrow_back_ios_new,
+                    color: AppColor.wihteColor,
+                  )),
+              title: Text(
+                'My Targets',
+                style: Styles.textStyle24.copyWith(
+                    color: AppColor.wihteColor, fontWeight: FontWeight.bold),
+              ),
+              centerTitle: true,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.notifications_none_outlined,
+                    size: 28,
+                    color: AppColor.wihteColor,
+                  ),
+                ),
+              ],
+            ),
+            body: Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                  color: AppColor.wihteColor,
+                  borderRadius: const BorderRadiusDirectional.only(
+                      topStart: Radius.circular(24),
+                      topEnd: Radius.circular(24)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: cubit.allTargets.isNotEmpty
+                      ? ListView.separated(
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return CustomButton(
+                              color: AppColor.lightgrayColor,
+                              width: 200,
+                              onPressed: () {
+                                PersistentNavBarNavigator.pushNewScreen(context,
+                                    screen: TargetDetailsView(targetModel: cubit.allTargets[index],));
+                              },
+                              text: cubit.allTargets[index].targetName,
+                              textColor: AppColor.blackColor,
+                            );
+                          },
+                          separatorBuilder: (context, index) => const SizedBox(
+                                height: 10,
+                              ),
+                          itemCount: cubit.allTargets.length)
+                      : const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                ),
               ),
             ),
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(top: 30),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              color: AppColor.wihteColor,
-              borderRadius: const BorderRadiusDirectional.only(
-                  topStart: Radius.circular(24), topEnd: Radius.circular(24)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return CustomButton(
-                      color: AppColor.lightgrayColor,
-                      width: 200,
-                      onPressed: () {
-                        PersistentNavBarNavigator.pushNewScreen(context,
-                            screen: const TargetDetailsView());
-                      },
-                      text: 'new labtop',
-                      textColor: AppColor.blackColor,
-                    );
-                  },
-                  separatorBuilder: (context, index) => const SizedBox(
-                        height: 10,
-                      ),
-                  itemCount: 10),
-            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

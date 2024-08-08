@@ -1,3 +1,5 @@
+import 'package:UQPay/core/functions/calculate_target_percent.dart';
+import 'package:UQPay/feature/home/data/models/target_model.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
@@ -7,7 +9,8 @@ import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/save_account/target_graph_view.dart';
 
 class TargetDetailsView extends StatelessWidget {
-  const TargetDetailsView({super.key});
+  const TargetDetailsView({super.key, required this.targetModel});
+  final TargetModel targetModel;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +62,7 @@ class TargetDetailsView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Target Name',
+                          targetModel.targetName!,
                           style: Styles.textStyle24
                               .copyWith(color: AppColor.yellowColor),
                         ),
@@ -91,7 +94,7 @@ class TargetDetailsView extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              '250',
+                              '${targetModel.amountSave}',
                               style: Styles.textStyle18
                                   .copyWith(color: AppColor.blackColor),
                             ),
@@ -114,7 +117,7 @@ class TargetDetailsView extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              '10',
+                              '${targetModel.numOfMonth}',
                               style: Styles.textStyle18
                                   .copyWith(color: AppColor.blackColor),
                             ),
@@ -137,7 +140,7 @@ class TargetDetailsView extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              '28',
+                              '${targetModel.numOfDay}',
                               style: Styles.textStyle18
                                   .copyWith(color: AppColor.blackColor),
                             ),
@@ -168,7 +171,7 @@ class TargetDetailsView extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              '2500',
+                              '${targetModel.targetAmount}',
                               style: Styles.textStyle18
                                   .copyWith(color: AppColor.blackColor),
                             ),
@@ -185,7 +188,8 @@ class TargetDetailsView extends StatelessWidget {
                         CustomButton(
                           onPressed: () {
                             PersistentNavBarNavigator.pushNewScreen(context,
-                                screen: const TargetGraphView());
+                                screen: TargetGraphView( targetModel: targetModel,
+                                  targetPercent: calculateTargetPercent(targetModel.achievedAmount!, targetModel.targetAmount!),));
                           },
                           text: 'View Graph',
                           width: (MediaQuery.of(context).size.width) / 3,

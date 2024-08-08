@@ -29,7 +29,7 @@ class LoginViewBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        UserModel model = UserModel(
+       /* UserModel model = UserModel(
           's441002711@stu.uqu.edu.sa',
           'Ali Emad',
           '441002711',
@@ -52,7 +52,7 @@ class LoginViewBody extends StatelessWidget {
             .doc(model.uid)
             .set(model.toMap()!)
             .then((value) {})
-            .catchError((e) {});
+            .catchError((e) {});*/
         var cubit = LoginCubit.getCubit(context);
         return SafeArea(
             child: Scaffold(

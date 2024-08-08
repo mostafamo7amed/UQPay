@@ -85,7 +85,6 @@ class _DepositMachinesState extends State<DepositMachines> {
     getLocationUpdate();
     return BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
-    // TODO: implement listener
   },
   builder: (context, state) {
     var cubit = HomeCubit.getCubit(context);

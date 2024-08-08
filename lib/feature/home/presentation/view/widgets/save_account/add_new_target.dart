@@ -25,7 +25,6 @@ class AddNewTarget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
-    // TODO: implement listener
   },
   builder: (context, state) {
     var cubit = HomeCubit.getCubit(context);

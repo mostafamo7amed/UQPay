@@ -1,4 +1,5 @@
 import 'package:UQPay/core/widgets/custom_button.dart';
+import 'package:UQPay/feature/home/data/models/target_model.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -10,7 +11,10 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import '../../../../../../core/widgets/seperated_line.dart';
 
 class TargetGraphView extends StatelessWidget {
-  const TargetGraphView({super.key});
+  const TargetGraphView({super.key, required this.targetModel, required this.targetPercent});
+  final TargetModel targetModel;
+  final double targetPercent;
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +66,7 @@ class TargetGraphView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Target Name',
+                          targetModel.targetName!,
                           style: Styles.textStyle24
                               .copyWith(color: AppColor.yellowColor),
                         ),
@@ -90,9 +94,9 @@ class TargetGraphView extends StatelessWidget {
                           lineWidth: 25.0,
                           animation: true,
                           animationDuration: 1000,
-                          percent: 0.7,
+                          percent: targetPercent,
                           center: Text(
-                            '70%',
+                            '${(targetPercent*100).round()}%',
                             style: Styles.textStyle64.copyWith(
                               color: AppColor.primaryColor,
                             ),

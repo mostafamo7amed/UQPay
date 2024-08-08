@@ -4,11 +4,12 @@ class TargetModel{
   int? numOfDay;
   double? amountSave;
   double? targetAmount;
+  double? achievedAmount;
   String? targetName;
   bool? isAchieved;
 
   TargetModel(this.targetId, this.numOfMonth, this.numOfDay, this.amountSave,
-      this.targetAmount, this.targetName,this.isAchieved);
+      this.targetAmount,this.achievedAmount, this.targetName,this.isAchieved);
   TargetModel.fromMap(Map<String,dynamic> map){
     targetAmount = map['targetAmount'];
     numOfDay = map['numOfDay'];
@@ -16,6 +17,7 @@ class TargetModel{
     amountSave = map['amountSave'];
     targetId =map['targetId'];
     targetName = map['targetName'];
+    achievedAmount = map['achievedAmount'];
     isAchieved = map['isAchieved'];
   }
 
@@ -28,6 +30,7 @@ class TargetModel{
       'targetId': targetId,
       'targetName': targetName,
       'isAchieved': isAchieved,
+      'achievedAmount':achievedAmount
     };
   }
 
