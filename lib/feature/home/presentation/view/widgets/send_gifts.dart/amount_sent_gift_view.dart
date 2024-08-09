@@ -1,6 +1,11 @@
+import 'package:UQPay/core/functions/toast.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
+import 'package:UQPay/feature/home/data/models/user_model.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/massege_send_gift_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
@@ -9,18 +14,27 @@ import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defual
 import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/send_gift_review_screen.dart';
 
 class AmountSentGiftView extends StatefulWidget {
-  const AmountSentGiftView({super.key});
+  const AmountSentGiftView({super.key,required this.userModel});
+  final UserModel userModel;
 
   @override
   State<AmountSentGiftView> createState() => _AmountSentGiftViewState();
 }
 
 class _AmountSentGiftViewState extends State<AmountSentGiftView> {
-  var amountControler = TextEditingController();
-  bool anthorAmount = false;
+  var amountController = TextEditingController();
+  bool anotherAmount = false;
+  late double amount;
+
+
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    var cubit = HomeCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -98,7 +112,7 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                                     Row(
                                       children: [
                                         Text(
-                                          'To : Rafal Mousa',
+                                          'To : ${widget.userModel.name}',
                                           style: Styles.regularTextStyle16
                                               .copyWith(
                                                   color: AppColor.wihteColor),
@@ -106,7 +120,7 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                                       ],
                                     ),
                                     Text(
-                                      '0.00 SAR',
+                                      '${cubit.giftAmount} SAR',
                                       style: Styles.textStyle24
                                           .copyWith(color: AppColor.wihteColor),
                                     ),
@@ -120,8 +134,13 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                           children: [
                             AmountContainer(
                               onTap: (){
-                                PersistentNavBarNavigator.pushNewScreen(context,
-                                    screen: const MassegeSendGiftView());
+                                if (100.0 < cubit.userModel!.cardAmount!){
+                                  cubit.changeGiftAmount(100.0);
+                                  PersistentNavBarNavigator.pushNewScreen(context,
+                                      screen: MessageSendGiftView());
+                                }else{
+                                  toast(message: 'You don\'t have this amount', data: ToastStates.error);
+                                }
                               },
                               amount: 100.00,
                             ),
@@ -130,8 +149,13 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                             ),
                             AmountContainer(
                               onTap: (){
-                                PersistentNavBarNavigator.pushNewScreen(context,
-                                    screen: const MassegeSendGiftView());
+                                if (200.0 < cubit.userModel!.cardAmount!){
+                                  cubit.changeGiftAmount(200.0);
+                                  PersistentNavBarNavigator.pushNewScreen(context,
+                                      screen: MessageSendGiftView());
+                                }else{
+                                  toast(message: 'You don\'t have this amount', data: ToastStates.error);
+                                }
                               },
                               amount: 200.00,
                             ),
@@ -144,8 +168,13 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                           children: [
                             AmountContainer(
                               onTap: (){
-                                PersistentNavBarNavigator.pushNewScreen(context,
-                                    screen: const MassegeSendGiftView());
+                                if (500.0 < cubit.userModel!.cardAmount!){
+                                  cubit.changeGiftAmount(500.0);
+                                  PersistentNavBarNavigator.pushNewScreen(context,
+                                      screen: MessageSendGiftView());
+                                }else{
+                                  toast(message: 'You don\'t have this amount', data: ToastStates.error);
+                                }
                               },
                               amount: 500.00,
                             ),
@@ -154,8 +183,14 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                             ),
                             AmountContainer(
                               onTap: (){
-                                PersistentNavBarNavigator.pushNewScreen(context,
-                                    screen: const MassegeSendGiftView());
+                                if (1000.0 < cubit.userModel!.cardAmount!){
+                                  cubit.changeGiftAmount(1000.0);
+                                  PersistentNavBarNavigator.pushNewScreen(context,
+                                      screen: MessageSendGiftView());
+                                }else{
+                                  toast(message: 'You don\'t have this amount', data: ToastStates.error);
+                                }
+
                               },
                               amount: 1000.00,
                             ),
@@ -170,7 +205,7 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                               child: InkWell(
                                 onTap: () {
                                   setState(() {
-                                    anthorAmount = true;
+                                    anotherAmount = true;
                                   });
                                 },
                                 child: Container(
@@ -202,7 +237,7 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                             ),
                           ],
                         ),
-                        if (anthorAmount)
+                        if (anotherAmount)
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -216,8 +251,11 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                               ),
                               defaultFormField(
                                   autoFocus: false,
-                                  controller: amountControler,
-                                  validate: (e) {},
+                                  controller: amountController,
+                                  validate: (e) {
+
+
+                                  },
                                   type: TextInputType.number,
                                   suffixWidget: Text(
                                     'SAR',
@@ -235,8 +273,24 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                           children: [
                             CustomButton(
                               onPressed: () {
-                                PersistentNavBarNavigator.pushNewScreen(context,
-                                    screen: const MassegeSendGiftView());
+                                if(amountController.text.isNotEmpty) {
+                                  amount = double.parse(amountController.text);
+                                  if (amount < cubit.userModel!.cardAmount! &&
+                                      amount > 0) {
+                                    cubit.changeGiftAmount(amount);
+                                    PersistentNavBarNavigator.pushNewScreen(
+                                        context,
+                                        screen: MessageSendGiftView());
+                                  } else {
+                                    toast(
+                                        message: 'You don\'t have this amount',
+                                        data: ToastStates.error);
+                                  }
+                                }else{
+                                  toast(
+                                      message: 'Please enter another amount',
+                                      data: ToastStates.error);
+                                }
                               },
                               text: 'Next',
                               width: (MediaQuery.of(context).size.width) / 3.5,
@@ -253,6 +307,8 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
         ),
       ),
     );
+  },
+);
   }
 }
 

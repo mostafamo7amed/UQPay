@@ -85,8 +85,7 @@ class SaveAccountView extends StatelessWidget {
                 ),
                 CustomButton(
                   onPressed: () {
-                    cubit.getUserTargets(uid);
-                    if(state is HomeGetTargetSuccessState){
+
                        if(cubit.allTargets.isNotEmpty){
                          PersistentNavBarNavigator.pushNewScreen(context,
                              screen: const MyTargetsView());
@@ -94,7 +93,6 @@ class SaveAccountView extends StatelessWidget {
                          toast(message: 'You don\'t have eny targets yet', data:ToastStates.warning);
                        }
 
-                    }
                   },
                   text: 'My Targets',
                   width: (MediaQuery.of(context).size.width - 20) / 2,

@@ -7,6 +7,7 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 
+import '../../../../../../core/utils/common.dart';
 import '../../../manager/cubit/home_cubit.dart';
 
 class NewTargetDetails extends StatelessWidget {
@@ -28,6 +29,7 @@ class NewTargetDetails extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
     if(state is HomeAddTargetSuccessState){
+      HomeCubit.getCubit(context).getUserTargets(uid);
       Navigator.pop(context);
       Navigator.pop(context);
     }

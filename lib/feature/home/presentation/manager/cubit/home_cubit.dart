@@ -53,6 +53,42 @@ class HomeCubit extends Cubit<HomeState> {
       toast(message: e.toString(), data: ToastStates.error);
     });
   }
+  // edit target
+  editTarget(double amount, int numMonth, int day, String name, int targetId ) {
+    emit(HomeEditTargetLoadingState());
+    double newTargetAmount = calculateTarget(amount, numMonth);
+    TargetModel newTargetEdited = TargetModel(
+        targetId, numMonth, day, amount, newTargetAmount, amount, name, false);
+    FirebaseFirestore.instance
+        .collection('Save Accounts')
+        .doc(uid)
+        .collection('Targets')
+        .doc('$targetId')
+        .update(newTargetEdited.toMap()!)
+        .then((value) {
+      emit(HomeAddTargetSuccessState());
+      toast(message: 'Target Edited successfully', data: ToastStates.success);
+    }).catchError((e) {
+      emit(HomeAddTargetErrorState());
+      toast(message: e.toString(), data: ToastStates.error);
+    });
+  }
+  // delete target
+  deleteTarget(int targetId ) {
+    FirebaseFirestore.instance
+        .collection('Save Accounts')
+        .doc(uid)
+        .collection('Targets')
+        .doc('$targetId')
+        .delete()
+        .then((value) {
+      emit(HomeDeleteTargetSuccessState());
+      toast(message: 'Target Deleted successfully', data: ToastStates.success);
+    }).catchError((e) {
+      emit(HomeDeleteTargetErrorState());
+      toast(message: e.toString(), data: ToastStates.error);
+    });
+  }
 
   List<TargetModel> allTargets = [];
   getUserTargets(String uid) {
@@ -91,6 +127,27 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeAllGetUserSuccessState());
     }).catchError((e) {
       emit(HomeAllGetUserErrorState());
+    });
+  }
+
+  // get all students users to make transfer
+  List<UserModel> allStudent = [];
+  getAllStudents() {
+    allStudent = [];
+    FirebaseFirestore.instance
+        .collection('Users')
+        .where('userType',isEqualTo: 'Student')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        UserModel student= UserModel.fromMap(element.data());
+        if(student.uid != uid){
+          allStudent.add(UserModel.fromMap(element.data()));
+        }
+      }
+      emit(HomeGetAllStudentSuccessState());
+    }).catchError((e) {
+      emit(HomeGetAllStudentErrorState());
     });
   }
 
@@ -153,6 +210,24 @@ class HomeCubit extends Cubit<HomeState> {
     })
         .catchError((e) {
           emit(HomeTransferErrorState());
+    });
+  }
+  // get user operations
+  List<Operation> allOperation=[];
+  getUserOperation(){
+    FirebaseFirestore.instance
+        .collection('All Operation')
+        .doc(uid)
+        .collection('Operation')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        allOperation.add(Operation.fromMap(element.data()));
+      }
+      emit(HomeGetUserOperationSuccessState());
+    })
+        .catchError((e) {
+      emit(HomeGetUserOperationErrorState());
     });
   }
 // update user transfer money
@@ -235,4 +310,110 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeGetFastTransferErrorState());
     });
   }
+
+  double giftAmount=0.00;
+  changeGiftAmount(double amount){
+    giftAmount = amount;
+    emit(HomeChangeGiftAmountState());
+  }
+
+  String giftMessage = '';
+  changeGiftMessage(String message){
+    giftMessage = message;
+    emit(HomeChangeGiftMessageState());
+  }
+
+  String giftName ='';
+  changeGiftName(String name){
+    giftName = name;
+    emit(HomeChangeGiftNameState());
+  }
+  sendGift(UserModel user, double amount,String message,String name) {
+    emit(HomeSendGiftLoadingState());
+    var operationId = getRandomNumber();
+    var operationDate = getOperationDateNow();
+    Operation senderOperation = Operation(
+        user.name,
+        userModel!.name,
+        operationId,
+        'You send gift',
+        operationDate,
+        amount,
+        'Send',
+        'Gift');
+    Operation receiverOperation = Operation(
+        user.name,
+        userModel!.name,
+        operationId,
+        'You received gift',
+        operationDate,
+        amount,
+        'Receive',
+        'Gift');
+    FirebaseFirestore.instance
+        .collection('All Operation')
+        .doc(uid)
+        .collection('Operation')
+        .doc('$operationId')
+        .set(senderOperation.toMap()!)
+        .then((value) {
+      emit(HomeSendGiftSuccessState());
+      updateUserMoney(userModel!, amount, 'send');
+    })
+        .catchError((e) {
+      emit(HomeSendGiftErrorState());
+    });
+    FirebaseFirestore.instance
+        .collection('All Operation')
+        .doc(user.uid)
+        .collection('Operation')
+        .doc('$operationId')
+        .set(receiverOperation.toMap()!)
+        .then((value) {
+      emit(HomeSendGiftSuccessState());
+      updateUserMoney(user, amount, 'receive');
+    })
+        .catchError((e) {
+      emit(HomeSendGiftErrorState());
+    });
+  }
+  // get all gifts
+  bool isReceivedGift = false;
+  bool isSendGift = false;
+  List<Operation> allReceivedGifts =[];
+  List<Operation> allSendGifts =[];
+  getAllGifts(){
+    emit(HomeGetGiftLoadingState());
+    allReceivedGifts =[];
+    allSendGifts =[];
+    FirebaseFirestore.instance
+        .collection('All Operation')
+        .doc(uid)
+        .collection('Operation')
+        .where('serviceType',isEqualTo: 'Gift')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        Operation operation  = Operation.fromMap(element.data());
+        if(operation.type == 'Receive'){
+          isReceivedGift = true;
+          allReceivedGifts.add(Operation.fromMap(element.data()));
+        }
+        if(operation.type == 'Send'){
+          isSendGift = true;
+          allSendGifts.add(Operation.fromMap(element.data()));
+        }
+
+      }
+      emit(HomeGetGiftSuccessState());
+    })
+        .catchError((e) {
+      emit(HomeGetGiftErrorState());
+    });
+  }
+
+
+
+
+
 }

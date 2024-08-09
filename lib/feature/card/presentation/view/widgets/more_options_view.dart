@@ -6,9 +6,18 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../../core/utils/app_manager/app_color.dart';
 import '../../../../../core/utils/app_manager/app_styles.dart';
 
-class MoreOptionsView extends StatelessWidget {
+class MoreOptionsView extends StatefulWidget {
   const MoreOptionsView({super.key,required this.userModel});
   final UserModel userModel;
+
+
+  @override
+  State<MoreOptionsView> createState() => _MoreOptionsViewState();
+}
+
+class _MoreOptionsViewState extends State<MoreOptionsView> {
+  bool stopCard =false;
+  bool stopPayment = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -94,7 +103,12 @@ class MoreOptionsView extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   const Spacer(),
-                                  Switch(value: false, onChanged: (value) {}),
+                                  Switch(value: stopCard,
+                                      onChanged: (value) {
+                                    setState(() {
+                                      stopCard = !stopCard;
+                                    });
+                                  }),
                                 ],
                               ),
                               const SizedBox(
@@ -102,7 +116,7 @@ class MoreOptionsView extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: (){
-                                  PersistentNavBarNavigator.pushNewScreen(context, screen: ViewCardInfo(userModel: userModel,));
+                                  PersistentNavBarNavigator.pushNewScreen(context, screen: ViewCardInfo(userModel: widget.userModel,));
                                 },
                                 child: Row(
                                   children: [
@@ -145,9 +159,12 @@ class MoreOptionsView extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   Switch(
-                                    value: false,
-                                    onChanged: (value) {},
-                                    activeColor: AppColor.grayColor,
+                                    value: stopPayment,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        stopPayment =!stopPayment;
+                                      });
+                                    },
                                   ),
                                 ],
                               ),

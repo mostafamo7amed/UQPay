@@ -1,4 +1,9 @@
+import 'package:UQPay/core/functions/get_operation_date_now.dart';
+import 'package:UQPay/feature/home/data/models/operation.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../core/utils/app_manager/app_assets.dart';
@@ -13,6 +18,11 @@ class LatestOperationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    var cubit = HomeCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -62,7 +72,7 @@ class LatestOperationView extends StatelessWidget {
                           children: [
                             const Spacer(),
                             Text(
-                              '25/4/2024',
+                              getOperationDateNow(),
                               style: Styles.regularTextStyle14
                                   .copyWith(color: AppColor.primaryColor),
                             ),
@@ -71,84 +81,19 @@ class LatestOperationView extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
+                        cubit.allOperation.isNotEmpty?
                         ListView.separated(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemBuilder: (context, index) => Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(15)),
-                                    color: AppColor.lightgrayColor,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Row(
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Fitness Gym',
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              style: Styles.regularTextStyle16
-                                                  .copyWith(
-                                                      color:
-                                                          AppColor.blackColor),
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              '25/4/2024',
-                                              style: Styles.regularTextStyle14
-                                                  .copyWith(
-                                                      color: AppColor
-                                                          .primaryColor),
-                                            ),
-                                          ],
-                                        ),
-                                        const Spacer(),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              '200 SAR',
-                                              style: Styles.regularTextStyle16
-                                                  .copyWith(
-                                                      color: AppColor
-                                                          .primaryColor),
-                                            ),
-                                            Text(
-                                              '460 SAR',
-                                              style: Styles.regularTextStyle14
-                                                  .copyWith(
-                                                      color: AppColor
-                                                          .primaryColor),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Stack(
-                                          alignment: Alignment.center,
-                                          children: [
-                                            Image.asset(
-                                                AssetsData.containerTransfer),
-                                            Image.asset(AssetsData.outTransfer),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                            itemBuilder: (context, index) => OperationItem(userModel: userModel,
+                              operation: cubit.allOperation[index],
                                 ),
                             separatorBuilder: (context, index) =>
                                 const SizedBox(
                                   height: 5,
                                 ),
-                            itemCount: 10),
+                            itemCount: cubit.allOperation.length):
+                        const Center(child: Text('There is no operation yet',style: Styles.textStyle18,),),
                       ],
                     ),
                   ),
@@ -159,5 +104,93 @@ class LatestOperationView extends StatelessWidget {
         ),
       ),
     );
+  },
+);
+  }
+}
+
+class OperationItem extends StatelessWidget {
+  const OperationItem({
+    super.key,
+    required this.operation,
+    required this.userModel,
+  });
+
+  final Operation operation;
+  final UserModel userModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(
+                Radius.circular(15)),
+            color: AppColor.lightgrayColor,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              children: [
+                Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      operation.operationName!,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: Styles.regularTextStyle16
+                          .copyWith(
+                              color:
+                                  AppColor.blackColor),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      operation.date!,
+                      style: Styles.regularTextStyle14
+                          .copyWith(
+                              color: AppColor
+                                  .primaryColor),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                Column(
+                  children: [
+                    Text(
+                      '${operation.operationAmount} SAR',
+                      style: Styles.regularTextStyle16
+                          .copyWith(
+                              color: AppColor
+                                  .primaryColor),
+                    ),
+                    Text(
+                      '${(userModel.cardAmount!)-(operation.operationAmount!)} SAR',
+                      style: Styles.regularTextStyle14
+                          .copyWith(
+                              color: AppColor
+                                  .primaryColor),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(
+                        AssetsData.containerTransfer),
+                    Image.asset(operation.type=="Receive"
+                        ?AssetsData.inTransfer: AssetsData.outTransfer),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
   }
 }

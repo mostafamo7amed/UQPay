@@ -10,6 +10,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../core/utils/app_manager/app_assets.dart';
 import '../../../../../core/utils/app_manager/app_styles.dart';
+import '../../../../../core/utils/common.dart';
 import '../../../../card/presentation/view/widgets/card_info_widget.dart';
 import '../../../../card/presentation/view/widgets/view_card_info.dart';
 import 'deposit_machines.dart';
@@ -47,7 +48,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ))
         .toList();
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if( state is HomeGetUserSuccessState){
+          HomeCubit.getCubit(context).getUserTargets(uid);
+          HomeCubit.getCubit(context).getAllUsers();
+          HomeCubit.getCubit(context).getFastTransferUsers();
+          HomeCubit.getCubit(context).getUserOperation();
+          HomeCubit.getCubit(context).getAllGifts();
+          HomeCubit.getCubit(context).getAllStudents();
+        }
+      },
       builder: (context, state) {
         var cubit = HomeCubit.getCubit(context);
         return SafeArea(

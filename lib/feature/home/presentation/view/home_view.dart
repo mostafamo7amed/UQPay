@@ -11,7 +11,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getUser(uid)..getAllUsers()..getFastTransferUsers(),
+      create: (context) => HomeCubit()..getUser(uid),
         child: const HomeViewBody()
     );
   }

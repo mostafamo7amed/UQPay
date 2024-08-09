@@ -82,7 +82,7 @@ class MyTargetsView extends StatelessWidget {
                               ),
                           itemCount: cubit.allTargets.length)
                       : const Center(
-                          child: CircularProgressIndicator(),
+                          child: Text('There is no Target yet',style: Styles.textStyle18,),
                         ),
                 ),
               ),

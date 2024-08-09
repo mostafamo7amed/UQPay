@@ -144,7 +144,7 @@ class ViewCardInfo extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: CardInformationWidget(userModel: userModel,),
+                          child: CardInformationWidget(userModel: userModel,showCardNumber: true,),
                         ),
                       ],
                     ),

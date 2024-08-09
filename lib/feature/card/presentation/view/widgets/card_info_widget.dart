@@ -9,8 +9,10 @@ class CardInformationWidget extends StatelessWidget {
   const CardInformationWidget({
     super.key,
     required this.userModel,
+    this.showCardNumber = false,
   });
   final UserModel userModel;
+  final bool? showCardNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class CardInformationWidget extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
+                showCardNumber==false?
                 Row(
                   children: [
                     Text(
@@ -60,6 +63,14 @@ class CardInformationWidget extends StatelessWidget {
                       width: 10,
                     ),
                     Image.asset(AssetsData.leadingAccount,),
+                  ],
+                ): Row(
+                  children: [
+                    Text(
+                      '${userModel.cardNumber!.substring(0,4)} ${userModel.cardNumber!.substring(4,8)} ${userModel.cardNumber!.substring(8,12)}  ${userModel.cardNumber!.substring(12,16)}',
+                      style: Styles.regularTextStyle16
+                          .copyWith(color: AppColor.wihteColor),
+                    ),
                   ],
                 ),
                 Text(

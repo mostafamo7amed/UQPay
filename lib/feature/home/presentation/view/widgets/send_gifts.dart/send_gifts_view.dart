@@ -60,7 +60,6 @@ class _SendGiftsViewState extends State<SendGiftsView> {
                         onTap: (value) {
                           setState(() {
                             currentTab = value;
-                            print('current Tab ====== $currentTab');
                           });
                         },
                         indicator: BoxDecoration(

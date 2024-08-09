@@ -1,4 +1,8 @@
+import 'package:UQPay/core/functions/toast.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
@@ -9,6 +13,15 @@ class SendGiftReviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+    if(state is HomeSendGiftSuccessState){
+      toast(message: 'Gift send successfully', data: ToastStates.success);
+      HomeCubit.getCubit(context).getAllGifts();
+    }
+  },
+  builder: (context, state) {
+    var cubit =HomeCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -114,7 +127,7 @@ class SendGiftReviewScreen extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                '1000 SAR',
+                                '${cubit.giftAmount} SAR',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -127,7 +140,7 @@ class SendGiftReviewScreen extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                'I want to express my thanks for helping me today at the shop.',
+                                cubit.giftMessage,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -140,7 +153,7 @@ class SendGiftReviewScreen extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                'Your friend',
+                                cubit.giftName,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -189,7 +202,7 @@ class SendGiftReviewScreen extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                'Rafal Mousa',
+                                '${cubit.selectedTransferUser!.name}',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -197,7 +210,7 @@ class SendGiftReviewScreen extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                '8836  7325  2625  1125',
+                                '${cubit.selectedTransferUser!.cardNumber}',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.primaryColor),
                               ),
@@ -208,8 +221,15 @@ class SendGiftReviewScreen extends StatelessWidget {
                           height: 20,
                         ),
                         CustomButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            cubit.sendGift(
+                                cubit.selectedTransferUser!,
+                                cubit.giftAmount,
+                                cubit.giftMessage,
+                                cubit.giftName);
+                          },
                           text: 'Confirm',
+                          isLoading: state is HomeSendGiftLoadingState,
                           width: MediaQuery.of(context).size.width / 3,
                         ),
                       ],
@@ -222,5 +242,7 @@ class SendGiftReviewScreen extends StatelessWidget {
         ),
       ),
     );
+  },
+);
   }
 }

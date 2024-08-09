@@ -1,7 +1,11 @@
+import 'package:UQPay/core/functions/toast.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/amount_sent_gift_view.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
@@ -25,6 +29,11 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    var cubit = HomeCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -86,7 +95,7 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        defaultFormField(
+                        /*defaultFormField(
                             autoFocus: false,
                             controller: TextEditingController(),
                             validate: (e) {},
@@ -98,13 +107,14 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                             context: context),
                         const SizedBox(
                           height: 20,
-                        ),
+                        ),*/
+                        cubit.userModel!.userType =='Student'?
                         Container(
-                          height: 70,
+                          height: 75,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(24)),
+                            const BorderRadius.all(Radius.circular(24)),
                             color: AppColor.lightgrayColor,
                           ),
                           child: Row(
@@ -115,8 +125,8 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                               ),
                               Expanded(
                                 child: DropdownButton(
+                                    underline: const SizedBox(),
                                     isExpanded: true,
-                                    padding: EdgeInsets.all(8),
                                     alignment: Alignment.centerLeft,
                                     icon: const Icon(
                                       Icons.keyboard_arrow_down_sharp,
@@ -124,17 +134,74 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                                     ),
                                     hint: const Text(
                                       'Select Account',
+                                      textAlign: TextAlign.start,
                                       style: Styles.textStyle18,
                                     ),
-                                    value: selectedName,
-                                    items: accounts.map((name) {
+                                    value: cubit.selectedTransferUser,
+                                    items: cubit.allStudent.map((user) {
                                       return DropdownMenuItem(
-                                          value: name, child: Text(name));
+                                          value: user,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text('${user.name}'),
+                                              Text('${user.cardNumber}'),
+                                            ],
+                                          ));
                                     }).toList(),
                                     onChanged: (value) {
-                                      setState(() {
-                                        selectedName = value;
-                                      });
+                                      cubit.changeSelectedTransferUser(value!);
+                                    }),
+                              ),
+                            ],
+                          ),
+                        ) :
+                        Container(
+                          height: 75,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(24)),
+                            color: AppColor.lightgrayColor,
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                AssetsData.personRounded,
+                                height: 56,
+                              ),
+                              Expanded(
+                                child: DropdownButton(
+                                    underline: const SizedBox(),
+                                    isExpanded: true,
+                                    alignment: Alignment.centerLeft,
+                                    icon: const Icon(
+                                      Icons.keyboard_arrow_down_sharp,
+                                      size: 35,
+                                    ),
+                                    hint: const Text(
+                                      'Select Account',
+                                      textAlign: TextAlign.start,
+                                      style: Styles.textStyle18,
+                                    ),
+                                    value: cubit.selectedTransferUser,
+                                    items: cubit.allUsers.map((user) {
+                                      return DropdownMenuItem(
+                                          value: user,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text('${user.name}'),
+                                              Text('${user.cardNumber}'),
+                                            ],
+                                          ));
+                                    }).toList(),
+                                    onChanged: (value) {
+                                      cubit.changeSelectedTransferUser(value!);
                                     }),
                               ),
                             ],
@@ -148,8 +215,13 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                           children: [
                             CustomButton(
                               onPressed: () {
-                                PersistentNavBarNavigator.pushNewScreen(context,
-                                    screen: const AmountSentGiftView());
+                                if(cubit.selectedTransferUser !=null){
+                                  PersistentNavBarNavigator.pushNewScreen(context,
+                                      screen: AmountSentGiftView( userModel: cubit.selectedTransferUser!,));
+                                }else{
+                                  toast(message: 'Select account to send gift', data: ToastStates.error);
+                                }
+
                               },
                               text: 'Next',
                               width: (MediaQuery.of(context).size.width) / 3.5,
@@ -166,5 +238,7 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
         ),
       ),
     );
+  },
+);
   }
 }

@@ -1,4 +1,8 @@
+import 'package:UQPay/feature/home/data/models/operation.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
@@ -10,10 +14,17 @@ class GiftListView extends StatelessWidget {
    GiftListView({
     super.key,
     required this.isSend,
+     required this.gifts
   });
   bool isSend = true;
+  List<Operation> gifts;
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    var cubit = HomeCubit.getCubit(context);
     return Column(
       children: [
         isSend?Padding(
@@ -28,61 +39,78 @@ class GiftListView extends StatelessWidget {
         ):const SizedBox(),
         Expanded(
           child: ListView.separated(
-              itemBuilder: (context, index) => Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        width: MediaQuery.of(context).size.width,
-                        child: Image.asset(
-                          AssetsData.backgroundVisa,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Mohammad Jassas',
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: Styles.textStyle24
-                                      .copyWith(color: AppColor.wihteColor),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              '469.52 SAR',
-                              style: Styles.textStyle20
-                                  .copyWith(color: AppColor.wihteColor),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              '26-4-2024',
-                              style: Styles.textStyle20
-                                  .copyWith(color: AppColor.wihteColor),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+              itemBuilder: (context, index) => GiftItem(giftOperation: gifts[index], isSend: isSend,),
               separatorBuilder: (context, index) => const SizedBox(
                     height: 10,
                   ),
-              itemCount: 4),
+              itemCount: gifts.length),
         ),
       ],
     );
+  },
+);
+  }
+}
+
+class GiftItem extends StatelessWidget {
+  const GiftItem({
+    super.key,
+    required this.giftOperation,
+    required this.isSend,
+  });
+  final Operation giftOperation;
+  final bool isSend;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset(
+                AssetsData.backgroundVisa,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 25, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        '${isSend?'To:':'From:'} ${isSend?giftOperation.receiverName:giftOperation.senderName}',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: Styles.textStyle24
+                            .copyWith(color: AppColor.wihteColor),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '${giftOperation.operationAmount} SAR',
+                    style: Styles.textStyle20
+                        .copyWith(color: AppColor.wihteColor),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '${giftOperation.date}',
+                    style: Styles.textStyle20
+                        .copyWith(color: AppColor.wihteColor),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
   }
 }

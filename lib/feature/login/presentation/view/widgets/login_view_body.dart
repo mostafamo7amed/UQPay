@@ -30,21 +30,20 @@ class LoginViewBody extends StatelessWidget {
       },
       builder: (context, state) {
        /* UserModel model = UserModel(
-          's441002711@stu.uqu.edu.sa',
-          'Ali Emad',
-          '441002711',
+          's441002625@uqu.edu.sa',
+          'Omer Mohamed',
+          '441002625',
           '',
           '',
-          '12345678910234',
+          '1234567891066234',
           'Student',
-          2600.0,
-          '2002-01-14',
+          900.0,
+          '2005-01-14',
           'Male',
-          '6xynpIsipjPS3xttmQvIwxSEh5z2',
+          'wlSdLox28AXu6GecAh78y7V1IGb2',
           '+966472844309',
           'Computer Science',
-
-          50.00,
+          0.00,
 
         );
         FirebaseFirestore.instance

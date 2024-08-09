@@ -163,7 +163,7 @@ class TransferView extends StatelessWidget {
                               Expanded(
                                 child: DropdownButton(
                                     isExpanded: true,
-                                    alignment: Alignment.center,
+                                    alignment: Alignment.centerLeft,
                                     icon: const Icon(
                                       Icons.keyboard_arrow_down_sharp,
                                       size: 35,
