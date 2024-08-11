@@ -1,6 +1,9 @@
 import 'package:UQPay/feature/card/presentation/view/widgets/view_card_info.dart';
 import 'package:UQPay/feature/home/data/models/user_model.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../core/utils/app_manager/app_color.dart';
@@ -20,6 +23,11 @@ class _MoreOptionsViewState extends State<MoreOptionsView> {
   bool stopPayment = false;
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    var cubit = HomeCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -175,7 +183,7 @@ class _MoreOptionsViewState extends State<MoreOptionsView> {
                           height: 10,
                         ),
                         Text(
-                          'Safety',
+                          'Recharge',
                           style: Styles.textStyle20
                               .copyWith(color: AppColor.blackColor),
                         ),
@@ -194,24 +202,29 @@ class _MoreOptionsViewState extends State<MoreOptionsView> {
                               Radius.circular(16),
                             ),
                           ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.security,
-                                size: 35,
-                                color: AppColor.yellowColor,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Security settings',
-                                style: Styles.regularTextStyle14
-                                    .copyWith(color: AppColor.blackColor),
-                              ),
-                              const Spacer(),
-                              const Icon(Icons.arrow_forward_ios),
-                            ],
+                          child: InkWell(
+                            onTap: (){
+                              cubit.rechargeCard();
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.attach_money,
+                                  size: 35,
+                                  color: AppColor.yellowColor,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Recharge card',
+                                  style: Styles.regularTextStyle14
+                                      .copyWith(color: AppColor.blackColor),
+                                ),
+                                const Spacer(),
+                                const Icon(Icons.arrow_forward_ios),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -224,5 +237,7 @@ class _MoreOptionsViewState extends State<MoreOptionsView> {
         ),
       ),
     );
+  },
+);
   }
 }

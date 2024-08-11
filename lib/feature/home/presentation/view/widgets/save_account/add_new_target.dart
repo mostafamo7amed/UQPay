@@ -127,9 +127,11 @@ class AddNewTarget extends StatelessWidget {
                               controller: moneyController,
                               label: ' Monthly savings amount ',
                               validate: (value) {
-                                if (moneyController.text.isEmpty ||
-                                    int.parse(moneyController.text) <= 0) {
+                                if (moneyController.text.isEmpty) {
                                   return 'Amount can not be empty';
+                                }else if(int.parse(moneyController.text) <= 0 ||
+                                    cubit.userModel!.cardAmount! <= int.parse(moneyController.text)){
+                                  return 'Invalid Amount';
                                 }
                                 return null;
                               },
@@ -173,7 +175,7 @@ class AddNewTarget extends StatelessWidget {
                                     ));
                               }
                             },
-                            text: 'Add',
+                            text: 'Continue',
                             width: (MediaQuery.of(context).size.width) / 4,
                           ),
                         ],

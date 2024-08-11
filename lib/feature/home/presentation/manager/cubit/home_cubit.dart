@@ -1,8 +1,11 @@
+import 'package:UQPay/core/functions/Notification_helper.dart';
 import 'package:UQPay/core/functions/get_operation_date_now.dart';
 import 'package:UQPay/core/functions/get_random_number.dart';
+import 'package:UQPay/feature/home/data/models/notification.dart';
 import 'package:UQPay/feature/home/data/models/operation.dart';
 import 'package:UQPay/feature/home/data/models/target_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/functions/toast.dart';
 import '../../../../../core/utils/common.dart';
@@ -26,6 +29,41 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeGetUserErrorState());
     });
   }
+// use the returned token to send messages to users from your custom server
+  String? token;
+  getUserNotificationToken() async{
+    token =  await FirebaseMessaging.instance.getToken();
+    print(token);
+    updateUserNotificationToken(userModel!, token!);
+  }
+  updateUserNotificationToken(UserModel user, String token) {
+    UserModel userModel = UserModel(
+        user.email,
+        user.name,
+        user.id,
+        user.image,
+        token,
+        user.cardNumber,
+        user.userType,
+        user.cardAmount,
+        user.birthDate,
+        user.gender,
+        user.uid,
+        user.mobileNumber,
+        user.department,
+        user.cashBacks);
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user.uid)
+        .update(userModel.toMap()!)
+        .then((value) {
+      emit(HomeUpdateTokenSuccessState());
+    })
+        .catchError((e) {
+      emit(HomeUpdateTokenErrorState());
+    });
+  }
+
 
   // save account methods
   double targetAmount = 0;
@@ -207,9 +245,56 @@ class HomeCubit extends Cubit<HomeState> {
         .then((value) {
       emit(HomeTransferSuccessState());
       updateUserMoney(user, amount, 'receive');
+      if(user.deviceToken != ''){
+        NotificationsHelper().sendNotifications(
+            fcmToken: user.deviceToken!,
+            title: 'You received money',
+            body: 'check it now',
+            type: 'Transfer',
+            );
+        print('===========================notification send=============================');
+      }
+      sendNotificationDB(user, 'You received money', 'check it now', 'Transfer');
     })
         .catchError((e) {
           emit(HomeTransferErrorState());
+    });
+  }
+  // notification
+  sendNotificationDB(UserModel user, String title,String message, String type){
+    int notifyId = getRandomNumber();
+    String date = getOperationDateNow();
+    NotificationModel notificationModel = NotificationModel(
+        notifyId, title, message, date, type);
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(user.uid)
+        .collection('User notification')
+        .doc('${notificationModel.notifyId}')
+        .set(notificationModel.toMap()!)
+        .then((value) {
+      emit(HomeSendNotificationSuccessState());
+    })
+        .catchError((e) {
+      emit(HomeSendNotificationErrorState());
+    });
+  }
+  List<NotificationModel> allNotification=[];
+  getNotificationDB(){
+    allNotification =[];
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(uid)
+        .collection('User notification')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+          allNotification.add(NotificationModel.fromMap(element.data()));
+        }
+      emit(HomeGetNotificationSuccessState());
+    })
+        .catchError((e) {
+      emit(HomeGetNotificationErrorState());
     });
   }
   // get user operations
@@ -372,6 +457,16 @@ class HomeCubit extends Cubit<HomeState> {
         .then((value) {
       emit(HomeSendGiftSuccessState());
       updateUserMoney(user, amount, 'receive');
+      if(user.deviceToken != ''){
+        NotificationsHelper().sendNotifications(
+          fcmToken: user.deviceToken!,
+          title: 'You received money',
+          body: 'check it now',
+          type: 'Gift',
+        );
+        print('===========================notification send=============================');
+      }
+      sendNotificationDB(user, 'You received money', 'check it now', 'Gift');
     })
         .catchError((e) {
       emit(HomeSendGiftErrorState());
@@ -412,8 +507,26 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
+  List<UserModel> admin = [];
+  void getAdmin() {
+    admin = [];
+    FirebaseFirestore.instance.collection('Admins').get().then((value) {
+      for(var ad in value.docs){
+        admin.add(UserModel.fromMap(ad.data()));
+      }
+      emit(GetAdminSuccessState());
+    }).catchError((e) {
+      emit(GetAdminErrorState());
+    });
+  }
 
-
-
-
+ rechargeCard(){
+     NotificationsHelper().sendNotifications(
+       fcmToken: admin.first.deviceToken!,
+       title: 'Recharge my card ${userModel!.name!}',
+       body: userModel!.cardNumber!,
+       type: 'Recharge',
+     );
+   sendNotificationDB(admin.first, 'Recharge my card ${userModel!.name!}',userModel!.cardNumber!, 'Recharge');
+ }
 }

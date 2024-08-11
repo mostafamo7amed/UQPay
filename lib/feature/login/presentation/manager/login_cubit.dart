@@ -1,5 +1,7 @@
+import 'package:UQPay/core/cache_helper/cache_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +19,8 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   static LoginCubit getCubit(context) => BlocProvider.of(context);
+
+
 
   Future getLocationPermission() async {
 
@@ -40,6 +44,27 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
+  getNotificationPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
 
   bool obscure = true;
   Icon eyeIcon = Icon(
@@ -71,7 +96,10 @@ class LoginCubit extends Cubit<LoginState> {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
+          CacheHelper.saveData(key: 'email', data: email);
+          CacheHelper.saveData(key: 'password', data: password);
       emit(LoginSuccessState(value.user!.uid));
+
     }).catchError((error) {
       emit(LoginErrorState());
       toast(message: error.toString(), data: ToastStates.error);
@@ -79,7 +107,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   findUser(String UID,context){
-    FirebaseFirestore.instance.collection('Admin').where('uid',isEqualTo: UID).get().then((value) {
+    FirebaseFirestore.instance.collection('Admins').where('uid',isEqualTo: UID).get().then((value) {
       print(value.docs.toString());
       if(value.docs.isNotEmpty){
         GoRouter.of(context)

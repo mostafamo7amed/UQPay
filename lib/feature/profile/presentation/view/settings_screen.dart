@@ -13,7 +13,9 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
 import 'package:UQPay/feature/profile/presentation/view/widgets/profile_info_view.dart';
 
+import '../../../../core/cache_helper/cache_helper.dart';
 import '../../../../core/utils/common.dart';
+import '../../../../core/widgets/change_password.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -159,19 +161,26 @@ class SettingsScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 5, right: 15, left: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Passcode',
-                                          style: Styles.textStyle20.copyWith(
-                                              color: AppColor.blackColor),
-                                        ),
-                                        const Spacer(),
-                                        const Icon(Icons.arrow_forward_ios),
-                                      ],
+                                  InkWell(
+                                    onTap :(){
+                                      PersistentNavBarNavigator.pushNewScreen(
+                                          context,
+                                          screen: ChangePasswordScreen());
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5, right: 15, left: 15),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Change password',
+                                            style: Styles.textStyle20.copyWith(
+                                                color: AppColor.blackColor),
+                                          ),
+                                          const Spacer(),
+                                          const Icon(Icons.arrow_forward_ios),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   Padding(
@@ -283,6 +292,8 @@ class SettingsScreen extends StatelessWidget {
                                     onTap: () {
                                       FirebaseAuth.instance.signOut();
                                       uid = '';
+                                      CacheHelper.removeData(key: 'email');
+                                      CacheHelper.removeData(key: 'password');
                                       GoRouter.of(context)
                                           .pushReplacement(Routes.loginRoute);
                                     },

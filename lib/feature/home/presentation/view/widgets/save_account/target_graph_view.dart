@@ -1,3 +1,4 @@
+import 'package:UQPay/core/functions/toast.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/feature/home/data/models/target_model.dart';
 import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
@@ -29,11 +30,11 @@ class TargetGraphView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        if(state is HomeEditTargetSuccessState || state is HomeDeleteTargetSuccessState ){
+        if (state is HomeEditTargetSuccessState ||
+            state is HomeDeleteTargetSuccessState) {
           HomeCubit.getCubit(context).getUserTargets(uid);
           Navigator.pop(context);
           Navigator.pop(context);
-
         }
       },
       builder: (context, state) {
@@ -134,6 +135,18 @@ class TargetGraphView extends StatelessWidget {
                                 children: [
                                   CustomButton(
                                     onPressed: () {
+                                      toast(message: 'Target Archived', data: ToastStates.success);
+                                      Navigator.pop(context);
+                                    },
+                                    text: 'Add',
+                                    isLoading: state is HomeAddTargetLoadingState,
+                                    width: (MediaQuery.of(context).size.width) / 4,
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  CustomButton(
+                                    onPressed: () {
                                       showDialog(
                                         context: context,
                                         builder: (context) {
@@ -185,29 +198,19 @@ class TargetGraphView extends StatelessWidget {
                                                   ),
                                                   defaultFormField(
                                                       autoFocus: false,
-                                                      controller:
-                                                          amountController,
+                                                      controller: amountController,
                                                       validate: (e) {
-                                                        if (amountController
-                                                                .text.isEmpty ||
-                                                            int.parse(
-                                                                    amountController
-                                                                        .text) <=
-                                                                0) {
+                                                        if (amountController.text.isEmpty ||
+                                                            int.parse(amountController.text) <=0) {
                                                           return 'Amount can not be empty';
                                                         }
                                                         return null;
                                                       },
-                                                      type:
-                                                          TextInputType.number,
+                                                      type: TextInputType.number,
                                                       label: 'Enter amount',
                                                       suffixWidget: Text(
                                                         'SAR',
-                                                        style: Styles
-                                                            .semiBoldTextStyle14
-                                                            .copyWith(
-                                                                color: AppColor
-                                                                    .grayColor),
+                                                        style: Styles.semiBoldTextStyle14.copyWith(color: AppColor.grayColor),
                                                       ),
                                                       context: context),
                                                   const SizedBox(
@@ -215,23 +218,16 @@ class TargetGraphView extends StatelessWidget {
                                                   ),
                                                   defaultFormField(
                                                       autoFocus: false,
-                                                      controller:
-                                                          monthController,
+                                                      controller: monthController,
                                                       validate: (e) {
-                                                        if (monthController
-                                                                .text.isEmpty ||
-                                                            int.parse(
-                                                                    monthController
-                                                                        .text) <=
-                                                                0) {
+                                                        if (monthController.text.isEmpty ||
+                                                            int.parse(monthController.text) <= 0) {
                                                           return 'Timeframe can not be empty';
                                                         }
                                                         return null;
                                                       },
-                                                      type:
-                                                          TextInputType.number,
-                                                      label:
-                                                          'Enter number of months',
+                                                      type: TextInputType.number,
+                                                      label: 'Enter number of months',
                                                       suffixWidget: Text(
                                                         'Month',
                                                         style: Styles
@@ -247,31 +243,16 @@ class TargetGraphView extends StatelessWidget {
                                                   Center(
                                                     child: CustomButton(
                                                       onPressed: () {
-                                                        if (formKey
-                                                            .currentState!
-                                                            .validate()) {
-                                                          cubit.editTarget(
-                                                              double.parse(
-                                                                  amountController
-                                                                      .text),
-                                                              int.parse(
-                                                                  monthController
-                                                                      .text),
-                                                              targetModel
-                                                                  .numOfDay!,
-                                                              nameCtController
-                                                                  .text,
-                                                              targetModel
-                                                                  .targetId!);
-                                                          Navigator.pop(
-                                                              context);
+                                                        if (amountController.text.isNotEmpty && monthController.text.isNotEmpty && nameCtController.text.isNotEmpty) {
+                                                          cubit.editTarget(double.parse(amountController.text),
+                                                              int.parse(monthController.text), targetModel.numOfDay!, nameCtController.text, targetModel.targetId!);
+                                                          Navigator.pop(context);
+                                                        }else{
+                                                          toast(message: 'Invalid target information!', data: ToastStates.error);
                                                         }
                                                       },
                                                       width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              4,
+                                                          MediaQuery.of(context).size.width / 4,
                                                       text: 'Save',
                                                     ),
                                                   ),
@@ -315,7 +296,8 @@ class TargetGraphView extends StatelessWidget {
                                                   const Center(
                                                     child: Text(
                                                       "Are you sure you want \ndelete target ?!",
-                                                      textAlign: TextAlign.center,
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: Styles.textStyle20,
                                                     ),
                                                   ),
@@ -329,16 +311,10 @@ class TargetGraphView extends StatelessWidget {
                                                   Center(
                                                     child: CustomButton(
                                                       onPressed: () {
-                                                        cubit.deleteTarget(
-                                                            targetModel
-                                                                .targetId!);
+                                                        cubit.deleteTarget(targetModel.targetId!);
                                                         Navigator.pop(context);
                                                       },
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              4,
+                                                      width: MediaQuery.of(context).size.width / 4,
                                                       color: AppColor.redColor,
                                                       text: 'delete',
                                                     ),
@@ -351,8 +327,7 @@ class TargetGraphView extends StatelessWidget {
                                       );
                                     },
                                     text: 'Delete',
-                                    width:
-                                        (MediaQuery.of(context).size.width) / 4,
+                                    width: (MediaQuery.of(context).size.width) / 4,
                                     color: AppColor.redColor,
                                   ),
                                 ],

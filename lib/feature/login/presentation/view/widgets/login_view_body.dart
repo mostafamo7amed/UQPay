@@ -1,4 +1,5 @@
 import 'package:UQPay/core/utils/app_manager/app_routes.dart';
+import 'package:UQPay/feature/admin/data/admin_model.dart';
 import 'package:UQPay/feature/home/data/models/user_model.dart';
 import 'package:UQPay/feature/login/presentation/manager/login_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,29 +30,24 @@ class LoginViewBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
-       /* UserModel model = UserModel(
-          's441002625@uqu.edu.sa',
-          'Omer Mohamed',
-          '441002625',
+        AdminModel model = AdminModel(
+          'admin1@uqu.edu.sa',
+          'Admin 1',
+          '1',
           '',
           '',
-          '1234567891066234',
-          'Student',
-          900.0,
-          '2005-01-14',
+          'Admin',
+          '1999-01-14',
           'Male',
-          'wlSdLox28AXu6GecAh78y7V1IGb2',
+          'IcPEoZdpx0VCdSfWqYgYQPF8hfK2',
           '+966472844309',
-          'Computer Science',
-          0.00,
-
         );
         FirebaseFirestore.instance
-            .collection('Users')
+            .collection('Admins')
             .doc(model.uid)
             .set(model.toMap()!)
             .then((value) {})
-            .catchError((e) {});*/
+            .catchError((e) {});
         var cubit = LoginCubit.getCubit(context);
         return SafeArea(
             child: Scaffold(

@@ -12,6 +12,7 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 
 import '../../../../../../core/utils/app_manager/app_assets.dart';
+import '../../../../../../core/widgets/seperated_line.dart';
 
 class SendGiftsScreen extends StatefulWidget {
   SendGiftsScreen({super.key});

@@ -5,6 +5,7 @@ import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:UQPay/feature/home/presentation/view/notification_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:UQPay/core/functions/notification_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -56,6 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
           HomeCubit.getCubit(context).getUserOperation();
           HomeCubit.getCubit(context).getAllGifts();
           HomeCubit.getCubit(context).getAllStudents();
+          HomeCubit.getCubit(context).getUserNotificationToken();
+          HomeCubit.getCubit(context).getNotificationDB();
         }
       },
       builder: (context, state) {
@@ -65,9 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: AppColor.backgroundColor,
             appBar: AppBar(
               titleSpacing: 3,
-              leading: const Icon(
-                Icons.person_outlined,
-                size: 28,
+              leading: InkWell(
+                onTap: ()  {
+
+                },
+                child: const Icon(
+                  Icons.person_outlined,
+                  size: 28,
+                ),
               ),
               title: Text(
                 'Good evening ,${cubit.userModel != null ? cubit.userModel!.name! : ''}',

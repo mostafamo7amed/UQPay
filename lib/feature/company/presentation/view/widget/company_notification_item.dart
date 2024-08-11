@@ -1,14 +1,18 @@
+import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/feature/home/data/models/notification.dart';
 import 'package:flutter/material.dart';
 
 class NotificationItemWidget extends StatelessWidget {
   const NotificationItemWidget({
     super.key,
     required this.size,
+    required this.notificationModel,
   });
 
   final Size size;
+  final NotificationModel notificationModel;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +34,13 @@ class NotificationItemWidget extends StatelessWidget {
               Container(
                 width: size.width / 4.3,
                 height: size.width / 4.3,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                   image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK_p-3PSabMItwpdqtL9zAy1Hwk2ioosBm3Q&s')),
+                      image: notificationModel.notifyType=='Payment'? const NetworkImage(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK_p-3PSabMItwpdqtL9zAy1Hwk2ioosBm3Q&s')
+                          :const AssetImage(AssetsData.appLogo)),
                 ),
               ),
               const SizedBox(
@@ -46,12 +51,12 @@ class NotificationItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'New order',
+                      notificationModel.title!,
                       style: Styles.regularTextStyle16
                           .copyWith(fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      'With offer 20%',
+                      notificationModel.message!,
                       style: Styles.regularTextStyle14
                           .copyWith(color: AppColor.lightgrayColor),
                       maxLines: 2,

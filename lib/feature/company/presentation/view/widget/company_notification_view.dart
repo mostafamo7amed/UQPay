@@ -37,7 +37,7 @@ class CompanyNotificationView extends StatelessWidget {
                 PersistentNavBarNavigator.pushNewScreen(context,
                     screen: const CompanyOrdersView());
               },
-              child: NotificationItemWidget(size: MediaQuery.of(context).size)),
+              child: SizedBox()),//(size: MediaQuery.of(context).size)),
           itemCount: 1,
         ),
       ),

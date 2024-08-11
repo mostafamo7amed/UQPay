@@ -216,7 +216,7 @@ class NewTargetDetails extends StatelessWidget {
                                 cubit.addNewTarget(amount, numberOfMonths, numberOfDays, targetName);
 
                                 },
-                              text: 'Done',
+                              text: 'Add',
                               isLoading: state is HomeAddTargetLoadingState,
                               width: (MediaQuery.of(context).size.width) / 4,
                             ),

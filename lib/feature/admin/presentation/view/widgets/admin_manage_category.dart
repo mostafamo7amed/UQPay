@@ -1,5 +1,7 @@
 import 'package:UQPay/core/widgets/seperated_line.dart';
+import 'package:UQPay/feature/admin/data/category_model.dart';
 import 'package:UQPay/feature/admin/presentation/manager/admin_cubit.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_add_category.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_add_company_screen.dart';
 import 'package:UQPay/feature/company/data/company_model.dart';
 import 'package:flutter/material.dart';
@@ -9,18 +11,8 @@ import '../../../../../../core/utils/app_manager/app_color.dart';
 import '../../../../../../core/utils/app_manager/app_styles.dart';
 import '../../../../../core/utils/app_manager/app_assets.dart';
 
-class AdminManageCompanyScreen extends StatefulWidget {
-  const AdminManageCompanyScreen({super.key});
-
-  @override
-  State<AdminManageCompanyScreen> createState() =>
-      _AdminManageCompanyScreenState();
-}
-
-class _AdminManageCompanyScreenState extends State<AdminManageCompanyScreen> {
-  List<String> accounts = ['Student', 'Academic', 'Both'];
-
-  String? selectedName;
+class AdminManageCategory extends StatelessWidget {
+  const AdminManageCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +36,18 @@ class _AdminManageCompanyScreenState extends State<AdminManageCompanyScreen> {
                 ),
               ),
               title: Text(
-                'Manage Company',
+                'Manage Category',
                 style: Styles.textStyle24.copyWith(
                     color: AppColor.wihteColor, fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
             ),
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
+            FloatingActionButtonLocation.centerFloat,
             floatingActionButton: GestureDetector(
               onTap: () {
                 PersistentNavBarNavigator.pushNewScreen(context,
-                    screen: AdminAddCompanyScreen());
+                    screen: AdminAddCategory());
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 3,
@@ -86,56 +78,9 @@ class _AdminManageCompanyScreenState extends State<AdminManageCompanyScreen> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 20),
-                    child: Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(24)),
-                        color: AppColor.wihteColor,
-                      ),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            AssetsData.personRounded,
-                            height: 56,
-                            color: AppColor.blackColor,
-                          ),
-                          Expanded(
-                            child: DropdownButton(
-                                underline: const SizedBox(),
-                                isExpanded: true,
-                                padding: EdgeInsets.all(8),
-                                alignment: Alignment.centerLeft,
-                                icon: const Icon(
-                                  Icons.keyboard_arrow_down_sharp,
-                                  size: 35,
-                                ),
-                                hint: const Text(
-                                  'Select Account',
-                                  style: Styles.textStyle18,
-                                ),
-                                value: selectedName,
-                                items: accounts.map((name) {
-                                  return DropdownMenuItem(
-                                      value: name, child: Text(name));
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedName = value;
-                                  });
-                                }),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                   Container(
                     margin: const EdgeInsets.only(top: 10),
-                    height: MediaQuery.of(context).size.height * .8,
+                    height: MediaQuery.of(context).size.height * .9,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: AppColor.wihteColor,
@@ -152,7 +97,7 @@ class _AdminManageCompanyScreenState extends State<AdminManageCompanyScreen> {
                             height: 10,
                           ),
                           Text(
-                            'All companies',
+                            'All category',
                             style: Styles.textStyle17.copyWith(
                                 color: AppColor.blackColor,
                                 decoration: TextDecoration.underline),
@@ -160,23 +105,23 @@ class _AdminManageCompanyScreenState extends State<AdminManageCompanyScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          cubit.allCompany.isNotEmpty
+                          cubit.allCategory.isNotEmpty
                               ? ListView.separated(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) => CompanyItem(
-                                    companyModel: cubit.allCompany[index],
-                                  ),
-                                  separatorBuilder: (context, index) =>
-                                      SeperatedLine(),
-                                  itemCount: cubit.allCompany.length,
-                                )
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) => CategoryItem(
+                              categoryModel: cubit.allCategory[index],
+                            ),
+                            separatorBuilder: (context, index) =>
+                                SeperatedLine(),
+                            itemCount: cubit.allCategory.length,
+                          )
                               : const Center(
-                                  child: Text(
-                                    'There is no company yet!',
-                                    style: Styles.textStyle18,
-                                  ),
-                                ),
+                            child: Text(
+                              'There is no category yet!',
+                              style: Styles.textStyle18,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -191,12 +136,12 @@ class _AdminManageCompanyScreenState extends State<AdminManageCompanyScreen> {
   }
 }
 
-class CompanyItem extends StatelessWidget {
-  const CompanyItem({
+class CategoryItem extends StatelessWidget {
+  const CategoryItem({
     super.key,
-    required this.companyModel,
+    required this.categoryModel,
   });
-  final CompanyModel companyModel;
+  final CategoryModel categoryModel;
 
   @override
   Widget build(BuildContext context) {
@@ -213,8 +158,8 @@ class CompanyItem extends StatelessWidget {
               border: Border.all(
                   color: AppColor.grayColor, width: 1),
               image: DecorationImage(
-                image: companyModel.image !=null?
-                NetworkImage(companyModel.image.toString())
+                image: categoryModel.image !=null?
+                NetworkImage(categoryModel.image.toString())
                     : const NetworkImage(
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzarRZzdxjwFhIIdApYRTHBPLxbNUNj8thfA&s'),
                 fit: BoxFit.contain,
@@ -225,7 +170,7 @@ class CompanyItem extends StatelessWidget {
             width: 15,
           ),
           Text(
-            companyModel.name!,
+            categoryModel.name!,
             style: Styles.textStyle20,
           )
         ],

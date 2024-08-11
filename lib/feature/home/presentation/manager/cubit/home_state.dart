@@ -41,12 +41,26 @@ final class HomeTransferErrorState extends HomeState {}
 final class HomeUpdateMoneySuccessState extends HomeState {}
 final class HomeUpdateMoneyErrorState extends HomeState {}
 
+final class GetAdminSuccessState extends HomeState {}
+final class GetAdminErrorState extends HomeState {}
+
+final class HomeUpdateTokenSuccessState extends HomeState {}
+final class HomeUpdateTokenErrorState extends HomeState {}
+
 final class HomeAddFastTransferLoadingState extends HomeState {}
 final class HomeAddFastTransferSuccessState extends HomeState {}
 final class HomeAddFastTransferErrorState extends HomeState {}
 
 final class HomeGetFastTransferSuccessState extends HomeState {}
 final class HomeGetFastTransferErrorState extends HomeState {}
+
+
+final class HomeSendNotificationSuccessState extends HomeState {}
+final class HomeSendNotificationErrorState extends HomeState {}
+
+
+final class HomeGetNotificationSuccessState extends HomeState {}
+final class HomeGetNotificationErrorState extends HomeState {}
 
 final class HomeGetUserOperationSuccessState extends HomeState {}
 final class HomeGetUserOperationErrorState extends HomeState {}

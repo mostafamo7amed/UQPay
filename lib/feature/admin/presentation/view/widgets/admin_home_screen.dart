@@ -1,13 +1,14 @@
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
-import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/feature/admin/presentation/manager/admin_cubit.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_deposit_machine_screen.dart';
+import 'package:UQPay/feature/admin/presentation/view/widgets/admin_manage_category.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_manage_company_screen.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_notification_screen.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_recharge_card_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../../core/widgets/basic_functions_widget.dart';
 
@@ -16,13 +17,26 @@ class AdminHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<AdminCubit, AdminState>(
+  listener: (context, state) {
+    if(state is GetAdminSuccessState){
+      AdminCubit.getCubit(context).getAdminNotificationToken();
+      AdminCubit.getCubit(context).getAllCompany();
+      AdminCubit.getCubit(context).getAllUsers();
+      AdminCubit.getCubit(context).getNotificationDB();
+      AdminCubit.getCubit(context).getAllCategory();
+
+    }
+  },
+  builder: (context, state) {
+    var cubit = AdminCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColor.primaryColor,
         ),
         backgroundColor: AppColor.primaryColor,
-        body: SingleChildScrollView(
+        body:cubit.adminModel != null? SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -89,14 +103,14 @@ class AdminHomeScreen extends StatelessWidget {
                                   width: 10,
                                 ),
                                 Text(
-                                  'Ali Ahmed',
+                                  cubit.adminModel!.name!,
                                   style: Styles.textStyle20
                                       .copyWith(color: AppColor.wihteColor),
                                 ),
                               ],
                             ),
                             Text(
-                              'Administrator',
+                              'Id: ${cubit.adminModel!.id!}',
                               style: Styles.textStyle18
                                   .copyWith(color: AppColor.wihteColor),
                             ),
@@ -151,6 +165,28 @@ class AdminHomeScreen extends StatelessWidget {
                                       },
                                     ),
                                   ),
+
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: BasicFunctionsWidget(
+                                      title: 'Manage category',
+                                      asset: AssetsData.cartIcon,
+                                      onTap: () {
+                                        PersistentNavBarNavigator.pushNewScreen(
+                                            context,
+                                            screen:
+                                            const AdminManageCategory());
+                                      },
+                                    ),
+                                  ),
                                   const SizedBox(width: 5,),
                                   Expanded(
                                     child: BasicFunctionsWidget(
@@ -160,15 +196,12 @@ class AdminHomeScreen extends StatelessWidget {
                                         PersistentNavBarNavigator.pushNewScreen(
                                             context,
                                             screen:
-                                                const AdminRechargeCardScreen());
+                                            const AdminRechargeCardScreen());
                                       },
                                     ),
                                   ),
 
                                 ],
-                              ),
-                              const SizedBox(
-                                height: 20,
                               ),
                             ],
                           ),
@@ -180,8 +213,10 @@ class AdminHomeScreen extends StatelessWidget {
               ),
             ],
           ),
-        ),
+        ):const Center(child: CircularProgressIndicator(),),
       ),
     );
+  },
+);
   }
 }
