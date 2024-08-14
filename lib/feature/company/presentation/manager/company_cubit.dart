@@ -6,7 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../../core/functions/get_random_number.dart';
 import '../../../../core/utils/common.dart';
 import '../../data/company_model.dart';
