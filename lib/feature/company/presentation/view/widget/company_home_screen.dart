@@ -49,6 +49,7 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
     if(state is GetCompanySuccessState){
       CompanyCubit.getCubit(context).getCompanyNotificationToken();
       CompanyCubit.getCubit(context).getCompanyOffer();
+      CompanyCubit.getCubit(context).getCompanyProducts();
 
     }
   },

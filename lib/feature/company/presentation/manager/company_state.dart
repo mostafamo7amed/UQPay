@@ -30,3 +30,21 @@ final class GetOfferErrorState extends CompanyState {}
 
 final class DeleteOfferSuccessState extends CompanyState {}
 final class DeleteOfferErrorState extends CompanyState {}
+
+final class AddProductLoadingState extends CompanyState {}
+final class AddProductSuccessState extends CompanyState {}
+final class AddProductErrorState extends CompanyState {}
+
+final class GetProductSuccessState extends CompanyState {}
+final class GetProductErrorState extends CompanyState {}
+
+final class PikProductImageSuccessState extends CompanyState {}
+final class PikProductImageErrorState extends CompanyState {}
+
+final class UploadProductImageSuccessState extends CompanyState {}
+final class UploadProductImageErrorState extends CompanyState {}
+
+final class SelectProductTypeState extends CompanyState {}
+
+final class UpdateProductStatusSuccessState extends CompanyState {}
+final class UpdateProductStatusErrorState extends CompanyState {}

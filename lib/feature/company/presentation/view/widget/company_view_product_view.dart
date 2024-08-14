@@ -1,14 +1,26 @@
+import 'package:UQPay/core/functions/toast.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
+import 'package:UQPay/feature/company/data/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-class CompanyViewProductView extends StatelessWidget {
-  const CompanyViewProductView({super.key});
+import '../../manager/company_cubit.dart';
 
+class CompanyViewProductView extends StatelessWidget {
+  const CompanyViewProductView({super.key,required this.productModel});
+  final ProductModel productModel;
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<CompanyCubit, CompanyState>(
+  listener: (context, state) {
+    if(state is UpdateProductStatusSuccessState){
+
+    }
+  },
+  builder: (context, state) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -48,25 +60,21 @@ class CompanyViewProductView extends StatelessWidget {
                 ),
                 child: SingleChildScrollView(
                   child: Padding(
-                  
                     padding: const EdgeInsets.all(25.0),
                     child: Column(
-                      
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                      
                         Container(
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           height: 150,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
+                          decoration:  BoxDecoration(
+                            borderRadius:const BorderRadius.all(
                               Radius.circular(10.0),
                             
                             ),
                             image: DecorationImage(
-                              image: NetworkImage(
-                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK_p-3PSabMItwpdqtL9zAy1Hwk2ioosBm3Q&s')
-                                  ,
+                              image:productModel.image!=''? NetworkImage(productModel.image!)
+                                  : const NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxw2zmO4oHZBX0PUSZd_nD6IAl203sdkzxCw&s'),
                               fit: BoxFit.cover,
                             ),
                           
@@ -76,12 +84,12 @@ class CompanyViewProductView extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                                'Product Name',
+                          'Product Name',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                'Fitness',
+                                productModel.name!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -95,7 +103,7 @@ class CompanyViewProductView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                '200 SAR',
+                                '${productModel.amount} SAR',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -109,7 +117,7 @@ class CompanyViewProductView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                         Text(
-                          'Service',
+                          productModel.productType!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -122,20 +130,14 @@ class CompanyViewProductView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                'Ability to execute daily activities with optimal performance, endurance, and strength with the management of disease, fatigue, and stress and reduced sedentary behavior.',
+                                productModel.description!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
-                        Center(
-                          child: CustomButton(
-                          onPressed: () {},
-                          text: 'Hide',
-                          width: (MediaQuery.of(context).size.width) / 4,
-                          ),
-                        ),                       
+
                       ],
                     ),
                   ),
@@ -146,5 +148,7 @@ class CompanyViewProductView extends StatelessWidget {
         ),
       ),
     );
+  },
+);
   }
 }
