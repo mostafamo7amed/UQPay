@@ -138,7 +138,7 @@ class TargetGraphView extends StatelessWidget {
                                       toast(message: 'Target Archived', data: ToastStates.success);
                                       Navigator.pop(context);
                                     },
-                                    text: 'Add',
+                                    text: 'Done',
                                     isLoading: state is HomeAddTargetLoadingState,
                                     width: (MediaQuery.of(context).size.width) / 4,
                                   ),

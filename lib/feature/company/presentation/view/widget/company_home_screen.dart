@@ -2,6 +2,7 @@ import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/basic_functions_widget.dart';
+import 'package:UQPay/feature/company/presentation/manager/company_cubit.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_cashback_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_notification_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_offer_view.dart';
@@ -9,6 +10,7 @@ import 'package:UQPay/feature/company/presentation/view/widget/company_orders_vi
 import 'package:UQPay/feature/company/presentation/view/widget/company_product_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class CompanyHomeScreen extends StatefulWidget {
@@ -42,6 +44,16 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                       width: MediaQuery.of(context).size.width)),
             ))
         .toList();
+    return BlocConsumer<CompanyCubit, CompanyState>(
+  listener: (context, state) {
+    if(state is GetCompanySuccessState){
+      CompanyCubit.getCubit(context).getCompanyNotificationToken();
+      CompanyCubit.getCubit(context).getCompanyOffer();
+
+    }
+  },
+  builder: (context, state) {
+    var cubit = CompanyCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.backgroundColor,
@@ -52,7 +64,7 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
             size: 28,
           ),
           title: Text(
-            'Bateel company',
+            cubit.companyModel!=null? cubit.companyModel!.name!: '',
             style: Styles.textStyle20.copyWith(
                 color: AppColor.blackColor, fontWeight: FontWeight.bold),
           ),
@@ -72,7 +84,7 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
             ),
           ],
         ),
-        body: Column(
+        body: cubit.companyModel!=null? Column(
           children: [
             const SizedBox(
               height: 20,
@@ -161,13 +173,12 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                                     ),
                                     Expanded(
                                       child: BasicFunctionsWidget(
-                                        title: 'Manage cachbaks',
+                                        title: 'Manage cashback',
                                         asset: AssetsData.cashBack,
                                         onTap: () {
                                           PersistentNavBarNavigator.pushNewScreen(
                                               context,
-                                              screen:
-                                                  const CompanyUpdateCashbackView());
+                                              screen: CompanyUpdateCashbackView());
                                         },
                                       ),
                                     ),
@@ -217,8 +228,10 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
               ),
             )
           ],
-        ),
+        ): const Center(child: CircularProgressIndicator(),),
       ),
     );
+  },
+);
   }
 }

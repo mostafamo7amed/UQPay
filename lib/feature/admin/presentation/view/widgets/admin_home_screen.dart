@@ -25,7 +25,6 @@ class AdminHomeScreen extends StatelessWidget {
       AdminCubit.getCubit(context).getAllUsers();
       AdminCubit.getCubit(context).getNotificationDB();
       AdminCubit.getCubit(context).getAllCategory();
-
     }
   },
   builder: (context, state) {

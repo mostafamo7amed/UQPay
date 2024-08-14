@@ -323,6 +323,10 @@ class _AdminRechargeCardScreenState extends State<AdminRechargeCardScreen> {
                                       cubit.updateUserMoney(
                                           cubit.selectedUserToRecharge!,
                                           double.parse(amountController.text));
+                                    }else{
+                                      toast(
+                                          message: 'Enter amount',
+                                          data: ToastStates.error);
                                     }
                                   } else {
                                     toast(

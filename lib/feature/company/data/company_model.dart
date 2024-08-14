@@ -10,6 +10,7 @@ class CompanyModel{
   String? supportType;
   String? category;
   String? phone;
+  double? cashback;
 
   CompanyModel(
       this.email,
@@ -22,8 +23,8 @@ class CompanyModel{
       this.uid,
       this.phone,
       this.category,
-
-      this.supportType
+      this.supportType,
+      this.cashback
       );
 
   CompanyModel.fromMap(Map<String,dynamic> map){
@@ -37,6 +38,7 @@ class CompanyModel{
     deviceToken = map['deviceToken'];
     category = map['category'];
     supportType =map['supportType'];
+    cashback = double.parse(map['cashback'].toString());
   }
 
   Map<String,dynamic>? toMap() {
@@ -50,7 +52,8 @@ class CompanyModel{
       'category': category,
       'type': type,
       'deviceToken': deviceToken,
-      'supportType':supportType
+      'supportType':supportType,
+      'cashback':cashback
     };
   }
 

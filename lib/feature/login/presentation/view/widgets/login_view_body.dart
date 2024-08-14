@@ -30,7 +30,7 @@ class LoginViewBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        AdminModel model = AdminModel(
+       /* AdminModel model = AdminModel(
           'admin1@uqu.edu.sa',
           'Admin 1',
           '1',
@@ -47,7 +47,7 @@ class LoginViewBody extends StatelessWidget {
             .doc(model.uid)
             .set(model.toMap()!)
             .then((value) {})
-            .catchError((e) {});
+            .catchError((e) {});*/
         var cubit = LoginCubit.getCubit(context);
         return SafeArea(
             child: Scaffold(
@@ -81,10 +81,15 @@ class LoginViewBody extends StatelessWidget {
                       hintText: 'Enter Username',
                       inputType: TextInputType.name,
                       validator: (value) {
-                        if (!value!.contains('.edu.sa')||value.isEmpty||!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}').hasMatch(value)) {
-                          return 'Please enter academic email address ';
+                        if(value!.contains('.org')){
+                          return null;
+                        }else{
+                          if (!value.contains('.edu.sa')||value.isEmpty||!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}').hasMatch(value)) {
+                            return 'Please enter academic email address ';
+                          }
+                          return null;
                         }
-                        return null;
+
                       },
                       controller: _usernameController,
                     ),

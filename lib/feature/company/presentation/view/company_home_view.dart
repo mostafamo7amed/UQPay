@@ -1,11 +1,14 @@
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/feature/company/presentation/manager/company_cubit.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_home_screen.dart';
-import 'package:UQPay/feature/company/presentation/view/widget/company_product_screen.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+
+import '../../../../core/utils/common.dart';
 
 class CompanyHomeView extends StatelessWidget {
   const CompanyHomeView({super.key});
@@ -19,7 +22,7 @@ class CompanyHomeView extends StatelessWidget {
     List<Widget> buildScreens() {
       return [
         const CompanyHomeScreen(),
-       
+
         const CompanySettingsScreen(),
       ];
     }
@@ -86,24 +89,29 @@ class CompanyHomeView extends StatelessWidget {
       ];
     }
 
-    return PersistentTabView(
-      context,
-      controller: controller,
-      screens: buildScreens(),
-      items: navBarsItems(),
-      handleAndroidBackButtonPress: false, // Default is true.
-      resizeToAvoidBottomInset:
-          true, // This needs to be true if you want to move up the screen on a non-scrollable screen when keyboard appears. Default is true.
-      stateManagement: false, // Default is true.
-      hideNavigationBarWhenKeyboardAppears: true,
-      popBehaviorOnSelectedNavBarItemPress: PopBehavior.all,
-      padding: const EdgeInsets.all(10),
-      backgroundColor: AppColor.wihteColor,
-      isVisible: true,
-      confineToSafeArea: true,
-      navBarHeight: 64,
-      navBarStyle:
-          NavBarStyle.style7, // Choose the nav bar style with this property
+    return BlocProvider(
+      create: (context) => CompanyCubit()..getCompany(uid),
+      child: PersistentTabView(
+        context,
+        controller: controller,
+        screens: buildScreens(),
+        items: navBarsItems(),
+        handleAndroidBackButtonPress: false,
+        // Default is true.
+        resizeToAvoidBottomInset: true,
+        // This needs to be true if you want to move up the screen on a non-scrollable screen when keyboard appears. Default is true.
+        stateManagement: false,
+        // Default is true.
+        hideNavigationBarWhenKeyboardAppears: true,
+        popBehaviorOnSelectedNavBarItemPress: PopBehavior.all,
+        padding: const EdgeInsets.all(10),
+        backgroundColor: AppColor.wihteColor,
+        isVisible: true,
+        confineToSafeArea: true,
+        navBarHeight: 64,
+        navBarStyle:
+        NavBarStyle.style7, // Choose the nav bar style with this property
+      ),
     );
   }
 }

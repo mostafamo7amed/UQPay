@@ -14,7 +14,6 @@ import 'package:go_router/go_router.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../core/utils/common.dart';
-import '../../../../../core/widgets/change_password.dart';
 
 class AdminSettingsView extends StatelessWidget {
   const AdminSettingsView({super.key});
@@ -38,8 +37,7 @@ class AdminSettingsView extends StatelessWidget {
                     color: AppColor.wihteColor, fontWeight: FontWeight.bold),
               ),
             ),
-            body: cubit.adminModel != null
-                ? SingleChildScrollView(
+            body: cubit.adminModel != null ? SingleChildScrollView(
                     physics: const NeverScrollableScrollPhysics(),
                     child: Column(
                       children: [
@@ -99,31 +97,32 @@ class AdminSettingsView extends StatelessWidget {
                                     ),
                                     SeperatedLine(),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 15, top: 10, left: 15),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 15,
+                                        vertical: 10,
+                                      ),
                                       child: Text(
-                                        'Account Information',
-                                        style: Styles.textStyle20.copyWith(
-                                            color: AppColor.grayColor),
+                                        'More',
+                                        style: Styles.textStyle20
+                                            .copyWith(color: AppColor.grayColor),
                                       ),
                                     ),
                                     InkWell(
                                       onTap: () {
                                         PersistentNavBarNavigator.pushNewScreen(
                                             context,
-                                            screen: ChangePasswordScreen());
+                                            screen: const AboutUsView());
                                       },
                                       child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 15, right: 15, left: 15),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 15,
+                                        ),
                                         child: Row(
                                           children: [
                                             Text(
-                                              'Change Password',
-                                              style: Styles.textStyle20
-                                                  .copyWith(
-                                                      color:
-                                                          AppColor.blackColor),
+                                              'About us',
+                                              style: Styles.textStyle20.copyWith(
+                                                  color: AppColor.blackColor),
                                             ),
                                             const Spacer(),
                                             const Icon(Icons.arrow_forward_ios),
@@ -148,41 +147,7 @@ class AdminSettingsView extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 15,
-                                    vertical: 10,
-                                  ),
-                                  child: Text(
-                                    'More',
-                                    style: Styles.textStyle20
-                                        .copyWith(color: AppColor.grayColor),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    PersistentNavBarNavigator.pushNewScreen(
-                                        context,
-                                        screen: const AboutUsView());
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 15,
-                                      vertical: 10,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'About us',
-                                          style: Styles.textStyle20.copyWith(
-                                              color: AppColor.blackColor),
-                                        ),
-                                        const Spacer(),
-                                        const Icon(Icons.arrow_forward_ios),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+
                                 InkWell(
                                   onTap: () {
                                     PersistentNavBarNavigator.pushNewScreen(

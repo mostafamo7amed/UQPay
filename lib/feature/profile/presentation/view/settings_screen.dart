@@ -15,7 +15,6 @@ import 'package:UQPay/feature/profile/presentation/view/widgets/profile_info_vie
 
 import '../../../../core/cache_helper/cache_helper.dart';
 import '../../../../core/utils/common.dart';
-import '../../../../core/widgets/change_password.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -161,28 +160,6 @@ class SettingsScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  InkWell(
-                                    onTap :(){
-                                      PersistentNavBarNavigator.pushNewScreen(
-                                          context,
-                                          screen: ChangePasswordScreen());
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 5, right: 15, left: 15),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'Change password',
-                                            style: Styles.textStyle20.copyWith(
-                                                color: AppColor.blackColor),
-                                          ),
-                                          const Spacer(),
-                                          const Icon(Icons.arrow_forward_ios),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         top: 5, right: 15, left: 15),

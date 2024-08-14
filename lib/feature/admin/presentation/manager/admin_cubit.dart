@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:UQPay/core/functions/get_random_number.dart';
 import 'package:UQPay/feature/admin/data/admin_model.dart';
 import 'package:UQPay/feature/admin/data/category_model.dart';
@@ -9,17 +8,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../../core/functions/toast.dart';
 import '../../../../core/utils/app_manager/app_color.dart';
 import '../../../../core/utils/common.dart';
 import '../../../home/data/models/notification.dart';
 import '../../../home/data/models/user_model.dart';
-
 part 'admin_state.dart';
 
 class AdminCubit extends Cubit<AdminState> {
@@ -185,7 +181,7 @@ class AdminCubit extends Cubit<AdminState> {
 
   addCompany(String name, String phone ,String category,String image,String email, String password,String uid){
     int id = getRandomNumber();
-    CompanyModel model = CompanyModel(email, name, password, '$id', image, '', 'Company', uid, phone, category,'Student');
+    CompanyModel model = CompanyModel(email, name, password, '$id', image, '', 'Company', uid, phone, category,'Student',0.0);
     FirebaseFirestore.instance
         .collection('Company')
         .doc(uid)
@@ -300,6 +296,9 @@ class AdminCubit extends Cubit<AdminState> {
           emit(SelectUserToRechargeState());
         }
       });
+      if(selectedUserToRecharge!.uid==''){
+        toast(message: 'User not found', data: ToastStates.warning);
+      }
     }else{
       allStudent.forEach((user){
         if(id.contains(user.id!) ){
@@ -307,6 +306,9 @@ class AdminCubit extends Cubit<AdminState> {
           emit(SelectUserToRechargeState());
         }
       });
+      if(selectedUserToRecharge!.uid==''){
+        toast(message: 'User not found', data: ToastStates.warning);
+      }
     }
   }
 
