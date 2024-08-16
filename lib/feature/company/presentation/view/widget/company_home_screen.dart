@@ -13,37 +13,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-class CompanyHomeScreen extends StatefulWidget {
-  const CompanyHomeScreen({super.key});
-
-  @override
-  State<CompanyHomeScreen> createState() => _CompanyHomeScreenState();
-}
-
-class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
-  int _current = 0;
+class CompanyHomeScreen extends StatelessWidget {
+  CompanyHomeScreen({super.key});
 
   final CarouselController _controller = CarouselController();
 
-  final List<String> imgList = [
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4FWr_nYB_swH83rh5u92hGHq80hsCdrnAng&s',
-    'https://media-uk-india-banners.landmarkshops.in/Home-Centre/HC-Mobile-2-Offer-060917.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIghsO8g53bPJ45SEsd8doVtKUck0ZYrRbuA&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpg0ddGu4guMHQZhktsiywY1UWF4Roh4txInG5GBR5HPQ-TnsNNiBMA5yJ8gYha0xixkQ&usqp=CAU'
-  ];
-
   @override
   Widget build(BuildContext context) {
-    final List<Widget> imageSliders = imgList
-        .map((item) => Container(
-              margin: const EdgeInsets.all(5.0),
-              child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                  child: Image.network(item,
-                      fit: BoxFit.cover,
-                      width: MediaQuery.of(context).size.width)),
-            ))
-        .toList();
+
     return BlocConsumer<CompanyCubit, CompanyState>(
   listener: (context, state) {
     if(state is GetCompanySuccessState){
@@ -57,6 +34,16 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
   },
   builder: (context, state) {
     var cubit = CompanyCubit.getCubit(context);
+    final List<Widget> imageSliders = cubit.allOffers
+        .map((item) => Container(
+      margin: const EdgeInsets.all(5.0),
+      child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+          child: Image.network(item.image!,
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width)),
+    ))
+        .toList();
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.backgroundColor,
@@ -76,6 +63,7 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
                 onTap: () {
+                  CompanyCubit.getCubit(context).getCompanyNotifications();
                   PersistentNavBarNavigator.pushNewScreen(context,
                       screen: const CompanyNotificationView());
                 },
@@ -92,6 +80,7 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
             const SizedBox(
               height: 20,
             ),
+            cubit.allOffers.isNotEmpty?
             CarouselSlider(
               items: imageSliders,
               carouselController: _controller,
@@ -100,14 +89,13 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                   enlargeCenterPage: true,
                   aspectRatio: 2,
                   onPageChanged: (index, reason) {
-                    setState(() {
-                      _current = index;
-                    });
+                    cubit.changeCurrentOffer(index);
                   }),
-            ),
+            ):const Center(child: Text('There is no offers yet!',style: Styles.textStyle18,),),
+            cubit.allOffers.isNotEmpty?
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: imgList.asMap().entries.map((entry) {
+              children: cubit.allOffers.asMap().entries.map((entry) {
                 return GestureDetector(
                   onTap: () => _controller.animateToPage(entry.key),
                   child: Container(
@@ -120,11 +108,11 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                         color: (Theme.of(context).brightness == Brightness.dark
                                 ? Colors.white
                                 : Colors.black)
-                            .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                            .withOpacity(cubit.current == entry.key ? 0.9 : 0.4)),
                   ),
                 );
               }).toList(),
-            ),
+            ):const SizedBox(height: 20,),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(

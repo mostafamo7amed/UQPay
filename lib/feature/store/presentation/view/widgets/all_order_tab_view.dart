@@ -1,6 +1,8 @@
-
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/oder_vertical_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class AllOrderTabView extends StatelessWidget {
@@ -8,17 +10,16 @@ class AllOrderTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    return OrdersVerticalListView(
-      hideProgress: false,
-      detailsTap: () {
-      /*  PersistentNavBarNavigator.pushNewScreen(context,
-            screen: ViewOrderDetails(
-              product: ProductModel(: 'Bari alqaws stud',
-              productImage: AssetsData.store2),
-            ));*/
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {
       },
-      reorderTap: () {},
+      builder: (context, state) {
+        var cubit= HomeCubit.getCubit(context);
+        return OrdersVerticalListView(
+          hideProgress: false,
+          orderList: cubit.allUserOrder,
+        );
+      },
     );
   }
 }

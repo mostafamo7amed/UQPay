@@ -1,3 +1,4 @@
+import 'package:UQPay/core/functions/toast.dart';
 import 'package:UQPay/feature/card/presentation/view/widgets/view_card_info.dart';
 import 'package:UQPay/feature/home/data/models/user_model.dart';
 import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
@@ -25,6 +26,9 @@ class _MoreOptionsViewState extends State<MoreOptionsView> {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
+    if(state is RechargeCardState){
+      toast(message: 'Notification send to system Administration', data: ToastStates.success);
+    }
   },
   builder: (context, state) {
     var cubit = HomeCubit.getCubit(context);

@@ -1,3 +1,4 @@
+import 'package:UQPay/core/functions/get_operation_date_now.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
@@ -5,8 +6,17 @@ import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
+import '../../../../company/data/company_model.dart';
+import '../../../../company/data/product_model.dart';
+import '../../../data/models/order_model.dart';
+
 class PickupOderDetailsView extends StatelessWidget {
-  const PickupOderDetailsView({super.key});
+  PickupOderDetailsView({super.key,this.productModel,this.companyModel,this.orderNumber,this.orderModel});
+
+  CompanyModel? companyModel;
+  ProductModel? productModel;
+  OrderModel? orderModel;
+  int? orderNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +35,9 @@ class PickupOderDetailsView extends StatelessWidget {
                 color: AppColor.wihteColor,
               )),
           title: Text(
-            'Order #324562',
+            orderModel!=null?
+            'Order #${orderModel!.orderNumber!}':
+            'Order #$orderNumber',
             style: Styles.textStyle24.copyWith(
                 color: AppColor.wihteColor, fontWeight: FontWeight.bold),
           ),
@@ -63,7 +75,9 @@ class PickupOderDetailsView extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            'Nawreeya',
+                            orderModel!=null?
+                            '${orderModel!.companyModel!.address}':
+                            '${companyModel!.address}',
                             style: Styles.textStyle18
                                 .copyWith(color: AppColor.blackColor),
                           ),
@@ -90,7 +104,9 @@ class PickupOderDetailsView extends StatelessWidget {
                       ),
                       const Spacer(),
                       Text(
-                        'Pickup',
+                        orderModel!=null?
+                        '${orderModel!.products!.productType}':
+                        '${productModel!.productType}',
                         style: Styles.textStyle18
                             .copyWith(color: AppColor.blackColor),
                       ),
@@ -125,12 +141,12 @@ class PickupOderDetailsView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '08:30 AM',
+                                getOperationDateNow(),
                                 style: Styles.textStyle18
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                '09:00 AM',
+                                  getOperationDateNow(),
                                 style: Styles.textStyle18
                                     .copyWith(color: AppColor.primaryColor),
                               ),
@@ -145,19 +161,20 @@ class PickupOderDetailsView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Successfully',
+                                  orderModel!=null?
+                                  'Payment ${orderModel!.status}!':
+                                  'Payment In Progress!',
                                   style: Styles.textStyle18
                                       .copyWith(color: AppColor.primaryColor),
                                 ),
                                 Text(
-                                  'Your order is ready to pickup',
+                                  orderModel!=null?
+                                      orderModel!.status=='Accepted'?
+                                      'Your order is ready to pickup':'' :
+                                  'In Progress!',
+
                                   style: Styles.textStyle18
                                       .copyWith(color: AppColor.primaryColor),
-                                ),
-                                Text(
-                                  'Order received',
-                                  style: Styles.textStyle18
-                                      .copyWith(color: AppColor.grayColor),
                                 ),
                               ],
                             ),
@@ -179,13 +196,17 @@ class PickupOderDetailsView extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        'Hypertrophy Schedule',
+                        orderModel!=null?
+                        '${orderModel!.products!.name}':
+                        '${productModel!.name}',
                         style: Styles.textStyle18
                             .copyWith(color: AppColor.primaryColor),
                       ),
                       const Spacer(),
                       Text(
-                        '250',
+                        orderModel!=null?
+                        '${orderModel!.products!.amount}':
+                        '${productModel!.amount}',
                         style: Styles.textStyle18
                             .copyWith(color: AppColor.blackColor),
                       ),

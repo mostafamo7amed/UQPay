@@ -228,11 +228,21 @@ class StoreLocationWidget extends StatelessWidget {
                                 productModel.amount!,
                                 productModel);
                             if(productModel.productType == 'Service'){
+                              Navigator.pop(context);
                               PersistentNavBarNavigator.pushNewScreen(context,
-                                  screen: const OderDetailsView());
+                                  screen: OderDetailsView(
+                                    orderNumber: orderNumber,
+                                    companyModel: companyModel,
+                                    productModel: productModel,
+                                  ));
                             }else{
+                              Navigator.pop(context);
                               PersistentNavBarNavigator.pushNewScreen(context,
-                                  screen: const PickupOderDetailsView());
+                                  screen: PickupOderDetailsView(
+                                    orderNumber: orderNumber,
+                                    companyModel: companyModel,
+                                    productModel: productModel,
+                                  ));
                             }
                           },
                           text: 'Confirm',

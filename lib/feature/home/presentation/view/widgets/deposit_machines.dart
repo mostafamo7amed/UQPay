@@ -55,7 +55,7 @@ class _DepositMachinesState extends State<DepositMachines> {
           setState(() {
             currentPosition =
                 LatLng(currentLocation.latitude!, currentLocation.longitude!);
-            cameraToPosition(currentPosition!);
+           // cameraToPosition(currentPosition!);
           });
         }
       }
@@ -75,8 +75,8 @@ class _DepositMachinesState extends State<DepositMachines> {
 
   @override
   Widget build(BuildContext context) {
-
     getLocationUpdate();
+    HomeCubit.getCubit(context).fillMarker();
     return BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
   },
@@ -109,6 +109,7 @@ class _DepositMachinesState extends State<DepositMachines> {
           onMapCreated: (GoogleMapController controller) {
            mapController.complete(controller);
           },
+          markers: cubit.allDepositMachineLocation.map((e)=>e).toSet(),
         ):const Center(child: CircularProgressIndicator(),),
       ),
     );

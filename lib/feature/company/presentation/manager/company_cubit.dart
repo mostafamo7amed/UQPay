@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:UQPay/feature/company/data/offer_model.dart';
 import 'package:UQPay/feature/company/data/product_model.dart';
 import 'package:UQPay/feature/home/data/models/notification.dart';
@@ -49,7 +48,7 @@ class CompanyCubit extends Cubit<CompanyState> {
 // use the returned token to send messages to users from your custom server
   String? token;
   getCompanyNotificationToken() async {
-     await getLocation();
+    await getLocation();
     token = await FirebaseMessaging.instance.getToken();
     print(token);
     updateCompanyNotificationToken(companyModel!, token!,companyLocation!);
@@ -86,7 +85,7 @@ class CompanyCubit extends Cubit<CompanyState> {
 
   var picker = ImagePicker();
   File? offerImage;
-  Future<void> getCompanyImage() async {
+  Future<void> getOfferImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       offerImage = File(pickedFile.path);
@@ -142,7 +141,10 @@ class CompanyCubit extends Cubit<CompanyState> {
       emit(AddOfferErrorState());
     });
   }
-
+  int current = 0;
+  changeCurrentOffer(int index){
+    current = index;
+  }
   List<OfferModel> allOffers = [];
   getCompanyOffer() {
     allOffers = [];
@@ -368,7 +370,7 @@ class CompanyCubit extends Cubit<CompanyState> {
     })
         .then((value) {
       emit(AcceptOrderSuccessState());
-      updateUserMoney(userModel, amount,cashback );
+      updateUserMoney(userModel, amount,cashback);
       userOperation(userModel, companyModel!, orderNumber, amount);
     })
         .catchError((e) {

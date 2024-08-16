@@ -96,3 +96,14 @@ final class GetCompanyErrorState extends HomeState {}
 final class MakeOrderLoadingState extends HomeState {}
 final class MakeOrderSuccessState extends HomeState {}
 final class MakeOrderErrorState extends HomeState {}
+
+final class GetDepositMachineSuccessState extends HomeState {}
+final class GetDepositMachineErrorState extends HomeState {}
+
+final class GetUserOrderSuccessState extends HomeState {}
+final class GetUserOrderErrorState extends HomeState {}
+
+final class GetAllOffersSuccessState extends HomeState {}
+final class GetAllOffersErrorState extends HomeState {}
+
+final class RechargeCardState extends HomeState {}

@@ -21,7 +21,7 @@ class CompanyHomeView extends StatelessWidget {
 
     List<Widget> buildScreens() {
       return [
-        const CompanyHomeScreen(),
+        CompanyHomeScreen(),
 
         const CompanySettingsScreen(),
       ];

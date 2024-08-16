@@ -37,16 +37,6 @@ class MyTargetsView extends StatelessWidget {
                     color: AppColor.wihteColor, fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.notifications_none_outlined,
-                    size: 28,
-                    color: AppColor.wihteColor,
-                  ),
-                ),
-              ],
             ),
             body: Padding(
               padding: const EdgeInsets.only(top: 30),

@@ -3,6 +3,7 @@ import 'package:UQPay/core/functions/Notification_helper.dart';
 import 'package:UQPay/core/functions/get_operation_date_now.dart';
 import 'package:UQPay/core/functions/get_random_number.dart';
 import 'package:UQPay/feature/company/data/company_model.dart';
+import 'package:UQPay/feature/company/data/offer_model.dart';
 import 'package:UQPay/feature/company/data/product_model.dart';
 import 'package:UQPay/feature/home/data/models/notification.dart';
 import 'package:UQPay/feature/home/data/models/operation.dart';
@@ -11,10 +12,12 @@ import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import '../../../../../core/functions/toast.dart';
 import '../../../../../core/utils/common.dart';
 import '../../../../admin/data/category_model.dart';
+import '../../../../admin/data/machine_position_model.dart';
 import '../../../data/models/user_model.dart';
 import 'home_state.dart';
 
@@ -100,9 +103,9 @@ class HomeCubit extends Cubit<HomeState> {
   // edit target
   editTarget(double amount, int numMonth, int day, String name, int targetId ) {
     emit(HomeEditTargetLoadingState());
-    double newTargetAmount = calculateTarget(amount, numMonth);
+    calculateTarget(amount, numMonth);
     TargetModel newTargetEdited = TargetModel(
-        targetId, numMonth, day, amount, newTargetAmount, amount, name, false);
+        targetId, numMonth, day, amount, targetAmount, amount, name, false);
     FirebaseFirestore.instance
         .collection('Save Accounts')
         .doc(uid)
@@ -110,10 +113,10 @@ class HomeCubit extends Cubit<HomeState> {
         .doc('$targetId')
         .update(newTargetEdited.toMap()!)
         .then((value) {
-      emit(HomeAddTargetSuccessState());
+      emit(HomeEditTargetSuccessState());
       toast(message: 'Target Edited successfully', data: ToastStates.success);
     }).catchError((e) {
-      emit(HomeAddTargetErrorState());
+      emit(HomeEditTargetErrorState());
       toast(message: e.toString(), data: ToastStates.error);
     });
   }
@@ -533,8 +536,10 @@ class HomeCubit extends Cubit<HomeState> {
        body: userModel!.cardNumber!,
        type: 'Recharge',
      );
+
    sendNotificationDB(admin.first, 'Recharge my card ${userModel!.name!}',userModel!.cardNumber!, 'Recharge','');
- }
+     emit(RechargeCardState());
+  }
 
  List<CategoryModel> allCategory =[];
  getAllCategory(){
@@ -691,5 +696,87 @@ class HomeCubit extends Cubit<HomeState> {
         .catchError((e) {
       emit(HomeSendNotificationErrorState());
     });
+  }
+
+  List<MachinePositionModel> allDepositMachine =[];
+   List<Marker> allDepositMachineLocation =[];
+   getAllDepositMachine(){
+     allDepositMachine =[];
+     FirebaseFirestore.instance
+         .collection('Deposit Machines')
+         .get()
+         .then((value) {
+           for(var e in value.docs){
+             allDepositMachine.add(MachinePositionModel.fromMap(e.data()));
+           }
+       emit(GetDepositMachineSuccessState());
+     })
+         .catchError((e) {
+       emit(GetDepositMachineErrorState());
+     });
+   }
+
+   fillMarker(){
+     allDepositMachineLocation = [];
+     allDepositMachine.forEach((e){
+       allDepositMachineLocation.add(
+         Marker(
+           markerId: MarkerId(e.name.toString()),
+           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+           position: LatLng(double.parse(e.latitude!),
+               double.parse(e.longitude!)),
+           infoWindow: InfoWindow(title: e.name.toString()),
+         ),
+       );
+     });
+   }
+
+   List<OrderModel> allUserOrder = [];
+   List<OrderModel> allInProgressOrder =[];
+  List<OrderModel> allInPastOrder =[];
+  getUserOrders(){
+    allUserOrder =[];
+    allInProgressOrder =[];
+    allInPastOrder =[];
+     FirebaseFirestore.instance
+         .collection('All Orders')
+         .doc(userModel!.uid!)
+         .collection('User Order')
+         .get()
+         .then((value) {
+           for(var e in value.docs){
+             OrderModel order = OrderModel.fromMap(e.data());
+             allUserOrder.add(OrderModel.fromMap(e.data()));
+             if(order.status == 'In Progress'){
+               allInProgressOrder.add(OrderModel.fromMap(e.data()));
+             }else{
+               allInPastOrder.add(OrderModel.fromMap(e.data()));
+             }
+           }
+       emit(GetUserOrderSuccessState());
+     })
+         .catchError((e) {
+       emit(GetUserOrderErrorState());
+     });
+   }
+
+   List<OfferModel> allOffers =[]  ;
+  getAllCompanyOffers(){
+    allOffers =[]  ;
+    FirebaseFirestore.instance
+         .collection('All Offers')
+         .get()
+         .then((value) {
+           for(var e in value.docs){
+             allOffers.add(OfferModel.fromMap(e.data()));
+           }
+       emit(GetAllOffersSuccessState());
+     }).catchError((e) {
+       emit(GetAllOffersErrorState());
+     });
+   }
+  int current = 0;
+  changeCurrentOffer(int index){
+    current = index;
   }
 }

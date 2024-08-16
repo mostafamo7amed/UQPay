@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:UQPay/core/functions/pickImage_fun.dart';
 import 'package:UQPay/core/functions/toast.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
@@ -72,7 +69,7 @@ class CompanyAddOfferView extends StatelessWidget {
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              cubit.getCompanyImage();
+                              cubit.getOfferImage();
                             },
                             child: Container(
                               margin: const EdgeInsets.symmetric(vertical: 10),

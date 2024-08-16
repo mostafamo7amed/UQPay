@@ -2,19 +2,21 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
+import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/oder_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
+import '../../../../../core/utils/common.dart';
 import '../../../../company/data/product_model.dart';
 
 class ViewOrderDetails extends StatelessWidget {
   ViewOrderDetails({
     super.key,
-    required this.product,
+    required this.orderModel,
   });
 
-  ProductModel product;
+  OrderModel orderModel;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,9 @@ class ViewOrderDetails extends StatelessWidget {
         bottomNavigationBar: CustomButton(
           onPressed: () {
             PersistentNavBarNavigator.pushNewScreen(context,
-                screen: const OderDetailsView());
+                screen: OderDetailsView(
+                  orderModel: orderModel,
+                ));
           },
           text: 'Continue',
         ),
@@ -40,7 +44,7 @@ class ViewOrderDetails extends StatelessWidget {
                 color: AppColor.blackColor,
               )),
           title: Text(
-            product.name!,
+            orderModel.products!.name!,
             style: Styles.textStyle24.copyWith(
                 color: AppColor.blackColor, fontWeight: FontWeight.bold),
           ),
@@ -55,7 +59,20 @@ class ViewOrderDetails extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Center(child: Image.asset(product.image!)),
+                Container(
+                  height: 200,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: AppColor.wihteColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: orderModel.products!.image != ''
+                          ? NetworkImage(orderModel.products!.image.toString())
+                          : NetworkImage(noImagePlaceholder),
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -66,10 +83,10 @@ class ViewOrderDetails extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: AppColor.grayColor)),
-                  child: const Padding(
-                    padding: EdgeInsets.all(5.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
-                      '200 SAR',
+                      '${orderModel.products!.amount} SAR',
                       style: Styles.textStyle20,
                     ),
                   ),
@@ -82,7 +99,7 @@ class ViewOrderDetails extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  'Choose your free schedule:Take your first steps without making mistakes, with accurate information, confident steps, and guaranteed results with Fitness Step .Exercise safely with no mistakes, correct techniques, and general muscle division for a strong start without injuries',
+                  '${orderModel.products!.description}',
                   style: Styles.textStyle17.copyWith(color: AppColor.grayColor),
                 ),
               ],

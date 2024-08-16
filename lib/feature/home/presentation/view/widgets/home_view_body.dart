@@ -19,7 +19,7 @@ class HomeViewBody extends StatelessWidget {
 
     List<Widget> buildScreens() {
       return [
-        const HomeScreen(),
+        HomeScreen(),
         const CardsScreen(),
         const StoreScreen(),
         const SettingsScreen()

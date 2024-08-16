@@ -220,7 +220,6 @@ class CompanyOrderDetailsView extends StatelessWidget {
                       if(orderModel.status == 'In Progress')
                       CustomButton(
                         onPressed: () {
-
                           showDialog(
                             context: context,
                             builder: (context) {

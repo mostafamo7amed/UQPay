@@ -17,35 +17,14 @@ import 'save_account/save_account_view.dart';
 import 'send_gifts.dart/send_gifts_view.dart';
 import 'transfer/transfer_view.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _current = 0;
   final CarouselController _controller = CarouselController();
-  final List<String> imgList = [
-    AssetsData.offer,
-    AssetsData.offer,
-    AssetsData.offer,
-    AssetsData.offer,
-  ];
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> imageSliders = imgList
-        .map((item) => Container(
-              margin: const EdgeInsets.all(5.0),
-              child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                  child: Image.asset(item,
-                      fit: BoxFit.cover,
-                      width: MediaQuery.of(context).size.width)),
-            ))
-        .toList();
+
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
         if( state is HomeGetUserSuccessState){
@@ -54,16 +33,30 @@ class _HomeScreenState extends State<HomeScreen> {
           HomeCubit.getCubit(context).getFastTransferUsers();
           HomeCubit.getCubit(context).getUserOperation();
           HomeCubit.getCubit(context).getAllGifts();
+          HomeCubit.getCubit(context).getAdmin();
           HomeCubit.getCubit(context).getAllCategory();
           HomeCubit.getCubit(context).getAllCompany();
           HomeCubit.getCubit(context).getAllStudents();
           HomeCubit.getCubit(context).getCurrentLocation();
           HomeCubit.getCubit(context).getUserNotificationToken();
           HomeCubit.getCubit(context).getNotificationDB();
+          HomeCubit.getCubit(context).getAllDepositMachine();
+          HomeCubit.getCubit(context).getUserOrders();
+          HomeCubit.getCubit(context).getAllCompanyOffers();
         }
       },
       builder: (context, state) {
         var cubit = HomeCubit.getCubit(context);
+        final List<Widget> imageSliders = cubit.allOffers
+            .map((item) => Container(
+          margin: const EdgeInsets.all(5.0),
+          child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+              child: Image.network(item.image!,
+                  fit: BoxFit.cover,
+                  width: MediaQuery.of(context).size.width)),
+        ))
+            .toList();
         return SafeArea(
           child: Scaffold(
             backgroundColor: AppColor.backgroundColor,
@@ -88,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
+                      HomeCubit.getCubit(context).getNotificationDB();
                       PersistentNavBarNavigator.pushNewScreen(context,
                           screen: const NotificationView());
                     },
@@ -106,22 +100,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 20,
                         ),
+                        cubit.allOffers.isNotEmpty?
                         CarouselSlider(
                           items: imageSliders,
                           carouselController: _controller,
                           options: CarouselOptions(
                               autoPlay: true,
                               enlargeCenterPage: true,
-                              aspectRatio: 2.5,
+                              aspectRatio: 2,
                               onPageChanged: (index, reason) {
-                                setState(() {
-                                  _current = index;
-                                });
+                                cubit.changeCurrentOffer(index);
                               }),
-                        ),
+                        ):const Center(child: Text('There is no offers yet!',style: Styles.textStyle18,),),
+                        cubit.allOffers.isNotEmpty?
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: imgList.asMap().entries.map((entry) {
+                          children: cubit.allOffers.asMap().entries.map((entry) {
                             return GestureDetector(
                               onTap: () => _controller.animateToPage(entry.key),
                               child: Container(
@@ -136,11 +130,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ? Colors.white
                                             : Colors.black)
                                         .withOpacity(
-                                            _current == entry.key ? 0.9 : 0.4)),
+                                            cubit.current == entry.key ? 0.9 : 0.4)),
                               ),
                             );
                           }).toList(),
-                        ),
+                        ):const SizedBox(height: 20,),
                         Container(
                           height: MediaQuery.of(context).size.height * .7,
                           decoration: BoxDecoration(

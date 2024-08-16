@@ -2,11 +2,18 @@ import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
+import 'package:UQPay/feature/company/data/company_model.dart';
+import 'package:UQPay/feature/company/data/product_model.dart';
+import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class OderDetailsView extends StatelessWidget {
-  const OderDetailsView({super.key});
+  OderDetailsView({super.key, this.companyModel, this.productModel, this.orderNumber,this.orderModel});
+  CompanyModel? companyModel;
+  ProductModel? productModel;
+  OrderModel? orderModel;
+  int? orderNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,9 @@ class OderDetailsView extends StatelessWidget {
                 color: AppColor.wihteColor,
               )),
           title: Text(
-            'Order #424562',
+            orderModel!=null?
+                'Order #${orderModel!.orderNumber!}':
+            'Order #$orderNumber',
             style: Styles.textStyle24.copyWith(
                 color: AppColor.wihteColor, fontWeight: FontWeight.bold),
           ),
@@ -63,7 +72,9 @@ class OderDetailsView extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            'Nawreeya',
+                            orderModel!=null?
+                            '${orderModel!.companyModel!.address}':
+                            '${companyModel!.address}',
                             style: Styles.textStyle18
                                 .copyWith(color: AppColor.blackColor),
                           ),
@@ -74,7 +85,9 @@ class OderDetailsView extends StatelessWidget {
                       ),
                       CustomButton(
                         height: 40,
-                        onPressed: () {},
+                        onPressed: () {
+
+                        },
                         text: 'Open in google maps',
                       )
                     ],
@@ -90,7 +103,9 @@ class OderDetailsView extends StatelessWidget {
                       ),
                       const Spacer(),
                       Text(
-                        'Digital delivery',
+                        orderModel!=null?
+                        '${orderModel!.products!.productType}':
+                        '${productModel!.productType}',
                         style: Styles.textStyle18
                             .copyWith(color: AppColor.blackColor),
                       ),
@@ -107,7 +122,9 @@ class OderDetailsView extends StatelessWidget {
                 ),
                 CardWidget(
                   child: Text(
-                    'Payment success !',
+                    orderModel!=null?
+                    'Payment ${orderModel!.status}!':
+                    'Payment In Progress!',
                     style: Styles.textStyle18
                         .copyWith(color: AppColor.primaryColor),
                   ),
@@ -124,13 +141,17 @@ class OderDetailsView extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        'Hypertrophy Schedule',
+                        orderModel!=null?
+                        '${orderModel!.products!.name}':
+                        '${productModel!.name}',
                         style: Styles.textStyle18
                             .copyWith(color: AppColor.primaryColor),
                       ),
                       const Spacer(),
                       Text(
-                        '250',
+                        orderModel!=null?
+                        '${orderModel!.products!.amount}':
+                        '${productModel!.amount}',
                         style: Styles.textStyle18
                             .copyWith(color: AppColor.blackColor),
                       ),

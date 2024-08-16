@@ -8,7 +8,6 @@ class AssetsData {
   static const homeIcon = "$basePath/home.png";
   static const cartIcon = "$basePath/cart.png";
   static const settingIcon = "$basePath/settings.png";
-  static const offer = "$basePath/offer.png";
   static const person = "$basePath/person.png";
   static const leadingAccount = "$basePath/leadingaccount.png";
   static const saveAccountIcon = "$basePath/piggy.png";
@@ -28,19 +27,11 @@ class AssetsData {
   static const outTransfer = "$basePath/out.png";
   static const containerTransfer = "$basePath/outpng.png";
   static const personMask = "$basePath/mask.png";
-  static const gymImage = "$basePath/gym.png";
-  static const cafeImage = "$basePath/cafe.png";
-  static const clinicImage = "$basePath/clinic.png";
-  static const trainingImage = "$basePath/training.png";
-  static const storeImage = "$basePath/stores.png";
-  static const restoruntImage = "$basePath/restorant.png";
   static const successOrder = "$basePath/successorder.png";
   static const depositImage = "$basePath/deposit.png";
   static const usersImage = "$basePath/users.png";
   static const listDoneImage = "$basePath/listDone.png";
   static const moreOptinsImage = "$basePath/more.png";
   static const cashBack = "$basePath/cashBack.png";
-  static const store1 = "$basePath/store1.png";
-  static const store2 = "$basePath/store2.png";
   static const discount = "$basePath/discount.png";
 }

@@ -117,8 +117,8 @@ class LoginCubit extends Cubit<LoginState> {
         FirebaseFirestore.instance.collection('Users').where('uid',isEqualTo: UID).get().then((value) {
           print(value.docs.toString());
           if(value.docs.isNotEmpty){
-           //toast(message: 'User not found', data: ToastStates.warning);
-            GoRouter.of(context)
+           toast(message: 'User not found', data: ToastStates.warning);
+           GoRouter.of(context)
                 .pushReplacement(Routes.mainRoute);
             emit(LoginNavigateState());
           }else{

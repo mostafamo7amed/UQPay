@@ -3,21 +3,20 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
 import 'package:UQPay/feature/store/data/models/order_model.dart';
+import 'package:UQPay/feature/store/presentation/view/widgets/view_order_details.dart';
+import 'package:UQPay/feature/store/presentation/view/widgets/view_pickup_order_view.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class OrdersVerticalListView extends StatelessWidget {
   OrdersVerticalListView({
     super.key,
     this.hideProgress = false,
-    required this.detailsTap,
-    required this.reorderTap,
-    this.orderModel,
+    required this.orderList,
 
   });
   bool? hideProgress = false;
-  void Function()? detailsTap;
-  void Function()? reorderTap;
-  OrderModel? orderModel;
+  final List<OrderModel> orderList;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class OrdersVerticalListView extends StatelessWidget {
                     child: SizedBox(
                       width: 100,
                       child: Image.network(
-                        orderModel!.companyModel!.image!,
+                        orderList[index].products!.image!,
                       ),
                     ),
                   ),
@@ -50,12 +49,12 @@ class OrdersVerticalListView extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          orderModel!.companyModel!.name!,
+                          orderList[index].companyModel!.name!,
                           style: Styles.textStyle20
                               .copyWith(color: AppColor.blackColor),
                         ),
                         Text(
-                          'Order no: ${orderModel!.orderNumber}',
+                          'Order no: ${orderList[index].orderNumber}',
                           style: Styles.regularTextStyle14
                               .copyWith(color: AppColor.blackColor),
                         ),
@@ -73,7 +72,7 @@ class OrdersVerticalListView extends StatelessWidget {
                               ),
                               const Spacer(),
                               Text(
-                                '${orderModel!.amount} SAR',
+                                '${orderList[index].amount} SAR',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.grayColor),
                               ),
@@ -92,7 +91,7 @@ class OrdersVerticalListView extends StatelessWidget {
                               ),
                               const Spacer(),
                               Text(
-                                orderModel!.orderType!,
+                                orderList[index].orderType!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.grayColor),
                               ),
@@ -110,16 +109,27 @@ class OrdersVerticalListView extends StatelessWidget {
                 children: [
                   hideProgress == false
                       ? CustomButton(
-                          onPressed: reorderTap,
+                          onPressed: (){},
                           color: AppColor.wihteColor,
                           textColor: AppColor.yellowColor,
-                          text: 'Reoder',
+                          text: 'Reorder',
                           width: MediaQuery.of(context).size.width / 3,
                         )
-                      : SizedBox(),
-                  hideProgress == false ? const Spacer() : SizedBox(),
+                      : const SizedBox(),
+                  hideProgress == false ? const Spacer() : const SizedBox(),
                   CustomButton(
-                    onPressed: detailsTap,
+                    onPressed: (){
+                      if(orderList[index].orderType=='Service') {
+                        PersistentNavBarNavigator.pushNewScreen(context,
+                            screen: ViewOrderDetails(
+                              orderModel: orderList[index],));
+                      }else{
+                        PersistentNavBarNavigator.pushNewScreen(context,
+                            screen: ViewPickupOrderView(
+                              orderModel: orderList[index],
+                            ));
+                      }
+                    },
                     color: AppColor.wihteColor,
                     textColor: AppColor.yellowColor,
                     overlayColor: AppColor.wihteColor,
@@ -134,7 +144,7 @@ class OrdersVerticalListView extends StatelessWidget {
         separatorBuilder: (context, index) => const SizedBox(
           height: 10,
         ),
-        itemCount: 10,
+        itemCount: orderList.length,
       ),
     );
   }
