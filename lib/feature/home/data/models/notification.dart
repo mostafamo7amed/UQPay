@@ -4,6 +4,7 @@ class NotificationModel {
   String? message;
   String? dateTime;
   String? notifyType;
+  String? image;
 
   NotificationModel(
       this.notifyId,
@@ -11,6 +12,7 @@ class NotificationModel {
       this.message,
       this.dateTime,
       this.notifyType,
+      this.image,
       );
 
   NotificationModel.fromMap(Map<String, dynamic> map) {
@@ -19,6 +21,7 @@ class NotificationModel {
     message = map['message'];
     dateTime = map['dateTime'];
     notifyType = map['notifyType'];
+    image =map['image'];
   }
 
   Map<String, dynamic>? toMap() {
@@ -28,6 +31,7 @@ class NotificationModel {
       'message': message,
       'dateTime': dateTime,
       'notifyType': notifyType,
+      'image':image
     };
   }
 }

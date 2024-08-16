@@ -1,7 +1,6 @@
-import 'package:UQPay/core/functions/toast.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
-import 'package:UQPay/core/widgets/custom_button.dart';
+import 'package:UQPay/core/utils/common.dart';
 import 'package:UQPay/feature/company/data/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,7 +73,7 @@ class CompanyViewProductView extends StatelessWidget {
                             ),
                             image: DecorationImage(
                               image:productModel.image!=''? NetworkImage(productModel.image!)
-                                  : const NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxw2zmO4oHZBX0PUSZd_nD6IAl203sdkzxCw&s'),
+                                  : NetworkImage(noImagePlaceholder),
                               fit: BoxFit.cover,
                             ),
                           

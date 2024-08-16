@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:googleapis_auth/auth_io.dart' as auth;
@@ -91,28 +93,30 @@ class NotificationsHelper {
       var serverKeyAuthorization = await getAccessToken();
 
       // change your project id
-      const String urlEndPoint =
-          "https://fcm.googleapis.com/v1/projects/uq-pay-e0340/messages:send";
-
-      Dio dio = Dio();
-      dio.options.headers['Content-Type'] = 'application/json';
-      dio.options.headers['Authorization'] = 'Bearer $serverKeyAuthorization';
-
-      var response = await dio.post(
-        urlEndPoint,
-        data:{
-          "message":{
-            "token": fcmToken,
-            "data":{
-              "type":type ?? 'message'
-            },
-            "notification":{
-              "title":title,
-              "body":body,
-            }
+      const String urlEndPoint = "https://fcm.googleapis.com/v1/projects/uq-pay-e0340/messages:send";
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $serverKeyAuthorization',
+      };
+      var data = json.encode({
+        "message": {
+          "token": fcmToken,
+          "data": {
+            "type": type??"message"
+          },
+          "notification": {
+            "title": title,
+            "body": body
           }
-        },
-
+        }
+      });
+      var dio = Dio();
+      var response = await dio.request(urlEndPoint,
+        options: Options(
+          method: 'POST',
+          headers: headers,
+        ),
+        data: data,
       );
       // Print response status code and body for debugging
       print('Response Status Code: ${response.statusCode}');

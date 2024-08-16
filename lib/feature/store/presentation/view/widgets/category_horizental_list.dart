@@ -1,22 +1,20 @@
-import 'package:UQPay/feature/store/data/models/store_model.dart';
+import 'package:UQPay/feature/admin/data/category_model.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/store_item.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/stores_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import '../../../data/models/store_category_model.dart';
 
-class HorizentalListCategory extends StatelessWidget {
-  const HorizentalListCategory({
+class HorizontalListCategory extends StatelessWidget {
+  const HorizontalListCategory({
     super.key,
     required this.widthRate,
     required this.heightRate,
-    required this.stores,
-    required this.catygoryList,
+    required this.categories,
   });
   final double widthRate;
   final double heightRate;
-  final List<StoreModel> stores;
-  final List<StoreCategoryModel> catygoryList;
+  final List<CategoryModel> categories;
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +22,21 @@ class HorizentalListCategory extends StatelessWidget {
       height: MediaQuery.of(context).size.width / heightRate,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: 5,
+        itemCount: categories.length,
         separatorBuilder: (context, index) => const SizedBox(
           width: 10,
         ),
         itemBuilder: (context, index) => InkWell(
           onTap: () {
+            HomeCubit.getCubit(context).getCertainCategoryCompany(categories[index].name!);
             PersistentNavBarNavigator.pushNewScreen(context,
                 screen: StoresView(
-                  categoryName: catygoryList[index].categoryName,
-                  store: stores,
+                  categoryName: categories[index].name!,
                 ));
           },
           child: StoreAndCategoryItem(
-              widthRate: widthRate, categoryModel: catygoryList[index]),
+              widthRate: widthRate, categoryModel: categories[index],
+          heightRate: heightRate,),
         ),
       ),
     );

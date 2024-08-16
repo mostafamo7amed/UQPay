@@ -163,13 +163,13 @@ class AdminCubit extends Cubit<AdminState> {
     emit(ObscureChangedState());
   }
 
-  registerCompany(String name, String phone ,String category,String image,String email, String password){
+  registerCompany(String name, String phone ,String category,String image,String email, String password,address){
     emit(RegisterCompanyLoadingState());
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
           emit(RegisterCompanySuccessState());
-      addCompany(name, phone, category, image, email, password, value.user!.uid);
+      addCompany(name, phone, category, image, email, password, value.user!.uid,address);
     }).catchError((error) {
       emit(RegisterCompanyErrorState());
       toast(message: error.toString(), data: ToastStates.error);
@@ -179,9 +179,9 @@ class AdminCubit extends Cubit<AdminState> {
   }
 
 
-  addCompany(String name, String phone ,String category,String image,String email, String password,String uid){
+  addCompany(String name, String phone ,String category,String image,String email, String password,String uid,String address){
     int id = getRandomNumber();
-    CompanyModel model = CompanyModel(email, name, password, '$id', image, '', 'Company', uid, phone, category,'Student',0.0);
+    CompanyModel model = CompanyModel(email, name, password, '$id', image, '', 'Company', uid, phone, category,'Student',0.0,address,0.0,0.0);
     FirebaseFirestore.instance
         .collection('Company')
         .doc(uid)
@@ -236,6 +236,7 @@ class AdminCubit extends Cubit<AdminState> {
       emit(GetCategorySuccessState());
     })
         .catchError((e) {
+          print(e.toString());
       emit(GetCategoryErrorState());
     });
   }

@@ -78,7 +78,7 @@ class _SendGiftsViewState extends State<StoreScreen> {
                   Expanded(
                     child: TabBarView(
                       physics: const NeverScrollableScrollPhysics(),
-                      children: [StoreTabView(), MyOrdersTabView()],
+                      children: [StoreTabView(), const MyOrdersTabView()],
                     ),
                   ),
                 ],

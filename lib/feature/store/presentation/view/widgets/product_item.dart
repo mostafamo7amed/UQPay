@@ -1,9 +1,9 @@
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
-import 'package:UQPay/feature/store/data/models/product_model.dart';
-import 'package:UQPay/feature/store/data/models/store_category_model.dart';
-import 'package:UQPay/feature/store/data/models/store_model.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../core/utils/common.dart';
+import '../../../../company/data/product_model.dart';
 
 class ProductItem extends StatelessWidget {
   ProductItem({
@@ -27,8 +27,18 @@ class ProductItem extends StatelessWidget {
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Center(
-            child: Image.asset(productModel!.productImage),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: AppColor.wihteColor,
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: productModel!.image != ''
+                    ? NetworkImage( productModel!.image.toString())
+                    : NetworkImage(noImagePlaceholder),
+              ),
+            ),
           ),
           Container(
             padding: const EdgeInsets.all(4),
@@ -41,7 +51,7 @@ class ProductItem extends StatelessWidget {
                     bottomLeft: Radius.circular(15),
                     bottomRight: Radius.circular(15))),
             child: Text(
-              productModel!.productName,
+              productModel!.name!,
               style: Styles.textStyle20.copyWith(color: AppColor.blackColor),
               maxLines: 1,
               textAlign: TextAlign.center,

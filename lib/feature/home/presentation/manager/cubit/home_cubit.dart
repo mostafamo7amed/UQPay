@@ -1,14 +1,20 @@
+import 'dart:math';
 import 'package:UQPay/core/functions/Notification_helper.dart';
 import 'package:UQPay/core/functions/get_operation_date_now.dart';
 import 'package:UQPay/core/functions/get_random_number.dart';
+import 'package:UQPay/feature/company/data/company_model.dart';
+import 'package:UQPay/feature/company/data/product_model.dart';
 import 'package:UQPay/feature/home/data/models/notification.dart';
 import 'package:UQPay/feature/home/data/models/operation.dart';
 import 'package:UQPay/feature/home/data/models/target_model.dart';
+import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:location/location.dart';
 import '../../../../../core/functions/toast.dart';
 import '../../../../../core/utils/common.dart';
+import '../../../../admin/data/category_model.dart';
 import '../../../data/models/user_model.dart';
 import 'home_state.dart';
 
@@ -254,18 +260,18 @@ class HomeCubit extends Cubit<HomeState> {
             );
         print('===========================notification send=============================');
       }
-      sendNotificationDB(user, 'You received money', 'check it now', 'Transfer');
+      sendNotificationDB(user, 'You received money', 'check it now', 'Transfer','');
     })
         .catchError((e) {
           emit(HomeTransferErrorState());
     });
   }
   // notification
-  sendNotificationDB(UserModel user, String title,String message, String type){
+  sendNotificationDB(UserModel user, String title,String message, String type, String image){
     int notifyId = getRandomNumber();
     String date = getOperationDateNow();
     NotificationModel notificationModel = NotificationModel(
-        notifyId, title, message, date, type);
+        notifyId, title, message, date, type ,image);
     FirebaseFirestore.instance
         .collection('Notification')
         .doc(user.uid)
@@ -466,7 +472,7 @@ class HomeCubit extends Cubit<HomeState> {
         );
         print('===========================notification send=============================');
       }
-      sendNotificationDB(user, 'You received money', 'check it now', 'Gift');
+      sendNotificationDB(user, 'You received money', 'check it now', 'Gift','');
     })
         .catchError((e) {
       emit(HomeSendGiftErrorState());
@@ -527,6 +533,163 @@ class HomeCubit extends Cubit<HomeState> {
        body: userModel!.cardNumber!,
        type: 'Recharge',
      );
-   sendNotificationDB(admin.first, 'Recharge my card ${userModel!.name!}',userModel!.cardNumber!, 'Recharge');
+   sendNotificationDB(admin.first, 'Recharge my card ${userModel!.name!}',userModel!.cardNumber!, 'Recharge','');
  }
+
+ List<CategoryModel> allCategory =[];
+ getAllCategory(){
+   allCategory =[];
+   FirebaseFirestore.instance
+       .collection('Category')
+       .get()
+       .then((value) {
+     for (var element in value.docs) {
+       allCategory.add(CategoryModel.fromMap(element.data()));
+     }
+     emit(GetCategorySuccessState());
+   })
+       .catchError((e) {
+     emit(GetCategoryErrorState());
+   });
+ }
+
+ List<CompanyModel> allCompany =[];
+  getAllCompany(){
+    allCompany =[];
+    FirebaseFirestore.instance
+        .collection('Company')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        allCompany.add(CompanyModel.fromMap(element.data()));
+      }
+      emit(GetCompanySuccessState());
+    })
+        .catchError((e) {
+      emit(GetCompanyErrorState());
+    });
+  }
+
+  List<CompanyModel> allCertainCateCompany =[];
+  getCertainCategoryCompany(String category){
+    emit(GetCertainCateCompanyLoadingState());
+    allCertainCateCompany =[];
+    allCompany.forEach((e){
+      if(e.category == category){
+        allCertainCateCompany.add(e);
+      }
+    });
+    emit(GetCertainCateCompanyState());
+  }
+
+  List<ProductModel> allCertainCompanyProducts =[];
+  getCertainCompanyProduct(String CompanyId){
+    emit(GetCertainCompanyProductsLoadingState());
+    allCertainCompanyProducts =[];
+    FirebaseFirestore.instance
+        .collection('Products')
+        .doc(CompanyId)
+        .collection('Company Products')
+        .get().
+    then((value) {
+      for (var element in value.docs) {
+        allCertainCompanyProducts.add(ProductModel.fromMap(element.data()));
+      }
+      emit(GetCertainCompanyProductsSuccessState());
+    }).catchError((e) {
+      emit(GetCertainCompanyProductsErrorState());
+    });
+  }
+  LocationData? currentLocation;
+   getCurrentLocation() async {
+     final locationController = Location();
+     currentLocation = await locationController.getLocation();
+     emit(GetCurrentLocationState());
+   }
+
+  double calculateDistance(lat1, lon1) {
+    var lat2 = currentLocation!.latitude;
+    var lon2 = currentLocation!.longitude;
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 - c((lat2! - lat1) * p)/2 +
+        c(lat1 * p) * c(lat2 * p) *
+            (1 - c((lon2! - lon1) * p))/2;
+    return 12742 * asin(sqrt(a));
+  }
+
+  //// make order and send notification
+  makeOrder(String orderNumber,String orderType,String storeId,CompanyModel companyModel,double amount,ProductModel products,){
+     emit(MakeOrderLoadingState());
+     String date = getOperationDateNow();
+     double cashback = (amount*companyModel.cashback!)/100;
+     double total = amount - cashback;
+     OrderModel orderModel = OrderModel(
+         userModel,
+         userModel!.uid,
+         orderNumber,
+         orderType,
+         storeId,
+         companyModel,
+         amount,
+         products,
+         date,
+         companyModel.cashback,
+         'In Progress',
+         total);
+     FirebaseFirestore.instance
+         .collection('All Orders')
+         .doc(userModel!.uid!)
+         .collection('User Order')
+         .doc(orderNumber)
+         .set(orderModel.toMap())
+         .then((value) {
+       emit(MakeOrderSuccessState());
+       //updateUserMoney(userModel!, amount, 'send');
+       if(companyModel.deviceToken != ''){
+         NotificationsHelper().sendNotifications(
+           fcmToken: companyModel.deviceToken!,
+           title: 'You have new order',
+           body: 'check it now',
+           type: 'Order',
+         );
+       }
+       sendCompanyNotificationDB(companyModel, 'You have new order', 'check it now', 'Order',products.image!);
+     })
+         .catchError((e) {
+       emit(MakeOrderErrorState());
+     });
+
+     FirebaseFirestore.instance
+         .collection('All Orders')
+         .doc(companyModel.uid!)
+         .collection('Company Order')
+         .doc(orderNumber)
+         .set(orderModel.toMap())
+         .then((value) {
+       emit(MakeOrderSuccessState());
+     })
+         .catchError((e) {
+       emit(MakeOrderErrorState());
+     });
+  }
+
+  sendCompanyNotificationDB(CompanyModel user, String title,String message, String type, String image){
+    int notifyId = getRandomNumber();
+    String date = getOperationDateNow();
+    NotificationModel notificationModel = NotificationModel(
+        notifyId, title, message, date, type,image);
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(user.uid)
+        .collection('Company notification')
+        .doc('${notificationModel.notifyId}')
+        .set(notificationModel.toMap()!)
+        .then((value) {
+      emit(HomeSendNotificationSuccessState());
+    })
+        .catchError((e) {
+      emit(HomeSendNotificationErrorState());
+    });
+  }
 }

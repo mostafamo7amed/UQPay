@@ -79,3 +79,20 @@ final class HomeGetGiftErrorState extends HomeState {}
 
 final class HomeGetAllStudentSuccessState extends HomeState {}
 final class HomeGetAllStudentErrorState extends HomeState {}
+
+final class GetCertainCateCompanyLoadingState extends HomeState {}
+final class GetCertainCateCompanyState extends HomeState {}
+final class GetCurrentLocationState extends HomeState {}
+
+final class GetCertainCompanyProductsLoadingState extends HomeState {}
+final class GetCertainCompanyProductsSuccessState extends HomeState {}
+final class GetCertainCompanyProductsErrorState extends HomeState {}
+
+final class GetCategorySuccessState extends HomeState {}
+final class GetCategoryErrorState extends HomeState {}
+final class GetCompanySuccessState extends HomeState {}
+final class GetCompanyErrorState extends HomeState {}
+
+final class MakeOrderLoadingState extends HomeState {}
+final class MakeOrderSuccessState extends HomeState {}
+final class MakeOrderErrorState extends HomeState {}

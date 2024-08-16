@@ -1,23 +1,30 @@
 import 'package:UQPay/core/utils/app_manager/app_routes.dart';
+import 'package:UQPay/core/utils/common.dart';
+import 'package:UQPay/feature/company/presentation/manager/company_cubit.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_profile_info_view.dart';
-import 'package:UQPay/feature/login/presentation/view/login_view.dart';
 import 'package:UQPay/feature/profile/presentation/view/widgets/about_us_view.dart';
 import 'package:UQPay/feature/profile/presentation/view/widgets/privacy_policy_view.dart';
 import 'package:UQPay/feature/profile/presentation/view/widgets/terms_and_conditions_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
-import 'package:UQPay/feature/profile/presentation/view/widgets/profile_info_view.dart';
+
+import '../../../../../core/cache_helper/cache_helper.dart';
 
 class CompanySettingsScreen extends StatelessWidget {
   const CompanySettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<CompanyCubit, CompanyState>(
+  listener: (context, state) {},
+  builder: (context, state) {
+    var cubit = CompanyCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.backgroundColor,
@@ -37,7 +44,7 @@ class CompanySettingsScreen extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
-          child: Column(
+          child: cubit.companyModel!=null?Column(
             children: [
               Stack(
                 alignment: Alignment.bottomCenter,
@@ -82,7 +89,7 @@ class CompanySettingsScreen extends StatelessWidget {
                                   width: 10,
                                 ),
                                 Text(
-                                  'Bateel company',
+                                  cubit.companyModel!.name!,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   style: Styles.textStyle20
@@ -153,8 +160,10 @@ class CompanySettingsScreen extends StatelessWidget {
                             Switch(
                                 activeColor: AppColor.greenColor,
                                 inactiveTrackColor: AppColor.lightgrayColor,
-                                value: true,
-                                onChanged: (value) {}),
+                                value: cubit.pushNotification,
+                                onChanged: (value) {
+                                  cubit.changePushNotification();
+                                }),
                           ],
                         ),
                       ),
@@ -240,7 +249,11 @@ class CompanySettingsScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          
+                          FirebaseAuth.instance.signOut();
+                          uid = '';
+                          uid = '';
+                          CacheHelper.removeData(key: 'email');
+                          CacheHelper.removeData(key: 'password');
                           GoRouter.of(context)
                               .pushReplacement(Routes.loginRoute);
                         },
@@ -267,9 +280,11 @@ class CompanySettingsScreen extends StatelessWidget {
                 ),
               ),
             ],
-          ),
+          ):const Center(child: CircularProgressIndicator(),),
         ),
       ),
     );
+  },
+);
   }
 }

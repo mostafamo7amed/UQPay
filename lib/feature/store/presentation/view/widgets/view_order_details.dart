@@ -2,10 +2,11 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
-import 'package:UQPay/feature/store/data/models/product_model.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/oder_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+
+import '../../../../company/data/product_model.dart';
 
 class ViewOrderDetails extends StatelessWidget {
   ViewOrderDetails({
@@ -39,7 +40,7 @@ class ViewOrderDetails extends StatelessWidget {
                 color: AppColor.blackColor,
               )),
           title: Text(
-            product.productName,
+            product.name!,
             style: Styles.textStyle24.copyWith(
                 color: AppColor.blackColor, fontWeight: FontWeight.bold),
           ),
@@ -54,7 +55,7 @@ class ViewOrderDetails extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Center(child: Image.asset(product.productImage)),
+                Center(child: Image.asset(product.image!)),
                 const SizedBox(
                   height: 20,
                 ),

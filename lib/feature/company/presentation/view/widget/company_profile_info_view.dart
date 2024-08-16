@@ -1,4 +1,6 @@
+import 'package:UQPay/feature/company/presentation/manager/company_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
@@ -10,6 +12,11 @@ class CompanyProfileInfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<CompanyCubit, CompanyState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    var cubit = CompanyCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -51,39 +58,23 @@ class CompanyProfileInfoView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // CircleAvatar(
-                        //   backgroundColor: AppColor.grayColor,
-                        //   radius: 41,
-                        //   child: CircleAvatar(
-                        //     radius: 40,
-                        //     backgroundColor: AppColor.wihteColor,
-                        //     child: Stack(
-                        //         alignment: Alignment.bottomRight,
-                        //         children: [
-                        //           Image.asset(
-                        //             AssetsData.personMask,
-                        //             fit: BoxFit.cover,
-                        //           ),
-                        //         ]),
-                        //   ),
-                        // ),
                         Container(
                           width: MediaQuery.of(context).size.width / 3,
                           height: MediaQuery.of(context).size.width / 3,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             //borderRadius: BorderRadius.all(Radius.circular(10)),
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK_p-3PSabMItwpdqtL9zAy1Hwk2ioosBm3Q&s')),
+                                image: NetworkImage(cubit.companyModel!.image!),
+                            ),
                           ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          'Bateel company',
+                          cubit.companyModel!.name!,
                           style: Styles.textStyle20
                               .copyWith(color: AppColor.blackColor),
                         ),
@@ -106,12 +97,12 @@ class CompanyProfileInfoView extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                'Company ID',
+                                'Company email',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                '442345678',
+                                cubit.companyModel!.email!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -130,7 +121,7 @@ class CompanyProfileInfoView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                'Gym',
+                                cubit.companyModel!.category!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -149,7 +140,26 @@ class CompanyProfileInfoView extends StatelessWidget {
                                     .copyWith(color: AppColor.primaryColor),
                               ),
                               Text(
-                                '966572844309',
+                                cubit.companyModel!.phone!,
+                                style: Styles.regularTextStyle16
+                                    .copyWith(color: AppColor.blackColor),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              SeperatedLine(
+                                color: AppColor.grayColor,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Address',
+                                style: Styles.regularTextStyle16
+                                    .copyWith(color: AppColor.primaryColor),
+                              ),
+                              Text(
+                                cubit.companyModel!.address!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -169,5 +179,7 @@ class CompanyProfileInfoView extends StatelessWidget {
         ),
       ),
     );
+  },
+);
   }
 }

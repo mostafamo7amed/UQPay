@@ -38,8 +38,8 @@ class NotificationItemWidget extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: notificationModel.notifyType=='Payment'? const NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK_p-3PSabMItwpdqtL9zAy1Hwk2ioosBm3Q&s')
+                      image: notificationModel.notifyType=='Order'?
+                       NetworkImage(notificationModel.image!)
                           :const AssetImage(AssetsData.appLogo)),
                 ),
               ),

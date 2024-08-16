@@ -136,7 +136,7 @@ class PickupOderDetailsView extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Expanded(
@@ -145,7 +145,7 @@ class PickupOderDetailsView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Successfull',
+                                  'Successfully',
                                   style: Styles.textStyle18
                                       .copyWith(color: AppColor.primaryColor),
                                 ),
@@ -155,7 +155,7 @@ class PickupOderDetailsView extends StatelessWidget {
                                       .copyWith(color: AppColor.primaryColor),
                                 ),
                                 Text(
-                                  'Order recieved',
+                                  'Order received',
                                   style: Styles.textStyle18
                                       .copyWith(color: AppColor.grayColor),
                                 ),

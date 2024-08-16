@@ -11,13 +11,13 @@ class OrdersVerticalListView extends StatelessWidget {
     this.hideProgress = false,
     required this.detailsTap,
     required this.reorderTap,
-    required this.orderModel,
+    this.orderModel,
 
   });
   bool? hideProgress = false;
   void Function()? detailsTap;
   void Function()? reorderTap;
-  OrderModel orderModel;
+  OrderModel? orderModel;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class OrdersVerticalListView extends StatelessWidget {
                     child: SizedBox(
                       width: 100,
                       child: Image.network(
-                        orderModel.storeModel.storeIamge,
+                        orderModel!.companyModel!.image!,
                       ),
                     ),
                   ),
@@ -50,12 +50,12 @@ class OrdersVerticalListView extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          orderModel.storeModel.storeName,
+                          orderModel!.companyModel!.name!,
                           style: Styles.textStyle20
                               .copyWith(color: AppColor.blackColor),
                         ),
                         Text(
-                          'Order no: ${orderModel.number}',
+                          'Order no: ${orderModel!.orderNumber}',
                           style: Styles.regularTextStyle14
                               .copyWith(color: AppColor.blackColor),
                         ),
@@ -73,7 +73,7 @@ class OrdersVerticalListView extends StatelessWidget {
                               ),
                               const Spacer(),
                               Text(
-                                '${orderModel.amount} SAR',
+                                '${orderModel!.amount} SAR',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.grayColor),
                               ),
@@ -92,7 +92,7 @@ class OrdersVerticalListView extends StatelessWidget {
                               ),
                               const Spacer(),
                               Text(
-                                orderModel.orderType,
+                                orderModel!.orderType!,
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.grayColor),
                               ),

@@ -56,9 +56,9 @@ class _MyOrdersTabViewState extends State<MyOrdersTabView> {
                             child: Text(
                               'All',
                               style: currentTab != 0
-                                  ? Styles.regularTextStyle16
+                                  ? Styles.regularTextStyle14
                                       .copyWith(color: AppColor.yellowColor)
-                                  : Styles.regularTextStyle16
+                                  : Styles.regularTextStyle14
                                       .copyWith(color: AppColor.wihteColor),
                             ),
                           ),
@@ -66,9 +66,9 @@ class _MyOrdersTabViewState extends State<MyOrdersTabView> {
                             child: Text(
                               'In progress',
                               style: currentTab != 1
-                                  ? Styles.regularTextStyle16
+                                  ? Styles.regularTextStyle14
                                       .copyWith(color: AppColor.yellowColor)
-                                  : Styles.regularTextStyle16
+                                  : Styles.regularTextStyle14
                                       .copyWith(color: AppColor.wihteColor),
                             ),
                           ),
@@ -76,9 +76,9 @@ class _MyOrdersTabViewState extends State<MyOrdersTabView> {
                             child: Text(
                               'Past orders',
                               style: currentTab != 2
-                                  ? Styles.regularTextStyle16
+                                  ? Styles.regularTextStyle14
                                       .copyWith(color: AppColor.yellowColor)
-                                  : Styles.regularTextStyle16
+                                  : Styles.regularTextStyle14
                                       .copyWith(color: AppColor.wihteColor),
                             ),
                           ),

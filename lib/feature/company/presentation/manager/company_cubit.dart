@@ -2,13 +2,19 @@ import 'dart:io';
 
 import 'package:UQPay/feature/company/data/offer_model.dart';
 import 'package:UQPay/feature/company/data/product_model.dart';
+import 'package:UQPay/feature/home/data/models/notification.dart';
+import 'package:UQPay/feature/home/data/models/user_model.dart';
+import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:location/location.dart';
+import '../../../../core/functions/get_operation_date_now.dart';
 import '../../../../core/functions/get_random_number.dart';
 import '../../../../core/utils/common.dart';
+import '../../../home/data/models/operation.dart';
 import '../../data/company_model.dart';
 part 'company_state.dart';
 
@@ -33,16 +39,23 @@ class CompanyCubit extends Cubit<CompanyState> {
       emit(GetCompanyErrorState());
     });
   }
+  LocationData? companyLocation;
+  getLocation() async {
+
+    final locationController = Location();
+   companyLocation = await locationController.getLocation();
+  }
 
 // use the returned token to send messages to users from your custom server
   String? token;
   getCompanyNotificationToken() async {
+     await getLocation();
     token = await FirebaseMessaging.instance.getToken();
     print(token);
-    updateCompanyNotificationToken(companyModel!, token!);
+    updateCompanyNotificationToken(companyModel!, token!,companyLocation!);
   }
 
-  updateCompanyNotificationToken(CompanyModel user, String token) {
+  updateCompanyNotificationToken(CompanyModel user, String token,LocationData location) {
     CompanyModel companyModel = CompanyModel(
         user.email,
         user.name,
@@ -55,7 +68,11 @@ class CompanyCubit extends Cubit<CompanyState> {
         user.phone,
         user.category,
         user.supportType,
-        user.cashback);
+        user.cashback,
+        user.address,
+        location.longitude,
+        location.latitude,
+    );
     FirebaseFirestore.instance
         .collection('Company')
         .doc(user.uid)
@@ -180,7 +197,11 @@ class CompanyCubit extends Cubit<CompanyState> {
         user.phone,
         user.category,
         user.supportType,
-        cashback);
+        cashback,
+      user.address,
+      user.longitude,
+      user.latitude
+    );
     FirebaseFirestore.instance
         .collection('Company')
         .doc(user.uid)
@@ -281,4 +302,177 @@ class CompanyCubit extends Cubit<CompanyState> {
       emit(UpdateProductStatusErrorState());
     });
   }
+
+
+  List<NotificationModel> allCompanyNotification =[];
+  getCompanyNotifications(){
+    allCompanyNotification =[];
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(companyModel!.uid!)
+        .collection('Company notification')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        allCompanyNotification.add(NotificationModel.fromMap(element.data()));
+      }
+      emit(GetNotificationSuccessState());
+    })
+        .catchError((e) {
+      emit(GetNotificationErrorState());
+    });
+  }
+  List<OrderModel> allOrders =[];
+  getCompanyOrders(){
+    allOrders = [];
+    FirebaseFirestore.instance
+        .collection('All Orders')
+        .doc(companyModel!.uid!)
+        .collection('Company Order')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        allOrders.add(OrderModel.fromMap(element.data()));
+      }
+      emit(GetOrdersSuccessState());
+    })
+        .catchError((e) {
+      emit(GetOrdersErrorState());
+    });
+  }
+
+  acceptOrder(String orderNumber, UserModel userModel ,double amount,double offer){
+    emit(AcceptOrderLoadingState());
+    double cashback = (amount*offer)/100;
+    FirebaseFirestore.instance
+        .collection('All Orders')
+        .doc(companyModel!.uid!)
+        .collection('Company Order')
+        .doc(orderNumber)
+        .update({
+      'status': 'Accepted'
+    })
+        .then((value) {
+      emit(AcceptOrderSuccessState());
+    })
+        .catchError((e) {
+      emit(AcceptOrderErrorState());
+    });
+    FirebaseFirestore.instance
+        .collection('All Orders')
+        .doc(userModel.uid!)
+        .collection('User Order')
+        .doc(orderNumber)
+        .update({
+      'status': 'Accepted'
+    })
+        .then((value) {
+      emit(AcceptOrderSuccessState());
+      updateUserMoney(userModel, amount,cashback );
+      userOperation(userModel, companyModel!, orderNumber, amount);
+    })
+        .catchError((e) {
+      emit(AcceptOrderErrorState());
+    });
+
+  }
+
+  rejectOrder(String orderNumber, UserModel userModel){
+    FirebaseFirestore.instance
+        .collection('All Orders')
+        .doc(companyModel!.uid!)
+        .collection('Company Order')
+        .doc(orderNumber)
+        .update({
+      'status': 'Rejected'
+    })
+        .then((value) {
+      emit(RejectOrderSuccessState());
+    })
+        .catchError((e) {
+      emit(RejectOrderErrorState());
+    });
+    FirebaseFirestore.instance
+        .collection('All Orders')
+        .doc(userModel.uid!)
+        .collection('User Order')
+        .doc(orderNumber)
+        .update({
+      'status': 'Rejected'
+    })
+        .then((value) {
+      emit(RejectOrderSuccessState());
+    })
+        .catchError((e) {
+      emit(RejectOrderErrorState());
+    });
+
+  }
+
+  finishOrder(String orderNumber, UserModel userModel){
+    FirebaseFirestore.instance
+        .collection('All Orders')
+        .doc(companyModel!.uid!)
+        .collection('Company Order')
+        .doc(orderNumber)
+        .delete()
+        .then((value) {
+      emit(FinishOrderSuccessState());
+    })
+        .catchError((e) {
+      emit(FinishOrderErrorState());
+    });
+  }
+
+  updateUserMoney(UserModel user, double amount, double cashback) {
+    double newAmount = user.cardAmount! - amount;
+    double newCash = user.cashBacks! + cashback;
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user.uid)
+        .update({
+      'cashBacks':newCash,
+      'cardAmount':newAmount
+    })
+        .then((value) {
+      emit(UpdateUserSuccessState());
+    })
+        .catchError((e) {
+      emit(UpdateUserErrorState());
+    });
+  }
+
+  userOperation(UserModel user,CompanyModel company,String orderNumber,double amount){
+    var operationDate = getOperationDateNow();
+    Operation operation = Operation(
+        company.name,
+        user.name,
+        int.parse(orderNumber),
+        'You pay money',
+        operationDate,
+        amount,
+        'Send',
+        'Payment');
+
+    FirebaseFirestore.instance
+        .collection('All Operation')
+        .doc(uid)
+        .collection('Operation')
+        .doc(orderNumber)
+        .set(operation.toMap()!)
+        .then((value) {
+      emit(AddUserOperationSuccessState());
+    })
+        .catchError((e) {
+      emit(AddUserOperationErrorState());
+    });
+  }
+
+  bool pushNotification = true;
+  changePushNotification(){
+    pushNotification =!pushNotification;
+    emit(GetPushNotificationState());
+  }
+
+
 }

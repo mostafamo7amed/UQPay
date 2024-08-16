@@ -50,6 +50,8 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
       CompanyCubit.getCubit(context).getCompanyNotificationToken();
       CompanyCubit.getCubit(context).getCompanyOffer();
       CompanyCubit.getCubit(context).getCompanyProducts();
+      CompanyCubit.getCubit(context).getCompanyNotifications();
+      CompanyCubit.getCubit(context).getCompanyOrders();
 
     }
   },
@@ -197,6 +199,7 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                                         title: 'Manage orders',
                                         icon: Icons.shopping_cart_checkout,
                                         onTap: () {
+                                          CompanyCubit.getCubit(context).getCompanyOrders();
                                           PersistentNavBarNavigator
                                               .pushNewScreen(context,
                                                   screen:

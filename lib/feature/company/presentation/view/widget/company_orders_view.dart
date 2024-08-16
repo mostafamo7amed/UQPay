@@ -1,7 +1,11 @@
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/core/utils/common.dart';
+import 'package:UQPay/feature/company/presentation/manager/company_cubit.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_order_details_view.dart';
+import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class CompanyOrdersView extends StatelessWidget {
@@ -9,6 +13,11 @@ class CompanyOrdersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<CompanyCubit, CompanyState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    var cubit = CompanyCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -42,30 +51,34 @@ class CompanyOrdersView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: 10,
             ),
-            child: ListView.separated(
+            child:cubit.allOrders.isNotEmpty?
+            ListView.separated(
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
                   PersistentNavBarNavigator.pushNewScreen(context,
-                      screen: const CompanyOrderDetailsView());
+                      screen: CompanyOrderDetailsView(orderModel: cubit.allOrders[index],));
                 },
-                child: const CompanyOrderItem(),
+                child:CompanyOrderItem(orderModel: cubit.allOrders[index],),
               ),
               separatorBuilder: (context, index) => const SizedBox(
                 height: 10,
               ),
-              itemCount: 10,
-            ),
+              itemCount: cubit.allOrders.length,
+            ): const Center(child: Text('There is no order received!',style: Styles.textStyle18,),),
           ),
         ),
       ),
     );
+  },
+);
   }
 }
 
 class CompanyOrderItem extends StatelessWidget {
   const CompanyOrderItem({
-    super.key,
+    super.key, required this.orderModel,
   });
+  final OrderModel orderModel;
 
   @override
   Widget build(BuildContext context) {
@@ -81,12 +94,14 @@ class CompanyOrderItem extends StatelessWidget {
                 child: Container(
                   width: MediaQuery.of(context).size.width / 4.3,
                   height: MediaQuery.of(context).size.width / 4.3,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  decoration:  BoxDecoration(
+                    borderRadius:const BorderRadius.all(Radius.circular(10)),
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK_p-3PSabMItwpdqtL9zAy1Hwk2ioosBm3Q&s')),
+                        image: orderModel.products!.image!.isNotEmpty?
+                        NetworkImage(orderModel.products!.image!)
+                            :NetworkImage(noImagePlaceholder),
+                    ),
                   ),
                 ),
               ),
@@ -98,7 +113,7 @@ class CompanyOrderItem extends StatelessWidget {
                       height: 15,
                     ),
                     Text(
-                      'Order 342525',
+                      'Order #${orderModel.orderNumber}',
                       style: Styles.textStyle20
                           .copyWith(color: AppColor.blackColor),
                     ),
@@ -116,7 +131,7 @@ class CompanyOrderItem extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            '240.00 SAR',
+                            '${orderModel.total} SAR',
                             style: Styles.regularTextStyle16
                                 .copyWith(color: AppColor.grayColor),
                           ),
@@ -137,7 +152,7 @@ class CompanyOrderItem extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            'Service',
+                            '${orderModel.orderType}',
                             style: Styles.regularTextStyle16
                                 .copyWith(color: AppColor.grayColor),
                           ),
@@ -156,7 +171,7 @@ class CompanyOrderItem extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            '27-7-2024',
+                            '${orderModel.date}',
                             style: Styles.regularTextStyle16
                                 .copyWith(color: AppColor.grayColor),
                           ),

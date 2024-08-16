@@ -48,3 +48,27 @@ final class SelectProductTypeState extends CompanyState {}
 
 final class UpdateProductStatusSuccessState extends CompanyState {}
 final class UpdateProductStatusErrorState extends CompanyState {}
+
+final class GetOrdersSuccessState extends CompanyState {}
+final class GetOrdersErrorState extends CompanyState {}
+
+final class GetNotificationSuccessState extends CompanyState {}
+final class GetNotificationErrorState extends CompanyState {}
+
+final class AcceptOrderLoadingState extends CompanyState {}
+final class AcceptOrderSuccessState extends CompanyState {}
+final class AcceptOrderErrorState extends CompanyState {}
+
+final class RejectOrderSuccessState extends CompanyState {}
+final class RejectOrderErrorState extends CompanyState {}
+
+final class FinishOrderSuccessState extends CompanyState {}
+final class FinishOrderErrorState extends CompanyState {}
+
+final class UpdateUserSuccessState extends CompanyState {}
+final class UpdateUserErrorState extends CompanyState {}
+
+final class AddUserOperationSuccessState extends CompanyState {}
+final class AddUserOperationErrorState extends CompanyState {}
+
+final class GetPushNotificationState extends CompanyState{}

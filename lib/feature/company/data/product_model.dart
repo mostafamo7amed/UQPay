@@ -8,7 +8,7 @@ class ProductModel{
   bool? status;
 
   ProductModel(this.id, this.name, this.image, this.productType, this.amount,
-      this.description, this.status);
+      this.description, this.status,);
 
   ProductModel.fromMap(Map<String,dynamic> map){
     id = map['id'];

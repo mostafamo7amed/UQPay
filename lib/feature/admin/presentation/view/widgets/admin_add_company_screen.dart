@@ -18,6 +18,8 @@ class AdminAddCompanyScreen extends StatelessWidget {
   final TextEditingController conEmailController =TextEditingController();
   final TextEditingController conPasswordController =TextEditingController();
   final TextEditingController conPhoneController =TextEditingController();
+  final TextEditingController conAddressController =TextEditingController();
+
   var formKey = GlobalKey<FormState>();
 
 
@@ -186,6 +188,21 @@ class AdminAddCompanyScreen extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
+                          defaultFormField(
+                              autoFocus: false,
+                              controller: conAddressController,
+                              label: ' Company Address ',
+                              validate: (value) {
+                                if(conAddressController.text.isEmpty) {
+                                  return 'Please enter company address';
+                                }
+                                return null;
+                              },
+                              type: TextInputType.text,
+                              context: context),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           DropdownSearch<String>(
                             selectedItem: cubit.companyCategory,
                             popupProps: const PopupProps.menu(
@@ -242,7 +259,9 @@ class AdminAddCompanyScreen extends StatelessWidget {
                                         cubit.companyCategory!,
                                         cubit.companyImageUri,
                                         conEmailController.text,
-                                        conPasswordController.text);
+                                        conPasswordController.text,
+                                      conAddressController.text
+                                    );
                                   } else {
                                     toast(message: 'Select company category',
                                         data: ToastStates.error);

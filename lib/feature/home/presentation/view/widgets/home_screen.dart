@@ -5,10 +5,8 @@ import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:UQPay/feature/home/presentation/view/notification_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:UQPay/core/functions/notification_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-
 import '../../../../../core/utils/app_manager/app_assets.dart';
 import '../../../../../core/utils/app_manager/app_styles.dart';
 import '../../../../../core/utils/common.dart';
@@ -56,7 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
           HomeCubit.getCubit(context).getFastTransferUsers();
           HomeCubit.getCubit(context).getUserOperation();
           HomeCubit.getCubit(context).getAllGifts();
+          HomeCubit.getCubit(context).getAllCategory();
+          HomeCubit.getCubit(context).getAllCompany();
           HomeCubit.getCubit(context).getAllStudents();
+          HomeCubit.getCubit(context).getCurrentLocation();
           HomeCubit.getCubit(context).getUserNotificationToken();
           HomeCubit.getCubit(context).getNotificationDB();
         }

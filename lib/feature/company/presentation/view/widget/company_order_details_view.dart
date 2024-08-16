@@ -2,14 +2,27 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
+import 'package:UQPay/feature/company/presentation/manager/company_cubit.dart';
+import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class CompanyOrderDetailsView extends StatelessWidget {
-  const CompanyOrderDetailsView({super.key});
+  const CompanyOrderDetailsView({super.key, required this.orderModel});
+  final OrderModel orderModel;
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<CompanyCubit, CompanyState>(
+  listener: (context, state) {
+    if(state is AcceptOrderSuccessState || state is RejectOrderSuccessState || state is FinishOrderSuccessState){
+      CompanyCubit.getCubit(context).getCompanyOrders();
+      Navigator.pop(context);
+    }
+  },
+  builder: (context, state) {
+    var cubit = CompanyCubit.getCubit(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -50,7 +63,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Order 342525',
+                    'Order #${orderModel.orderNumber}',
                     style:
                         Styles.textStyle24.copyWith(color: AppColor.blackColor),
                   ),
@@ -67,7 +80,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          'Ahmed Mohamed',
+                          orderModel.userModel!.name!,
                           style: Styles.textStyle18
                               .copyWith(color: AppColor.grayColor),
                         ),
@@ -87,7 +100,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          'Gym Subscription',
+                          orderModel.products!.name!,
                           style: Styles.textStyle18
                               .copyWith(color: AppColor.grayColor),
                         ),
@@ -107,7 +120,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          'Service',
+                          '${orderModel.orderType}',
                           style: Styles.textStyle18
                               .copyWith(color: AppColor.grayColor),
                         ),
@@ -127,7 +140,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          '27-7-2024',
+                          '${orderModel.date}',
                           style: Styles.textStyle18
                               .copyWith(color: AppColor.grayColor),
                         ),
@@ -147,7 +160,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          '240.00 SAR',
+                          '${orderModel.amount} SAR',
                           style: Styles.textStyle18
                               .copyWith(color: AppColor.grayColor),
                         ),
@@ -165,7 +178,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          '20 %',
+                          '${orderModel.offer} %',
                           style: Styles.textStyle18
                               .copyWith(color: AppColor.grayColor),
                         ),
@@ -184,7 +197,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          '192.00 SAR',
+                          '${orderModel.total} SAR',
                           style: Styles.textStyle18
                               .copyWith(color: AppColor.grayColor),
                         ),
@@ -194,20 +207,128 @@ class CompanyOrderDetailsView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
+                      if(orderModel.status == 'In Progress')
                       CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          cubit.acceptOrder(orderModel.orderNumber!, orderModel.userModel!, orderModel.amount!, orderModel.offer!);
+                        },
                         color: AppColor.greenColor,
                         text: 'Accept',
+                        isLoading: state is AcceptOrderLoadingState,
                         width: MediaQuery.of(context).size.width / 4,
                       ),
+                      if(orderModel.status == 'In Progress')
                       CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding:
+                                  const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Center(
+                                        child: Text(
+                                          "Are you sure you want \nreject order?!",
+                                          textAlign:
+                                          TextAlign.center,
+                                          style: Styles.textStyle20,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      SeperatedLine(),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Center(
+                                        child: CustomButton(
+                                          onPressed: () {
+                                            cubit.rejectOrder(orderModel.orderNumber!, orderModel.userModel!);
+                                            Navigator.pop(context);
+                                          },
+                                          width: MediaQuery.of(context).size.width / 4,
+                                          color: AppColor.redColor,
+                                          text: 'Reject',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
                         color: AppColor.redColor,
                         text: 'Reject',
                         width: MediaQuery.of(context).size.width / 4,
                       ),
                       CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding:
+                                  const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Center(
+                                        child: Text(
+                                          "Are you sure you want \n finish order?!",
+                                          textAlign:
+                                          TextAlign.center,
+                                          style: Styles.textStyle20,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      SeperatedLine(),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Center(
+                                        child: CustomButton(
+                                          onPressed: () {
+                                            cubit.finishOrder(orderModel.orderNumber!, orderModel.userModel!);
+                                            Navigator.pop(context);
+                                          },
+                                          width: MediaQuery.of(context).size.width / 4,
+                                          color: AppColor.redColor,
+                                          text: 'Finish',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
                         color: AppColor.primaryColor,
                         text: 'Finish',
                         width: MediaQuery.of(context).size.width / 4,
@@ -221,5 +342,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
         ),
       ),
     );
+  },
+);
   }
 }

@@ -1,8 +1,4 @@
-import 'package:UQPay/core/utils/app_manager/app_routes.dart';
-import 'package:UQPay/feature/admin/data/admin_model.dart';
-import 'package:UQPay/feature/home/data/models/user_model.dart';
 import 'package:UQPay/feature/login/presentation/manager/login_cubit.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
@@ -10,8 +6,6 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/custom_text_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-
 import '../../../../../core/utils/common.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -82,6 +76,9 @@ class LoginViewBody extends StatelessWidget {
                       inputType: TextInputType.name,
                       validator: (value) {
                         if(value!.contains('.org')){
+                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}').hasMatch(value)) {
+                            return 'Please enter organization email address ';
+                          }
                           return null;
                         }else{
                           if (!value.contains('.edu.sa')||value.isEmpty||!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}').hasMatch(value)) {

@@ -1,22 +1,41 @@
-import 'package:UQPay/core/utils/app_manager/app_assets.dart';
+import 'dart:async';
+
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
-import 'package:UQPay/feature/store/data/models/product_model.dart';
+import 'package:UQPay/feature/company/data/product_model.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/oder_details_view.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/pickup_oder_details_view.dart';
-import 'package:UQPay/feature/store/presentation/view/widgets/view_order_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
+import '../../../../../core/functions/get_random_number.dart';
+import '../../../../company/data/company_model.dart';
+
 class OrderLocationView extends StatelessWidget {
-  const OrderLocationView({
-    super.key,
+  OrderLocationView({
+    super.key, required this.productModel, required this.companyModel,
   });
+  final ProductModel productModel;
+  final CompanyModel companyModel;
+  final Completer<GoogleMapController> mapController =
+  Completer<GoogleMapController>();
 
   @override
   Widget build(BuildContext context) {
+    CameraPosition companyLocation = CameraPosition(
+      target: LatLng(companyModel.latitude!,companyModel.longitude!),
+      zoom: 14.4746,
+    );
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -35,35 +54,75 @@ class OrderLocationView extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            Expanded(
+              child: Container(
+                child: companyLocation!=null? GoogleMap(
+                  onTap: (argument) {
+                      Marker newMachine = Marker(
+                        markerId: MarkerId(companyModel.address!),
+                        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+                        position: LatLng(argument.latitude,argument.longitude),
+                        infoWindow: InfoWindow(title: companyModel.address!),
+                      );
+                  },
+                  markers: {
+                    Marker(
+                      markerId: MarkerId(companyModel.address!),
+                      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+                      position: LatLng(companyModel.latitude!,companyModel.longitude!),
+                      infoWindow: InfoWindow(title: companyModel.address!),
+                    ),
+                  },
+                  mapType: MapType.normal,
+                  myLocationEnabled: true,
+                  initialCameraPosition:companyLocation,
+                  onMapCreated: (GoogleMapController controller) {
+                    mapController.complete(controller);
+                  },
+                ): const Center(child: CircularProgressIndicator(),),
+              ),
+            ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2.5,
+              height: MediaQuery.of(context).size.height / 3.6,
               decoration: BoxDecoration(
                 color: AppColor.lightgrayColor,
               ),
               child: ListView.separated(
-                  itemBuilder: (context, index) => const StoreLocationWidget(),
+                  itemBuilder: (context, index) => StoreLocationWidget(companyModel: companyModel, productModel: productModel,),
                   separatorBuilder: (context, index) => const SizedBox(
                         height: 2,
                       ),
-                  itemCount: 2),
+                  itemCount: 1),
             ),
           ],
         ),
       ),
     );
+  },
+);
   }
 }
 
 class StoreLocationWidget extends StatelessWidget {
   const StoreLocationWidget({
-    super.key,
+    super.key, required this.companyModel, required this.productModel,
+
   });
+  final CompanyModel companyModel;
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    var cubit =HomeCubit.getCubit(context);
+    var distance =cubit.calculateDistance(companyModel.latitude, companyModel.longitude);
     return InkWell(
       onTap: () {
+        int orderNumber = getRandomNumber6();
         showDialog(
           context: context,
           builder: (context) {
@@ -91,9 +150,9 @@ class StoreLocationWidget extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    const Center(
+                    Center(
                       child: Text(
-                        'Order No: 345678',
+                        'Order #$orderNumber',
                         style: Styles.textStyle18,
                       ),
                     ),
@@ -104,10 +163,10 @@ class StoreLocationWidget extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                           border: Border.all(color: AppColor.grayColor)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(5.0),
+                      child:  Padding(
+                        padding:const EdgeInsets.all(5.0),
                         child: Text(
-                          '200 SAR',
+                          '${productModel.amount} SAR',
                           style: Styles.textStyle18,
                         ),
                       ),
@@ -115,32 +174,32 @@ class StoreLocationWidget extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    const Text(
-                      'Pickup info:',
+                    Text(
+                      '${productModel.productType} info:',
                       style: Styles.textStyle18,
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-                    const Row(
+                    Row(
                       children: [
-                        Icon(Icons.location_on),
-                        SizedBox(
+                        const Icon(Icons.location_on),
+                        const SizedBox(
                           width: 4,
                         ),
-                        Text('Makkah - Ash shara’I')
+                        Text('${companyModel.address}')
                       ],
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-                    const Row(
+                    Row(
                       children: [
-                        Icon(Icons.access_time_rounded),
-                        SizedBox(
+                        const Icon(Icons.social_distance_outlined),
+                        const SizedBox(
                           width: 4,
                         ),
-                        Text('20 min')
+                        Text('${distance.roundToDouble()} KM')
                       ],
                     ),
                     const SizedBox(
@@ -152,17 +211,32 @@ class StoreLocationWidget extends StatelessWidget {
                         CustomButton(
                           height: 40,
                           width: MediaQuery.of(context).size.width / 3,
-                          onPressed: () {},
-                          text: 'Change',
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          text: 'Cancel',
                         ),
                         CustomButton(
                           height: 40,
                           width: MediaQuery.of(context).size.width / 3,
                           onPressed: () {
-                            PersistentNavBarNavigator.pushNewScreen(context,
-                                screen: const OderDetailsView());
+                            cubit.makeOrder(
+                                orderNumber.toString(),
+                                productModel.productType!,
+                                companyModel.uid!,
+                                companyModel,
+                                productModel.amount!,
+                                productModel);
+                            if(productModel.productType == 'Service'){
+                              PersistentNavBarNavigator.pushNewScreen(context,
+                                  screen: const OderDetailsView());
+                            }else{
+                              PersistentNavBarNavigator.pushNewScreen(context,
+                                  screen: const PickupOderDetailsView());
+                            }
                           },
                           text: 'Confirm',
+                          isLoading: state is MakeOrderLoadingState,
                         ),
                       ],
                     )
@@ -183,8 +257,8 @@ class StoreLocationWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Text(
-                      'Ash shara’I',
+                    Text(
+                      companyModel.name!,
                       style: Styles.regularTextStyle16,
                     ),
                     const Spacer(),
@@ -195,7 +269,7 @@ class StoreLocationWidget extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(5)),
                         color: AppColor.greenColor.withOpacity(.3),
                       ),
-                      child: Text('4 KM'),
+                      child: Text('${distance.roundToDouble()} KM'),
                     ),
                     const SizedBox(
                       width: 5,
@@ -207,51 +281,44 @@ class StoreLocationWidget extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(5)),
                         color: AppColor.greenColor.withOpacity(.3),
                       ),
-                      child: Text('Open'),
+                      child: const Text('Open'),
                     )
                   ],
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                const Row(
+                 Row(
                   children: [
-                    Icon(Icons.location_on),
-                    SizedBox(
+                    const Icon(Icons.location_on),
+                    const SizedBox(
                       width: 4,
                     ),
-                    Text('Makkah - Ash shara’I')
+                    Text(companyModel.address!)
                   ],
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                const Row(
+                 Row(
                   children: [
-                    Icon(Icons.phone),
-                    SizedBox(
+                    const Icon(Icons.phone),
+                    const SizedBox(
                       width: 4,
                     ),
-                    Text('+966562848295')
+                    Text(companyModel.phone!)
                   ],
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                const Row(
-                  children: [
-                    Icon(Icons.timer_outlined),
-                    SizedBox(
-                      width: 4,
-                    ),
-                    Text('12:00 PM - 01:00 AM')
-                  ],
-                )
               ],
             ),
           ),
         ),
       ),
     );
+  },
+);
   }
 }
