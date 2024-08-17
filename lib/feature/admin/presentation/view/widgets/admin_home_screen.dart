@@ -1,6 +1,7 @@
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
+import 'package:UQPay/core/widgets/double_back_to_close_app.dart';
 import 'package:UQPay/feature/admin/presentation/manager/admin_cubit.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_deposit_machine_screen.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_manage_category.dart';
@@ -35,7 +36,8 @@ class AdminHomeScreen extends StatelessWidget {
           backgroundColor: AppColor.primaryColor,
         ),
         backgroundColor: AppColor.primaryColor,
-        body:cubit.adminModel != null? SingleChildScrollView(
+        body:cubit.adminModel != null?
+        SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

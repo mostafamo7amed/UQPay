@@ -151,7 +151,7 @@ class _AdminDepositMachineScreenState extends State<AdminDepositMachineScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  defaultFormField(
+                  /*defaultFormField(
                       autoFocus: false,
                       controller: markerLatController,
                       label: ' Latitude ',
@@ -169,10 +169,7 @@ class _AdminDepositMachineScreenState extends State<AdminDepositMachineScreen> {
                       isEnable: false,
                       validate: (value) {},
                       type: const TextInputType.numberWithOptions(signed: true),
-                      context: context),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                      context: context),*/
                   CustomButton(
                     onPressed: () {
                       if(markerNameController.text.isNotEmpty && markerLatController.text.isNotEmpty){

@@ -57,14 +57,6 @@ class OrderLocationView extends StatelessWidget {
             Expanded(
               child: Container(
                 child: companyLocation!=null? GoogleMap(
-                  onTap: (argument) {
-                      Marker newMachine = Marker(
-                        markerId: MarkerId(companyModel.address!),
-                        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-                        position: LatLng(argument.latitude,argument.longitude),
-                        infoWindow: InfoWindow(title: companyModel.address!),
-                      );
-                  },
                   markers: {
                     Marker(
                       markerId: MarkerId(companyModel.address!),

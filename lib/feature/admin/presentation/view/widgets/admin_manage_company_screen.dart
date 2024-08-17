@@ -55,7 +55,7 @@ class _AdminManageCompanyScreenState extends State<AdminManageCompanyScreen> {
             floatingActionButton: GestureDetector(
               onTap: () {
                 PersistentNavBarNavigator.pushNewScreen(context,
-                    screen: AdminAddCompanyScreen());
+                    screen: const AdminAddCompanyScreen());
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 3,
@@ -108,7 +108,7 @@ class _AdminManageCompanyScreenState extends State<AdminManageCompanyScreen> {
                             child: DropdownButton(
                                 underline: const SizedBox(),
                                 isExpanded: true,
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 alignment: Alignment.centerLeft,
                                 icon: const Icon(
                                   Icons.keyboard_arrow_down_sharp,
@@ -143,43 +143,11 @@ class _AdminManageCompanyScreenState extends State<AdminManageCompanyScreen> {
                           topStart: Radius.circular(24),
                           topEnd: Radius.circular(24)),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'All companies',
-                            style: Styles.textStyle17.copyWith(
-                                color: AppColor.blackColor,
-                                decoration: TextDecoration.underline),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          cubit.allCompany.isNotEmpty
-                              ? ListView.separated(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) => CompanyItem(
-                                    companyModel: cubit.allCompany[index],
-                                  ),
-                                  separatorBuilder: (context, index) =>
-                                      SeperatedLine(),
-                                  itemCount: cubit.allCompany.length,
-                                )
-                              : const Center(
-                                  child: Text(
-                                    'There is no company yet!',
-                                    style: Styles.textStyle18,
-                                  ),
-                                ),
-                        ],
-                      ),
-                    ),
+                    child:selectedName!=null?
+                        selectedName=='Student'?CompanySupportedUserType(allCompany: cubit.allStudentCompany,userType: 'Student',)
+                            :selectedName=='Academic'?CompanySupportedUserType(allCompany: cubit.allAcademicCompany,userType: 'Academic',)
+                            :CompanySupportedUserType(allCompany: cubit.allCompany,userType: 'Both',)
+                        :CompanySupportedUserType(allCompany: cubit.allCompany,userType: 'Both',),
                   ),
                 ],
               ),
@@ -187,6 +155,59 @@ class _AdminManageCompanyScreenState extends State<AdminManageCompanyScreen> {
           ),
         );
       },
+    );
+  }
+}
+
+class CompanySupportedUserType extends StatelessWidget {
+  const CompanySupportedUserType({
+    super.key, required this.userType, required this.allCompany,
+  });
+
+  final String userType;
+  final List<CompanyModel> allCompany;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            userType=='Both'?
+            'All companies':'$userType companies',
+            style: Styles.textStyle17.copyWith(
+                color: AppColor.blackColor,
+                decoration: TextDecoration.underline),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          allCompany.isNotEmpty
+              ? ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => CompanyItem(
+                    companyModel: allCompany[index],
+                  ),
+                  separatorBuilder: (context, index) =>
+                      SeperatedLine(),
+                  itemCount:allCompany.length,
+                )
+              : const Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 50),
+                    child: Text(
+                      'There is no company yet!',
+                      style: Styles.textStyle18,),
+                  ),
+          ),
+        ],
+      ),
     );
   }
 }

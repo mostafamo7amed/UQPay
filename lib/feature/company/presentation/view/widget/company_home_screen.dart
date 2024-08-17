@@ -4,9 +4,10 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/basic_functions_widget.dart';
 import 'package:UQPay/feature/company/presentation/manager/company_cubit.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_cashback_view.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_manage_order_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_notification_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_offer_view.dart';
-import 'package:UQPay/feature/company/presentation/view/widget/company_orders_view.dart';
+import 'package:UQPay/feature/company/presentation/view/widget/company_new_orders_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_product_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -191,7 +192,7 @@ class CompanyHomeScreen extends StatelessWidget {
                                           PersistentNavBarNavigator
                                               .pushNewScreen(context,
                                                   screen:
-                                                      const CompanyOrdersView());
+                                                      const CompanyManageOrderView());
                                         },
                                       ),
                                     ),

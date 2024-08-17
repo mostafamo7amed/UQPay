@@ -251,9 +251,9 @@ class CompanySettingsScreen extends StatelessWidget {
                         onTap: () {
                           FirebaseAuth.instance.signOut();
                           uid = '';
-                          uid = '';
                           CacheHelper.removeData(key: 'email');
                           CacheHelper.removeData(key: 'password');
+                          CacheHelper.removeData(key: 'uid');
                           GoRouter.of(context)
                               .pushReplacement(Routes.loginRoute);
                         },

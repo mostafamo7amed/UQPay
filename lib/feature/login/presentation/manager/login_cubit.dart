@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
-
 import '../../../../core/functions/toast.dart';
 import '../../../../core/utils/app_manager/app_color.dart';
 import '../../../../core/utils/app_manager/app_routes.dart';
@@ -98,11 +97,16 @@ class LoginCubit extends Cubit<LoginState> {
         .then((value) {
           CacheHelper.saveData(key: 'email', data: email);
           CacheHelper.saveData(key: 'password', data: password);
+          CacheHelper.saveData(key: 'uid', data: value.user!.uid);
       emit(LoginSuccessState(value.user!.uid));
 
     }).catchError((error) {
       emit(LoginErrorState());
-      toast(message: error.toString(), data: ToastStates.error);
+      if(error.toString().contains('incorrect') ||error.toString().contains('invalid-credential') ){
+        toast(message: 'Incorrect email or password check your email and password and try again', data: ToastStates.error);
+      }else{
+        toast(message: 'check your email and password and try again', data: ToastStates.error);
+      }
     });
   }
 
@@ -117,7 +121,7 @@ class LoginCubit extends Cubit<LoginState> {
         FirebaseFirestore.instance.collection('Users').where('uid',isEqualTo: UID).get().then((value) {
           print(value.docs.toString());
           if(value.docs.isNotEmpty){
-           toast(message: 'User not found', data: ToastStates.warning);
+           //toast(message: 'User not found', data: ToastStates.warning);
            GoRouter.of(context)
                 .pushReplacement(Routes.mainRoute);
             emit(LoginNavigateState());

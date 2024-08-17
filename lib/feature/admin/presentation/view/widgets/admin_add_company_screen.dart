@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:UQPay/core/cache_helper/cache_helper.dart';
-import 'package:UQPay/core/functions/pickImage_fun.dart';
 import 'package:UQPay/core/functions/toast.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
@@ -12,17 +10,29 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AdminAddCompanyScreen extends StatelessWidget {
-  AdminAddCompanyScreen({super.key});
+class AdminAddCompanyScreen extends StatefulWidget {
+  const AdminAddCompanyScreen({super.key});
+
+  @override
+  State<AdminAddCompanyScreen> createState() => _AdminAddCompanyScreenState();
+}
+
+class _AdminAddCompanyScreenState extends State<AdminAddCompanyScreen> {
   final TextEditingController conNameController =TextEditingController();
+
   final TextEditingController conEmailController =TextEditingController();
+
   final TextEditingController conPasswordController =TextEditingController();
+
   final TextEditingController conPhoneController =TextEditingController();
+
   final TextEditingController conAddressController =TextEditingController();
 
   var formKey = GlobalKey<FormState>();
 
+  List<String> accounts = ['Student', 'Academic', 'Both'];
 
+  String? selectedName;
 
   @override
   Widget build(BuildContext context) {
@@ -249,19 +259,72 @@ class AdminAddCompanyScreen extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
+                          DropdownSearch<String>(
+                            selectedItem: selectedName,
+                            popupProps: const PopupProps.menu(
+                                showSelectedItems: true, fit: FlexFit.loose),
+                            items: accounts
+                                .map(
+                                  (e) => e,
+                            )
+                                .toList(),
+                            dropdownDecoratorProps: DropDownDecoratorProps(
+                              baseStyle: Styles.regularTextStyle16
+                                  .copyWith(color: AppColor.blackColor),
+                              dropdownSearchDecoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColor.yellowColor, width: 2.0),
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColor.yellowColor, width: 2.0),
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                                ),
+                                label: const Text('Supported User',
+                                    style: Styles.textStyle18),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColor.yellowColor, width: 2.0),
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                                ),
+                                labelStyle: Styles.regularTextStyle16
+                                    .copyWith(color: AppColor.blackColor),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                selectedName = value;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           CustomButton(
                             onPressed: () {
                               if(formKey.currentState!.validate()) {
                                 if (cubit.companyImage != null) {
                                   if (cubit.companyCategory != null) {
-                                    cubit.registerCompany(conNameController.text,
-                                        conPhoneController.text,
-                                        cubit.companyCategory!,
-                                        cubit.companyImageUri,
-                                        conEmailController.text,
-                                        conPasswordController.text,
-                                      conAddressController.text
-                                    );
+                                    if(selectedName!=null) {
+                                      cubit.registerCompany(
+                                          conNameController.text,
+                                          conPhoneController.text,
+                                          cubit.companyCategory!,
+                                          cubit.companyImageUri,
+                                          conEmailController.text,
+                                          conPasswordController.text,
+                                          conAddressController.text,
+                                          selectedName!
+                                      );
+                                    }else{
+                                      toast(message: 'Select company supported user',
+                                          data: ToastStates.error);
+                                    }
                                   } else {
                                     toast(message: 'Select company category',
                                         data: ToastStates.error);

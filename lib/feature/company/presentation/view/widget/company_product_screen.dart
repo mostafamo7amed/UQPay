@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-import '../../../../../core/functions/toast.dart';
-
 class CompanyProductScreen extends StatelessWidget {
   const CompanyProductScreen({super.key});
 
@@ -96,8 +94,8 @@ class CompanyProductScreen extends StatelessWidget {
                 ListView.builder(
                   itemBuilder: (context, index) => InkWell(
                     onTap: () {
-                      PersistentNavBarNavigator.pushNewScreen(context,
-                          screen: CompanyViewProductView(productModel:cubit.allProducts[index] ,));
+                      /*PersistentNavBarNavigator.pushNewScreen(context,
+                          screen: CompanyViewProductView(productModel:cubit.allProducts[index] ,));*/
                     },
                     child: CompanyProductItem(productModel: cubit.allProducts[index],),
                   ),
@@ -128,11 +126,13 @@ class CompanyProductItem extends StatelessWidget {
       color: AppColor.wihteColor,
       elevation: 4,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.only(top: 15,left: 15,right: 10),
                 child: Container(
                   width: MediaQuery.of(context).size.width / 4.3,
                   height: MediaQuery.of(context).size.width / 4.3,
@@ -156,6 +156,8 @@ class CompanyProductItem extends StatelessWidget {
                     ),
                     Text(
                       productModel.name!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: Styles.textStyle20
                           .copyWith(color: AppColor.blackColor),
                     ),
@@ -169,11 +171,13 @@ class CompanyProductItem extends StatelessWidget {
                           Text(
                             'Amount',
                             style: Styles.regularTextStyle16
-                                .copyWith(color: AppColor.grayColor),
+                                .copyWith(color: AppColor.blackColor),
                           ),
                           const Spacer(),
                           Text(
                             '${productModel.amount} SAR',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: Styles.regularTextStyle16
                                 .copyWith(color: AppColor.grayColor),
                           ),
@@ -182,27 +186,49 @@ class CompanyProductItem extends StatelessWidget {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 5, right: 20, bottom: 10),
+                          const EdgeInsets.only(top: 5, right: 20,),
                       child: Row(
                         children: [
                           Text(
                             'Product type',
                             style: Styles.regularTextStyle16
-                                .copyWith(color: AppColor.grayColor),
+                                .copyWith(color: AppColor.blackColor),
                           ),
                           const Spacer(),
                           Text(
                             productModel.productType!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: Styles.regularTextStyle16
                                 .copyWith(color: AppColor.grayColor),
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               )
             ],
+          ),
+          Padding(
+            padding:
+            const EdgeInsets.only(top: 5, right: 15,left: 15, bottom: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Description',
+                  style: Styles.regularTextStyle16
+                      .copyWith(color: AppColor.blackColor),
+                ),
+                const SizedBox(height: 5,),
+                Text(
+                  productModel.description!,
+                  style: Styles.regularTextStyle16
+                      .copyWith(color: AppColor.grayColor),
+                ),
+              ],
+            ),
           ),
           SeperatedLine(),
           Row(

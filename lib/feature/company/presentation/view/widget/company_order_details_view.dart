@@ -9,8 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class CompanyOrderDetailsView extends StatelessWidget {
-  const CompanyOrderDetailsView({super.key, required this.orderModel});
+  const CompanyOrderDetailsView({super.key, required this.orderModel, required this.type});
   final OrderModel orderModel;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
@@ -275,6 +276,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                         text: 'Reject',
                         width: MediaQuery.of(context).size.width / 4,
                       ),
+                      if(orderModel.status != 'In Progress')
                       CustomButton(
                         onPressed: () {
                           showDialog(

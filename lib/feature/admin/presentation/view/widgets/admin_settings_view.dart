@@ -200,6 +200,7 @@ class AdminSettingsView extends StatelessWidget {
                                     uid = '';
                                     CacheHelper.removeData(key: 'email');
                                     CacheHelper.removeData(key: 'password');
+                                    CacheHelper.removeData(key: 'uid');
 
                                     GoRouter.of(context)
                                         .pushReplacement(Routes.loginRoute);

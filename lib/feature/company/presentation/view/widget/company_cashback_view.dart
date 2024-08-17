@@ -17,6 +17,7 @@ class CompanyUpdateCashbackView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    cashbackController.text = CompanyCubit.getCubit(context).companyModel!.cashback!.toString();
     return BlocConsumer<CompanyCubit, CompanyState>(
   listener: (context, state) {
     if(state is UpdateCashbackSuccessState){
@@ -83,7 +84,7 @@ class CompanyUpdateCashbackView extends StatelessWidget {
                           if(cashbackController.text.isEmpty) {
                             return 'Please enter cashback number';
                           }else{
-                            if (int.parse(cashbackController.text) < 0 || int.parse(cashbackController.text) > 100) {
+                            if (double.parse(cashbackController.text) < 0 || double.parse(cashbackController.text) > 100) {
                               return 'Cashback number from 0 to 100';
                             }
                           }

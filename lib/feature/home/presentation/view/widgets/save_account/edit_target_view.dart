@@ -26,7 +26,7 @@ class EditTargetView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    amountController.text =targetModel.targetAmount!.round().toString();
+    amountController.text =targetModel.targetAmount!.toString();
     monthController.text = targetModel.numOfMonth.toString();
     nameCtController.text =targetModel.targetName.toString();
     return BlocConsumer<HomeCubit, HomeState>(
@@ -111,10 +111,10 @@ class EditTargetView extends StatelessWidget {
                                   controller: amountController,
                                   validate: (e) {
                                     if (amountController.text.isEmpty ||
-                                        int.parse(amountController.text) <= 0) {
+                                        double.parse(amountController.text) <= 0) {
                                       return 'Amount can not be empty';
-                                    }else if(int.parse(amountController.text) <= 0 ||
-                                        cubit.userModel!.cardAmount! <= int.parse(amountController.text)){
+                                    }else if(double.parse(amountController.text) <= 0 ||
+                                        cubit.userModel!.cardAmount! <= double.parse(amountController.text)){
                                       return 'Invalid Amount';
                                     }
                                     return null;

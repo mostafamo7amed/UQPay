@@ -61,7 +61,7 @@ class StoreAndCategoryItem extends StatelessWidget {
               categoryModel != null
                   ? categoryModel!.name!
                   : companyModel!.name!,
-              style: Styles.textStyle20.copyWith(color: AppColor.blackColor),
+              style: Styles.textStyle17.copyWith(color: AppColor.blackColor),
               maxLines: 1,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,

@@ -163,13 +163,13 @@ class AdminCubit extends Cubit<AdminState> {
     emit(ObscureChangedState());
   }
 
-  registerCompany(String name, String phone ,String category,String image,String email, String password,address){
+  registerCompany(String name, String phone ,String category,String image,String email, String password,address,String supported){
     emit(RegisterCompanyLoadingState());
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
           emit(RegisterCompanySuccessState());
-      addCompany(name, phone, category, image, email, password, value.user!.uid,address);
+      addCompany(name, phone, category, image, email, password, value.user!.uid,address,supported);
     }).catchError((error) {
       emit(RegisterCompanyErrorState());
       toast(message: error.toString(), data: ToastStates.error);
@@ -179,9 +179,9 @@ class AdminCubit extends Cubit<AdminState> {
   }
 
 
-  addCompany(String name, String phone ,String category,String image,String email, String password,String uid,String address){
+  addCompany(String name, String phone ,String category,String image,String email, String password,String uid,String address,String supported){
     int id = getRandomNumber();
-    CompanyModel model = CompanyModel(email, name, password, '$id', image, '', 'Company', uid, phone, category,'Student',0.0,address,0.0,0.0);
+    CompanyModel model = CompanyModel(email, name, password, '$id', image, '', 'Company', uid, phone, category,supported,0.0,address,0.0,0.0);
     FirebaseFirestore.instance
         .collection('Company')
         .doc(uid)
@@ -244,13 +244,23 @@ class AdminCubit extends Cubit<AdminState> {
 
 
    List<CompanyModel> allCompany =[];
+  List<CompanyModel> allStudentCompany =[];
+  List<CompanyModel> allAcademicCompany =[];
   getAllCompany(){
     allCompany =[];
+    allStudentCompany =[];
+    allAcademicCompany =[];
     FirebaseFirestore.instance
         .collection('Company')
         .get()
         .then((value) {
       for (var element in value.docs) {
+        CompanyModel company = CompanyModel.fromMap(element.data());
+        if(company.supportType=='Student'){
+          allStudentCompany.add(CompanyModel.fromMap(element.data()));
+        }else if (company.supportType=='Academic'){
+          allAcademicCompany.add(CompanyModel.fromMap(element.data()));
+        }
         allCompany.add(CompanyModel.fromMap(element.data()));
       }
       emit(GetCompanySuccessState());

@@ -64,7 +64,7 @@ class LoginViewBody extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      'User Name',
+                      'Email',
                       style: Styles.mediumTextStyle16
                           .copyWith(color: AppColor.blackColor),
                     ),
@@ -72,7 +72,7 @@ class LoginViewBody extends StatelessWidget {
                       height: 12,
                     ),
                     CustomTextField(
-                      hintText: 'Enter Username',
+                      hintText: 'Enter email',
                       inputType: TextInputType.name,
                       validator: (value) {
                         if(value!.contains('.org')){

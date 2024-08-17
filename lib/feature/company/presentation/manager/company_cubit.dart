@@ -324,9 +324,13 @@ class CompanyCubit extends Cubit<CompanyState> {
       emit(GetNotificationErrorState());
     });
   }
+  List<OrderModel> newOrders =[];
   List<OrderModel> allOrders =[];
+  List<OrderModel> pastOrders =[];
   getCompanyOrders(){
-    allOrders = [];
+    newOrders =[];
+    pastOrders =[];
+    allOrders =[];
     FirebaseFirestore.instance
         .collection('All Orders')
         .doc(companyModel!.uid!)
@@ -334,6 +338,12 @@ class CompanyCubit extends Cubit<CompanyState> {
         .get()
         .then((value) {
       for (var element in value.docs) {
+        OrderModel order =OrderModel.fromMap(element.data());
+        if(order.status=='In Progress'){
+          newOrders.add(OrderModel.fromMap(element.data()));
+        }else{
+          pastOrders.add(OrderModel.fromMap(element.data()));
+        }
         allOrders.add(OrderModel.fromMap(element.data()));
       }
       emit(GetOrdersSuccessState());

@@ -8,6 +8,8 @@ import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
+import 'open_in_map_view.dart';
+
 class OderDetailsView extends StatelessWidget {
   OderDetailsView({super.key, this.companyModel, this.productModel, this.orderNumber,this.orderModel});
   CompanyModel? companyModel;
@@ -86,6 +88,7 @@ class OderDetailsView extends StatelessWidget {
                       CustomButton(
                         height: 40,
                         onPressed: () {
+                          PersistentNavBarNavigator.pushNewScreen(context, screen: OpenInMapView(productModel: orderModel!.products!, companyModel: orderModel!.companyModel!,));
 
                         },
                         text: 'Open in google maps',

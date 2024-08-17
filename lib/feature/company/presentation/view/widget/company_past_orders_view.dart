@@ -8,69 +8,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-class CompanyOrdersView extends StatelessWidget {
-  const CompanyOrdersView({super.key});
+class CompanyPastOrdersView extends StatelessWidget {
+  const CompanyPastOrdersView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CompanyCubit, CompanyState>(
-  listener: (context, state) {
-  },
-  builder: (context, state) {
-    var cubit = CompanyCubit.getCubit(context);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColor.primaryColor,
-        appBar: AppBar(
-          backgroundColor: AppColor.primaryColor,
-          titleSpacing: 3,
-          leading: InkWell(
+      listener: (context, state) {
+      },
+      builder: (context, state) {
+        var cubit = CompanyCubit.getCubit(context);
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          child:cubit.pastOrders.isNotEmpty?
+          ListView.separated(
+            itemBuilder: (context, index) => InkWell(
               onTap: () {
-                PersistentNavBarNavigator.pop(context);
+                PersistentNavBarNavigator.pushNewScreen(context,
+                    screen: CompanyOrderDetailsView(orderModel: cubit.pastOrders[index],type: 'past',));
               },
-              child: Icon(
-                Icons.arrow_back_ios_new,
-                color: AppColor.wihteColor,
-              )),
-          title: Text(
-            'Orders',
-            style: Styles.textStyle24.copyWith(
-                color: AppColor.wihteColor, fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-        ),
-        body: Container(
-          padding: const EdgeInsets.only(top: 20),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: AppColor.backgroundColor,
-            borderRadius: const BorderRadiusDirectional.only(
-                topStart: Radius.circular(24), topEnd: Radius.circular(24)),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
+              child:CompanyOrderItem(orderModel: cubit.pastOrders[index],),
             ),
-            child:cubit.allOrders.isNotEmpty?
-            ListView.separated(
-              itemBuilder: (context, index) => InkWell(
-                onTap: () {
-                  PersistentNavBarNavigator.pushNewScreen(context,
-                      screen: CompanyOrderDetailsView(orderModel: cubit.allOrders[index],));
-                },
-                child:CompanyOrderItem(orderModel: cubit.allOrders[index],),
-              ),
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 10,
-              ),
-              itemCount: cubit.allOrders.length,
-            ): const Center(child: Text('There is no order received!',style: Styles.textStyle18,),),
-          ),
-        ),
-      ),
+            separatorBuilder: (context, index) => const SizedBox(
+              height: 10,
+            ),
+            itemCount: cubit.pastOrders.length,
+          ): const Center(child: Text('There is no order',style: Styles.textStyle18,),),
+        );
+      },
     );
-  },
-);
   }
 }
 
@@ -97,10 +65,10 @@ class CompanyOrderItem extends StatelessWidget {
                   decoration:  BoxDecoration(
                     borderRadius:const BorderRadius.all(Radius.circular(10)),
                     image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: orderModel.products!.image!.isNotEmpty?
-                        NetworkImage(orderModel.products!.image!)
-                            :NetworkImage(noImagePlaceholder),
+                      fit: BoxFit.cover,
+                      image: orderModel.products!.image!.isNotEmpty?
+                      NetworkImage(orderModel.products!.image!)
+                          :NetworkImage(noImagePlaceholder),
                     ),
                   ),
                 ),
@@ -161,7 +129,7 @@ class CompanyOrderItem extends StatelessWidget {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 5, right: 20, bottom: 10),
+                      const EdgeInsets.only(top: 5, right: 20, bottom: 10),
                       child: Row(
                         children: [
                           Text(

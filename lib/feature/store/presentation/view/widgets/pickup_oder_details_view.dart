@@ -9,6 +9,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../company/data/company_model.dart';
 import '../../../../company/data/product_model.dart';
 import '../../../data/models/order_model.dart';
+import 'open_in_map_view.dart';
 
 class PickupOderDetailsView extends StatelessWidget {
   PickupOderDetailsView({super.key,this.productModel,this.companyModel,this.orderNumber,this.orderModel});
@@ -88,7 +89,10 @@ class PickupOderDetailsView extends StatelessWidget {
                       ),
                       CustomButton(
                         height: 40,
-                        onPressed: () {},
+                        onPressed: () {
+                          PersistentNavBarNavigator.pushNewScreen(context, screen: OpenInMapView(productModel: productModel!,
+                            companyModel: companyModel!,));
+                        },
                         text: 'Open in google maps',
                       )
                     ],
