@@ -107,3 +107,9 @@ final class GetAllOffersSuccessState extends HomeState {}
 final class GetAllOffersErrorState extends HomeState {}
 
 final class RechargeCardState extends HomeState {}
+final class StopCardState extends HomeState {}
+
+final class StopPaymentState extends HomeState {}
+
+final class UpdateCardManageSuccessState extends HomeState {}
+final class UpdateCardManageErrorState extends HomeState {}

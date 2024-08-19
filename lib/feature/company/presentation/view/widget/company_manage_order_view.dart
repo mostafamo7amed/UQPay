@@ -1,8 +1,6 @@
 import 'package:UQPay/feature/company/presentation/view/widget/company_all_order_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_new_orders_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_past_orders_view.dart';
-import 'package:UQPay/feature/store/presentation/view/widgets/my_orders_tab_view.dart';
-import 'package:UQPay/feature/store/presentation/view/widgets/store_tab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';

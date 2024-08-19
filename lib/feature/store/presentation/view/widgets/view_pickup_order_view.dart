@@ -6,17 +6,15 @@ import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/pickup_oder_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-
 import '../../../../../core/utils/common.dart';
-import '../../../../company/data/product_model.dart';
 
 class ViewPickupOrderView extends StatelessWidget {
-  ViewPickupOrderView({
+  const ViewPickupOrderView({
     super.key,
     required this.orderModel,
   });
 
-  OrderModel orderModel;
+  final OrderModel orderModel;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +90,7 @@ class ViewPickupOrderView extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                SeperatedLine(),
+                const SeparatedLine(),
                 const SizedBox(
                   height: 10,
                 ),

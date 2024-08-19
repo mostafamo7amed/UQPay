@@ -3,7 +3,6 @@ import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/feature/home/data/models/target_model.dart';
 import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
-import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/save_account/edit_target_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -194,7 +193,7 @@ class TargetGraphView extends StatelessWidget {
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
-                                                SeperatedLine(),
+                                                SeparatedLine(),
                                                 const SizedBox(
                                                   height: 10,
                                                 ),

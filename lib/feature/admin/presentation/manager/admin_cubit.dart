@@ -95,7 +95,6 @@ class AdminCubit extends Cubit<AdminState> {
         .putFile(companyImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        print(value);
         companyImageUri = value;
         emit(UploadCompanyImageSuccessState());
       }).catchError((e) {
@@ -103,7 +102,6 @@ class AdminCubit extends Cubit<AdminState> {
       });
     }).catchError((error) {
       emit(UploadCompanyImageErrorState());
-      print(error.toString());
     });
   }
 
@@ -116,7 +114,6 @@ class AdminCubit extends Cubit<AdminState> {
       emit(PikCategoryImageSuccessState());
 
     } else {
-      print('no image selected');
       emit(PikCategoryImageErrorState());
     }
   }
@@ -129,7 +126,6 @@ class AdminCubit extends Cubit<AdminState> {
         .putFile(categoryImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        print(value);
         categoryImageUri = value;
         emit(UploadCategoryImageSuccessState());
       }).catchError((e) {
@@ -137,7 +133,6 @@ class AdminCubit extends Cubit<AdminState> {
       });
     }).catchError((error) {
       emit(UploadCategoryImageErrorState());
-      print(error.toString());
     });
   }
 
@@ -198,7 +193,6 @@ class AdminCubit extends Cubit<AdminState> {
      FirebaseAuth.instance
          .signInWithEmailAndPassword(email: email, password: password)
          .then((value) {
-           print(value.user!.uid);
        emit(ReLoginSuccessState(value.user!.uid));
      }).catchError((error) {
        emit(ReLoginErrorState());
@@ -236,7 +230,6 @@ class AdminCubit extends Cubit<AdminState> {
       emit(GetCategorySuccessState());
     })
         .catchError((e) {
-          print(e.toString());
       emit(GetCategoryErrorState());
     });
   }
@@ -299,7 +292,7 @@ class AdminCubit extends Cubit<AdminState> {
   UserModel? selectedUserToRecharge;
   changeSelectedTransferUser(String id , int type) {
     emit(SelectUserToRechargeLoadingState());
-    selectedUserToRecharge = UserModel('', '', '', '', '', '', '', 0, '', '', '', '', '', 0);
+    selectedUserToRecharge = UserModel('', '', '', '', '', '', '', 0, '', '', '', '', '', 0,false,false);
     if(type == 0){
       allEmployee.forEach((user){
         if(id.contains(user.id!) ){
@@ -327,25 +320,12 @@ class AdminCubit extends Cubit<AdminState> {
   updateUserMoney(UserModel user, double amount,) {
     emit(UpdateMoneyLoadingState());
     double newAmount = user.cardAmount! + amount;
-    UserModel userModel = UserModel(
-        user.email,
-        user.name,
-        user.id,
-        user.image,
-        user.deviceToken,
-        user.cardNumber,
-        user.userType,
-        newAmount,
-        user.birthDate,
-        user.gender,
-        user.uid,
-        user.mobileNumber,
-        user.department,
-        user.cashBacks);
     FirebaseFirestore.instance
         .collection('Users')
         .doc(user.uid)
-        .update(userModel.toMap()!)
+        .update({
+      'cardAmount':newAmount
+    })
         .then((value) {
       emit(UpdateMoneySuccessState());
     })

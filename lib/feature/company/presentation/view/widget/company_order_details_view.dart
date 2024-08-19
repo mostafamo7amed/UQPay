@@ -186,7 +186,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SeperatedLine(),
+                  SeparatedLine(),
                   Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 30),
                     child: Row(
@@ -250,7 +250,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      SeperatedLine(),
+                                      SeparatedLine(),
                                       const SizedBox(
                                         height: 10,
                                       ),
@@ -308,7 +308,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      SeperatedLine(),
+                                      SeparatedLine(),
                                       const SizedBox(
                                         height: 10,
                                       ),

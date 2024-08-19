@@ -1,10 +1,7 @@
-import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
-import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
-import 'package:UQPay/feature/store/data/models/store_model.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/store_details_view.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/store_item.dart';
 import 'package:flutter/material.dart';

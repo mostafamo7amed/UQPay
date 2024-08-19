@@ -26,7 +26,6 @@ class ProfileCubit extends Cubit<ProfileState> {
         .get()
         .then((value) {
       userModel = UserModel.fromMap(value.data()!);
-      print(userModel!.email);
       emit(GetProfileSuccessState());
     }).catchError((e) {
       emit(GetProfileErrorState());

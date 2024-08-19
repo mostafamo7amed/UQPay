@@ -103,7 +103,7 @@ class OrdersVerticalListView extends StatelessWidget {
                   )
                 ],
               ),
-              SeperatedLine(),
+              const SeparatedLine(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

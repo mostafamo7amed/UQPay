@@ -193,7 +193,7 @@ class CompanyOfferView extends StatelessWidget {
                                                             const SizedBox(
                                                               height: 10,
                                                             ),
-                                                            SeperatedLine(),
+                                                            SeparatedLine(),
                                                             const SizedBox(
                                                               height: 10,
                                                             ),

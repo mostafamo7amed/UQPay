@@ -31,10 +31,8 @@ class CompanyCubit extends Cubit<CompanyState> {
         .get()
         .then((value) {
       companyModel = CompanyModel.fromMap(value.data()!);
-      print(companyModel!.email);
       emit(GetCompanySuccessState());
     }).catchError((e) {
-      print(e.toString());
       emit(GetCompanyErrorState());
     });
   }
@@ -50,7 +48,6 @@ class CompanyCubit extends Cubit<CompanyState> {
   getCompanyNotificationToken() async {
     await getLocation();
     token = await FirebaseMessaging.instance.getToken();
-    print(token);
     updateCompanyNotificationToken(companyModel!, token!,companyLocation!);
   }
 
@@ -92,7 +89,6 @@ class CompanyCubit extends Cubit<CompanyState> {
       emit(PikOfferImageSuccessState());
       uploadOfferImage();
     } else {
-      print('no image selected');
       emit(PikOfferImageErrorState());
     }
   }
@@ -105,7 +101,6 @@ class CompanyCubit extends Cubit<CompanyState> {
         .putFile(offerImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        print(value);
         offerImageUri = value;
         emit(UploadOfferImageSuccessState());
       }).catchError((e) {
@@ -113,7 +108,6 @@ class CompanyCubit extends Cubit<CompanyState> {
       });
     }).catchError((error) {
       emit(UploadOfferImageErrorState());
-      print(error.toString());
     });
   }
 
@@ -260,7 +254,6 @@ class CompanyCubit extends Cubit<CompanyState> {
       emit(PikProductImageSuccessState());
       uploadProductImage();
     } else {
-      print('no image selected');
       emit(PikProductImageErrorState());
     }
   }
@@ -274,7 +267,6 @@ class CompanyCubit extends Cubit<CompanyState> {
         .putFile(productImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        print(value);
         productImageUri = value;
         emit(UploadProductImageSuccessState());
       }).catchError((e) {
@@ -282,7 +274,6 @@ class CompanyCubit extends Cubit<CompanyState> {
       });
     }).catchError((error) {
       emit(UploadProductImageErrorState());
-      print(error.toString());
     });
   }
 

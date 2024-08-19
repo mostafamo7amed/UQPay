@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/gift_list_view.dart';
-import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/no_gift_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../manager/cubit/home_cubit.dart';
 import '../../../manager/cubit/home_state.dart';
 

@@ -58,7 +58,7 @@ class _AdminDepositMachineScreenState extends State<AdminDepositMachineScreen> {
         .listen((LocationData currentLocation) {
       if (currentLocation.latitude != null &&
           currentLocation.longitude != null) {
-        if (this.mounted) {
+        if (mounted) {
           setState(() {
             currentPosition =
                 LatLng(currentLocation.latitude!, currentLocation.longitude!);

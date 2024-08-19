@@ -194,7 +194,7 @@ class NewTargetDetails extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              "${cubit.targetAmount??''}",
+                              "${cubit.targetAmount}",
                               style: Styles.textStyle18
                                   .copyWith(color: AppColor.blackColor),
                             ),

@@ -222,11 +222,15 @@ class SendGiftReviewScreen extends StatelessWidget {
                         ),
                         CustomButton(
                           onPressed: () {
-                            cubit.sendGift(
-                                cubit.selectedTransferUser!,
-                                cubit.giftAmount,
-                                cubit.giftMessage,
-                                cubit.giftName);
+                            if(cubit.isCardStop==false){
+                              cubit.sendGift(
+                                  cubit.selectedTransferUser!,
+                                  cubit.giftAmount,
+                                  cubit.giftMessage,
+                                  cubit.giftName);
+                            }else{
+                              toast(message: 'Card is Paused temporarily\n check your card settings and try again', data: ToastStates.warning);
+                            }
                           },
                           text: 'Confirm',
                           isLoading: state is HomeSendGiftLoadingState,

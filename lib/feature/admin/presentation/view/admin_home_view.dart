@@ -1,11 +1,9 @@
 import 'package:UQPay/feature/admin/presentation/manager/admin_cubit.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_home_screen.dart';
-import 'package:UQPay/feature/admin/presentation/view/widgets/admin_manage_company_screen.dart';
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-
 import '../../../../core/utils/app_manager/app_assets.dart';
 import '../../../../core/utils/app_manager/app_color.dart';
 import '../../../../core/utils/app_manager/app_styles.dart';

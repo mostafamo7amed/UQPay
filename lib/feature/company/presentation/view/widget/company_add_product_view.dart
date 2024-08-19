@@ -82,7 +82,7 @@ class CompanyAddProductView extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 5,),
-                          SeperatedLine(),
+                          SeparatedLine(),
                           const SizedBox(height: 5,),
                           Text(
                             'Tap to select image',

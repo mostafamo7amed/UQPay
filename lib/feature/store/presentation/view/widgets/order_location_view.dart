@@ -15,6 +15,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../core/functions/get_random_number.dart';
+import '../../../../../core/functions/toast.dart';
 import '../../../../company/data/company_model.dart';
 
 class OrderLocationView extends StatelessWidget {
@@ -138,7 +139,7 @@ class StoreLocationWidget extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    SeperatedLine(),
+                    const SeparatedLine(),
                     const SizedBox(
                       height: 5,
                     ),
@@ -212,29 +213,33 @@ class StoreLocationWidget extends StatelessWidget {
                           height: 40,
                           width: MediaQuery.of(context).size.width / 3,
                           onPressed: () {
-                            cubit.makeOrder(
-                                orderNumber.toString(),
-                                productModel.productType!,
-                                companyModel.uid!,
-                                companyModel,
-                                productModel.amount!,
-                                productModel);
-                            if(productModel.productType == 'Service'){
-                              Navigator.pop(context);
-                              PersistentNavBarNavigator.pushNewScreen(context,
-                                  screen: OderDetailsView(
-                                    orderNumber: orderNumber,
-                                    companyModel: companyModel,
-                                    productModel: productModel,
-                                  ));
+                            if(cubit.isPaymentStop==false && cubit.isCardStop==false) {
+                              cubit.makeOrder(
+                                  orderNumber.toString(),
+                                  productModel.productType!,
+                                  companyModel.uid!,
+                                  companyModel,
+                                  productModel.amount!,
+                                  productModel);
+                              if (productModel.productType == 'Service') {
+                                Navigator.pop(context);
+                                PersistentNavBarNavigator.pushNewScreen(context,
+                                    screen: OderDetailsView(
+                                      orderNumber: orderNumber,
+                                      companyModel: companyModel,
+                                      productModel: productModel,
+                                    ));
+                              } else {
+                                Navigator.pop(context);
+                                PersistentNavBarNavigator.pushNewScreen(context,
+                                    screen: PickupOderDetailsView(
+                                      orderNumber: orderNumber,
+                                      companyModel: companyModel,
+                                      productModel: productModel,
+                                    ));
+                              }
                             }else{
-                              Navigator.pop(context);
-                              PersistentNavBarNavigator.pushNewScreen(context,
-                                  screen: PickupOderDetailsView(
-                                    orderNumber: orderNumber,
-                                    companyModel: companyModel,
-                                    productModel: productModel,
-                                  ));
+                              toast(message: 'Online Payment is Disabled temporarily\n check your card settings and try again', data: ToastStates.warning);
                             }
                           },
                           text: 'Confirm',

@@ -112,14 +112,12 @@ class LoginCubit extends Cubit<LoginState> {
 
   findUser(String UID,context){
     FirebaseFirestore.instance.collection('Admins').where('uid',isEqualTo: UID).get().then((value) {
-      print(value.docs.toString());
       if(value.docs.isNotEmpty){
         GoRouter.of(context)
             .pushReplacement(Routes.adminHomeRoute);
         emit(LoginNavigateState());
       }else{
         FirebaseFirestore.instance.collection('Users').where('uid',isEqualTo: UID).get().then((value) {
-          print(value.docs.toString());
           if(value.docs.isNotEmpty){
            //toast(message: 'User not found', data: ToastStates.warning);
            GoRouter.of(context)
@@ -127,7 +125,6 @@ class LoginCubit extends Cubit<LoginState> {
             emit(LoginNavigateState());
           }else{
             FirebaseFirestore.instance.collection('Company').where('uid',isEqualTo: UID).get().then((value) {
-              print(value.docs.toString());
               if(value.docs.isNotEmpty){
                 GoRouter.of(context)
                     .pushReplacement(Routes.companyRoute);

@@ -9,6 +9,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../core/utils/app_manager/app_color.dart';
 import '../../../../../core/utils/app_manager/app_styles.dart';
+import '../../../../../core/utils/common.dart';
 
 class MoreOptionsView extends StatefulWidget {
   const MoreOptionsView({super.key,required this.userModel});
@@ -28,6 +29,9 @@ class _MoreOptionsViewState extends State<MoreOptionsView> {
   listener: (context, state) {
     if(state is RechargeCardState){
       toast(message: 'Notification send to system Administration', data: ToastStates.success);
+    }
+    if(state is UpdateCardManageSuccessState){
+      HomeCubit.getCubit(context).getUser(uid);
     }
   },
   builder: (context, state) {
@@ -115,11 +119,10 @@ class _MoreOptionsViewState extends State<MoreOptionsView> {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   const Spacer(),
-                                  Switch(value: stopCard,
+                                  Switch(
+                                      value: cubit.isCardStop!,
                                       onChanged: (value) {
-                                    setState(() {
-                                      stopCard = !stopCard;
-                                    });
+                                      cubit.stopCard(value);
                                   }),
                                 ],
                               ),
@@ -164,18 +167,16 @@ class _MoreOptionsViewState extends State<MoreOptionsView> {
                                     width: 10,
                                   ),
                                   Text(
-                                    'Enable online payments',
+                                    'Disable online payments',
                                     style: Styles.regularTextStyle14
                                         .copyWith(color: AppColor.blackColor),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   const Spacer(),
                                   Switch(
-                                    value: stopPayment,
+                                    value: cubit.isPaymentStop!,
                                     onChanged: (value) {
-                                      setState(() {
-                                        stopPayment =!stopPayment;
-                                      });
+                                      cubit.stopPayment(value);
                                     },
                                   ),
                                 ],

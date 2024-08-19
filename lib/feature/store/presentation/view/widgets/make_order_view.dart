@@ -97,7 +97,7 @@ class MakeOrderView extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                SeperatedLine(),
+                const SeparatedLine(),
                 const SizedBox(
                   height: 10,
                 ),

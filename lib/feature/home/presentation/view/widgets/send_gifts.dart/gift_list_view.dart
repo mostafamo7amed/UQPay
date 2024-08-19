@@ -10,6 +10,8 @@ import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/send_gifts_screen.dart';
 
+import '../../../../../../core/functions/toast.dart';
+
 class GiftListView extends StatelessWidget {
    GiftListView({
     super.key,
@@ -31,7 +33,12 @@ class GiftListView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: CustomButton(
             onPressed: () {
-              PersistentNavBarNavigator.pushNewScreen(context, screen: SendGiftsScreen());
+              if(cubit.isCardStop==false) {
+                PersistentNavBarNavigator.pushNewScreen(
+                    context, screen: SendGiftsScreen());
+              }else{
+                toast(message: 'Card is Paused temporarily\n check your card settings and try again', data: ToastStates.warning);
+              }
             },
             text: 'Send gift',
             width: MediaQuery.of(context).size.width / 3.5,

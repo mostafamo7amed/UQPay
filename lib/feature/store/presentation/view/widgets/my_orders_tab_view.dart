@@ -42,7 +42,6 @@ class _MyOrdersTabViewState extends State<MyOrdersTabView> {
                         onTap: (value) {
                           setState(() {
                             currentTab = value;
-                            print('current Tab order ====== $currentTab');
                           });
                         },
                         indicator: BoxDecoration(
@@ -92,7 +91,7 @@ class _MyOrdersTabViewState extends State<MyOrdersTabView> {
                 ),
                 const Expanded(
                   child: TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     children: [
                       AllOrderTabView(),
                       InProgressOrderTabView(),

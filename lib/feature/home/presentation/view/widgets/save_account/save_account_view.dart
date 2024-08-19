@@ -11,8 +11,6 @@ import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/save_account/add_new_target.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/save_account/my_targets_view.dart';
 
-import '../../../../../../core/utils/common.dart';
-
 class SaveAccountView extends StatelessWidget {
   const SaveAccountView({super.key});
 

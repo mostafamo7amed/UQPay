@@ -5,7 +5,6 @@ import 'package:UQPay/core/widgets/seperated_line.dart';
 import 'package:UQPay/feature/company/data/product_model.dart';
 import 'package:UQPay/feature/company/presentation/manager/company_cubit.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_add_product_view.dart';
-import 'package:UQPay/feature/company/presentation/view/widget/company_view_product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -230,7 +229,7 @@ class CompanyProductItem extends StatelessWidget {
               ],
             ),
           ),
-          SeperatedLine(),
+          SeparatedLine(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

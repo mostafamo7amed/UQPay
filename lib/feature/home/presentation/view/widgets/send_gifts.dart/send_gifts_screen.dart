@@ -1,18 +1,14 @@
 import 'package:UQPay/core/functions/toast.dart';
 import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
-import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/amount_sent_gift_view.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
-
 import '../../../../../../core/utils/app_manager/app_assets.dart';
-import '../../../../../../core/widgets/seperated_line.dart';
 
 class SendGiftsScreen extends StatefulWidget {
   SendGiftsScreen({super.key});
@@ -22,11 +18,7 @@ class SendGiftsScreen extends StatefulWidget {
 }
 
 class _SendGiftsScreenState extends State<SendGiftsScreen> {
-  var accountControler = TextEditingController();
-
-  List<String> accounts = ['wala', 'noha', 'mariem', 'ahmed'];
-
-  String? selectedName;
+  var accountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -96,19 +88,6 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        /*defaultFormField(
-                            autoFocus: false,
-                            controller: TextEditingController(),
-                            validate: (e) {},
-                            type: TextInputType.text,
-                            label: 'Search',
-                            priffixWidget: const Icon(
-                              Icons.search,
-                            ),
-                            context: context),
-                        const SizedBox(
-                          height: 20,
-                        ),*/
                         cubit.userModel!.userType =='Student'?
                         Container(
                           height: 75,

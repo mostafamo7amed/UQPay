@@ -102,7 +102,6 @@ class FastTransferFavView extends StatelessWidget {
                                     ),
                                   ),
                                   onChanged: (value) {
-                                    print(value);
                                     cubit.changeSelectedFastTransferUser(value!);
                                   }
                                 ),

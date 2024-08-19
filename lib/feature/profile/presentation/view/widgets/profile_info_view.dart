@@ -109,7 +109,7 @@ class ProfileInfoView extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              SeperatedLine(
+                              SeparatedLine(
                                 color: AppColor.grayColor,
                               ),
                               const SizedBox(
@@ -130,7 +130,7 @@ class ProfileInfoView extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              SeperatedLine(
+                              SeparatedLine(
                                 color: AppColor.grayColor,
                               ),
                               const SizedBox(
@@ -149,7 +149,7 @@ class ProfileInfoView extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              SeperatedLine(
+                              SeparatedLine(
                                 color: AppColor.grayColor,
                               ),
                               const SizedBox(
@@ -168,7 +168,7 @@ class ProfileInfoView extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              SeperatedLine(
+                              SeparatedLine(
                                 color: AppColor.grayColor,
                               ),
                               const SizedBox(
@@ -187,7 +187,7 @@ class ProfileInfoView extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              SeperatedLine(
+                              SeparatedLine(
                                 color: AppColor.grayColor,
                               ),
                               const SizedBox(

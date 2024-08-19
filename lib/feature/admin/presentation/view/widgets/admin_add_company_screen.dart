@@ -47,7 +47,6 @@ class _AdminAddCompanyScreenState extends State<AdminAddCompanyScreen> {
     }
     if(state is ReLoginSuccessState){
       uid = state.uid;
-      print(uid);
       Navigator.pop(context);
     }
   },
@@ -188,7 +187,7 @@ class _AdminAddCompanyScreenState extends State<AdminAddCompanyScreen> {
                               validate: (value) {
                                 if(conPhoneController.text.isEmpty){
                                   return 'Please enter phone number';
-                                }else if(!RegExp(r'^(?:[+966])?[0-9]{12}$').hasMatch(value)){
+                                }else if(!RegExp(r'^(?:[+9665])?[0-9]{12}$').hasMatch(value)){
                                   return 'Please enter valid phone number starts with +';
                                 }
                                 return null;

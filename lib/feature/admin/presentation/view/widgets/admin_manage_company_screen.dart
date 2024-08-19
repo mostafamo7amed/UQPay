@@ -195,7 +195,7 @@ class CompanySupportedUserType extends StatelessWidget {
                     companyModel: allCompany[index],
                   ),
                   separatorBuilder: (context, index) =>
-                      SeperatedLine(),
+                      const SeparatedLine(),
                   itemCount:allCompany.length,
                 )
               : const Center(

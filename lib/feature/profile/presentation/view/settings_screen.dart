@@ -108,7 +108,7 @@ class SettingsScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      SeperatedLine(),
+                                      const SeparatedLine(),
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             right: 15, top: 10, left: 15),
@@ -182,7 +182,7 @@ class SettingsScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  SeperatedLine(),
+                                  const SeparatedLine(),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 15,

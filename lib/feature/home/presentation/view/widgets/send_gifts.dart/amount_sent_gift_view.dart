@@ -273,23 +273,28 @@ class _AmountSentGiftViewState extends State<AmountSentGiftView> {
                           children: [
                             CustomButton(
                               onPressed: () {
-                                if(amountController.text.isNotEmpty) {
-                                  amount = double.parse(amountController.text);
-                                  if (amount < cubit.userModel!.cardAmount! &&
-                                      amount > 0) {
-                                    cubit.changeGiftAmount(amount);
-                                    PersistentNavBarNavigator.pushNewScreen(
-                                        context,
-                                        screen: MessageSendGiftView());
+                                if(cubit.isCardStop==false) {
+                                  if (amountController.text.isNotEmpty) {
+                                    amount =
+                                        double.parse(amountController.text);
+                                    if (amount < cubit.userModel!.cardAmount! &&
+                                        amount > 0) {
+                                      cubit.changeGiftAmount(amount);
+                                      PersistentNavBarNavigator.pushNewScreen(
+                                          context,
+                                          screen: MessageSendGiftView());
+                                    } else {
+                                      toast(
+                                          message: 'You don\'t have this amount',
+                                          data: ToastStates.error);
+                                    }
                                   } else {
                                     toast(
-                                        message: 'You don\'t have this amount',
+                                        message: 'Please enter another amount',
                                         data: ToastStates.error);
                                   }
                                 }else{
-                                  toast(
-                                      message: 'Please enter another amount',
-                                      data: ToastStates.error);
+                                  toast(message: 'Card is Paused temporarily\n check your card settings and try again', data: ToastStates.warning);
                                 }
                               },
                               text: 'Next',

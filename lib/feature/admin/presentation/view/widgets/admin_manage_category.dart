@@ -110,7 +110,7 @@ class AdminManageCategory extends StatelessWidget {
                               categoryModel: cubit.allCategory[index],
                             ),
                             separatorBuilder: (context, index) =>
-                                SeperatedLine(),
+                                const SeparatedLine(),
                             itemCount: cubit.allCategory.length,
                           )
                               : const Center(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../utils/app_manager/app_color.dart';
 
-class SeperatedLine extends StatelessWidget {
-  SeperatedLine({
+class SeparatedLine extends StatelessWidget {
+  const SeparatedLine({
     super.key,
     this.color,
   });
-  Color? color;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Container(

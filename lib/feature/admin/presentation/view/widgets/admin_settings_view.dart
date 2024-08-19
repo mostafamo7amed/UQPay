@@ -95,7 +95,7 @@ class AdminSettingsView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    SeperatedLine(),
+                                    const SeparatedLine(),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 15,

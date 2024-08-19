@@ -2,7 +2,6 @@ import 'package:UQPay/feature/company/presentation/manager/company_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
@@ -109,7 +108,7 @@ class CompanyProfileInfoView extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              SeperatedLine(
+                              SeparatedLine(
                                 color: AppColor.grayColor,
                               ),
                               const SizedBox(
@@ -128,7 +127,7 @@ class CompanyProfileInfoView extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              SeperatedLine(
+                              SeparatedLine(
                                 color: AppColor.grayColor,
                               ),
                               const SizedBox(
@@ -147,7 +146,7 @@ class CompanyProfileInfoView extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              SeperatedLine(
+                              SeparatedLine(
                                 color: AppColor.grayColor,
                               ),
                               const SizedBox(

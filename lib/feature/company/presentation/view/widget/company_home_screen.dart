@@ -7,7 +7,6 @@ import 'package:UQPay/feature/company/presentation/view/widget/company_cashback_
 import 'package:UQPay/feature/company/presentation/view/widget/company_manage_order_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_notification_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_offer_view.dart';
-import 'package:UQPay/feature/company/presentation/view/widget/company_new_orders_view.dart';
 import 'package:UQPay/feature/company/presentation/view/widget/company_product_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

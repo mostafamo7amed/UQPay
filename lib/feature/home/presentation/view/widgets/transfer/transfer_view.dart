@@ -232,31 +232,36 @@ class TransferView extends StatelessWidget {
                         Center(
                           child: CustomButton(
                             onPressed: () {
-                              if(amountController.text.isNotEmpty) {
-                                amount = double.parse(amountController.text);
-                                if (amount < cubit.userModel!.cardAmount! &&
-                                    amount > 0) {
-                                  if (cubit.selectedTransferUser != null) {
-                                    cubit.transferMoney(
-                                        cubit.selectedTransferUser!, amount);
-                                  } else if (cubit.selectedFavTransferUser !=
-                                      null) {
-                                    cubit.transferMoney(
-                                        cubit.selectedFavTransferUser!, amount);
+                              if(cubit.isCardStop==false) {
+                                if (amountController.text.isNotEmpty) {
+                                  amount = double.parse(amountController.text);
+                                  if (amount < cubit.userModel!.cardAmount! &&
+                                      amount > 0) {
+                                    if (cubit.selectedTransferUser != null) {
+                                      cubit.transferMoney(
+                                          cubit.selectedTransferUser!, amount);
+                                    } else if (cubit.selectedFavTransferUser !=
+                                        null) {
+                                      cubit.transferMoney(
+                                          cubit.selectedFavTransferUser!,
+                                          amount);
+                                    } else {
+                                      toast(
+                                          message: 'Please select account',
+                                          data: ToastStates.error);
+                                    }
                                   } else {
                                     toast(
-                                        message: 'Please select account',
+                                        message: 'Please enter valid amount',
                                         data: ToastStates.error);
                                   }
                                 } else {
                                   toast(
-                                      message: 'Please enter valid amount',
+                                      message: 'Please enter amount',
                                       data: ToastStates.error);
                                 }
                               }else{
-                                toast(
-                                    message: 'Please enter amount',
-                                    data: ToastStates.error);
+                                toast(message: 'Card is Paused temporarily\n check your card settings and try again', data: ToastStates.warning);
                               }
                             },
                             text: 'Confirm',

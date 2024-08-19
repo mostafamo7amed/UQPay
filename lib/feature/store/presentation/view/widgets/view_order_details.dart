@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../core/utils/common.dart';
-import '../../../../company/data/product_model.dart';
 
 class ViewOrderDetails extends StatelessWidget {
   ViewOrderDetails({
@@ -94,7 +93,7 @@ class ViewOrderDetails extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                SeperatedLine(),
+                const SeparatedLine(),
                 const SizedBox(
                   height: 10,
                 ),

@@ -13,6 +13,8 @@ class UserModel{
   String? mobileNumber;
   String? department;
   double? cashBacks;
+  bool? isCardStop;
+  bool? isPaymentStop;
 
   UserModel(
       this.email,
@@ -28,7 +30,10 @@ class UserModel{
       this.uid,
       this.mobileNumber,
       this.department,
-      this.cashBacks);
+      this.cashBacks,
+      this.isCardStop,
+      this.isPaymentStop
+      );
 
   UserModel.fromMap(Map<String,dynamic> map){
     id = map['id'];
@@ -45,6 +50,8 @@ class UserModel{
     cashBacks = map['cashBacks'];
     cardAmount = map['cardAmount'];
     cardNumber = map['cardNumber'];
+    isCardStop = map['isCardStop'];
+    isPaymentStop = map['isPaymentStop'];
 
   }
 
@@ -63,7 +70,9 @@ class UserModel{
       'deviceToken': deviceToken,
       'cashBacks': cashBacks,
       'cardAmount': cardAmount,
-      'cardNumber': cardNumber
+      'cardNumber': cardNumber,
+      'isCardStop': isCardStop,
+      'isPaymentStop': isPaymentStop
     };
   }
 

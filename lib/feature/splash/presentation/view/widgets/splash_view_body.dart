@@ -1,13 +1,10 @@
 import 'package:UQPay/core/cache_helper/cache_helper.dart';
-import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
-import 'package:UQPay/feature/login/presentation/manager/login_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_routes.dart';
 
-import '../../../../../core/functions/toast.dart';
 import '../../../../../core/utils/common.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -62,20 +59,17 @@ class _SplashViewBodyState extends State<SplashViewBody> {
 
   findUser(String UID,context){
     FirebaseFirestore.instance.collection('Admins').where('uid',isEqualTo: UID).get().then((value) {
-      print(value.docs.toString());
       if(value.docs.isNotEmpty){
         GoRouter.of(context)
             .pushReplacement(Routes.adminHomeRoute);
       }else{
         FirebaseFirestore.instance.collection('Users').where('uid',isEqualTo: UID).get().then((value) {
-          print(value.docs.toString());
           if(value.docs.isNotEmpty){
             //toast(message: 'User not found', data: ToastStates.warning);
             GoRouter.of(context)
                 .pushReplacement(Routes.mainRoute);
           }else{
             FirebaseFirestore.instance.collection('Company').where('uid',isEqualTo: UID).get().then((value) {
-              print(value.docs.toString());
               if(value.docs.isNotEmpty){
                 GoRouter.of(context)
                     .pushReplacement(Routes.companyRoute);
