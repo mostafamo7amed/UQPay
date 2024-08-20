@@ -63,12 +63,20 @@ final class GetCompanyErrorState extends AdminState {}
 final class GetNotificationSuccessState extends AdminState {}
 final class GetNotificationErrorState extends AdminState {}
 
+final class AdminSendNotificationSuccessState extends AdminState {}
+final class AdminSendNotificationErrorState extends AdminState {}
+
 final class GetAllUsersSuccessState extends AdminState {}
 final class GetAllUsersErrorState extends AdminState {}
 
 final class SelectUserToRechargeLoadingState extends AdminState {}
 
 final class SelectUserToRechargeState extends AdminState {}
+
+final class UpdateNotificationSuccessState extends AdminState {}
+final class UpdateNotificationErrorState extends AdminState {}
+
+final class NotificationClickedState extends AdminState{}
 
 
 

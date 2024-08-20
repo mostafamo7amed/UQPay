@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
+import '../../../card/presentation/view/cards_screen.dart';
+import '../../../card/presentation/view/widgets/latest_operation.dart';
 import '../../../company/presentation/view/widget/company_notification_item.dart';
+import '../../../store/presentation/view/store_screen.dart';
 
 class NotificationView extends StatelessWidget {
   const NotificationView({super.key});
@@ -15,6 +18,9 @@ class NotificationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
+        if(state is HomeGetNotificationSuccessState){
+          HomeCubit.getCubit(context).notificationClicked();
+        }
       },
       builder: (context, state) {
         var cubit = HomeCubit.getCubit(context);
@@ -43,6 +49,16 @@ class NotificationView extends StatelessWidget {
                 itemBuilder: (context, index) =>
                     InkWell(
                       onTap: () {
+                        cubit.updateNotificationClicks(cubit.allNotification[index]);
+                        if(cubit.allNotification[index].notifyType=='Order') {
+                          PersistentNavBarNavigator.pushNewScreen(context, screen: const StoreScreen() );
+                        }else if(cubit.allNotification[index].notifyType=='Gift'||cubit.allNotification[index].notifyType=='Transfer'){
+                          PersistentNavBarNavigator.pushNewScreen(context, screen: LatestOperationView(userModel: cubit.userModel!,));
+                        }else if(cubit.allNotification[index].notifyType=='Recharge'){
+                          PersistentNavBarNavigator.pushNewScreen(context, screen: const CardsScreen());
+                        }else{
+                          Navigator.pop(context);
+                        }
 
                       },
                       child: NotificationItemWidget(size: MediaQuery

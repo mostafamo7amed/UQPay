@@ -15,6 +15,9 @@ class AdminNotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AdminCubit, AdminState>(
       listener: (context, state) {
+        if(state is GetNotificationSuccessState){
+          AdminCubit.getCubit(context).notificationClicked();
+        }
       },
       builder: (context, state) {
         var cubit = AdminCubit.getCubit(context);
@@ -43,6 +46,7 @@ class AdminNotificationScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) => InkWell(
                     onTap: () {
+                      cubit.updateNotificationClicks(cubit.allNotification[index]);
                       PersistentNavBarNavigator.pushNewScreen(
                           context, screen: const AdminRechargeCardScreen());
                     },

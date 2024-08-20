@@ -11,6 +11,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../core/functions/Notification_helper.dart';
+import '../../../../core/functions/get_operation_date_now.dart';
 import '../../../../core/functions/toast.dart';
 import '../../../../core/utils/app_manager/app_color.dart';
 import '../../../../core/utils/common.dart';
@@ -29,7 +31,6 @@ class AdminCubit extends Cubit<AdminState> {
     emit(GetAdminLoading());
     FirebaseFirestore.instance.collection('Admins').doc(uid).get().then((value) {
       adminModel = AdminModel.fromMap(value.data()!);
-      print(adminModel!.email);
       emit(GetAdminSuccessState());
     }).catchError((e) {
       emit(GetAdminErrorState());
@@ -39,7 +40,6 @@ class AdminCubit extends Cubit<AdminState> {
   String? token;
   getAdminNotificationToken() async{
     token =  await FirebaseMessaging.instance.getToken();
-    print(token);
     updateAdminNotificationToken(adminModel!, token!);
   }
   updateAdminNotificationToken(AdminModel user, String token) {
@@ -82,7 +82,6 @@ class AdminCubit extends Cubit<AdminState> {
       uploadCompanyImage();
 
     } else {
-      print('no image selected');
       emit(PikCompanyImageErrorState());
     }
   }
@@ -294,22 +293,22 @@ class AdminCubit extends Cubit<AdminState> {
     emit(SelectUserToRechargeLoadingState());
     selectedUserToRecharge = UserModel('', '', '', '', '', '', '', 0, '', '', '', '', '', 0,false,false);
     if(type == 0){
-      allEmployee.forEach((user){
+      for (var user in allEmployee) {
         if(id.contains(user.id!) ){
           selectedUserToRecharge = user;
           emit(SelectUserToRechargeState());
         }
-      });
+      }
       if(selectedUserToRecharge!.uid==''){
         toast(message: 'User not found', data: ToastStates.warning);
       }
     }else{
-      allStudent.forEach((user){
+      for (var user in allStudent) {
         if(id.contains(user.id!) ){
           selectedUserToRecharge = user;
           emit(SelectUserToRechargeState());
         }
-      });
+      }
       if(selectedUserToRecharge!.uid==''){
         toast(message: 'User not found', data: ToastStates.warning);
       }
@@ -328,6 +327,7 @@ class AdminCubit extends Cubit<AdminState> {
     })
         .then((value) {
       emit(UpdateMoneySuccessState());
+      sendNotificationDB(user, 'Your card recharged', 'check your amount', 'Recharge', '');
     })
         .catchError((e) {
       emit(UpdateMoneyErrorState());
@@ -352,6 +352,8 @@ class AdminCubit extends Cubit<AdminState> {
 
 
   List<NotificationModel> allNotification=[];
+  bool isNotificationOpened = true;
+  int notificationCounter = 0;
   getNotificationDB(){
     allNotification =[];
     FirebaseFirestore.instance
@@ -361,12 +363,64 @@ class AdminCubit extends Cubit<AdminState> {
         .get()
         .then((value) {
       for (var element in value.docs) {
+        NotificationModel notificationModel = NotificationModel.fromMap(element.data());
         allNotification.add(NotificationModel.fromMap(element.data()));
+        if(notificationModel.isOpened==false){
+          notificationCounter++;
+          isNotificationOpened = false;
+        }
       }
       emit(GetNotificationSuccessState());
     })
         .catchError((e) {
       emit(GetNotificationErrorState());
+    });
+  }
+  sendNotificationDB(UserModel user, String title,String message, String type, String image){
+    int notifyId = getRandomNumber();
+    String date = getOperationDateNow();
+    NotificationModel notificationModel = NotificationModel(
+        notifyId, title, message, date, type ,image,false);
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(user.uid)
+        .collection('User notification')
+        .doc('${notificationModel.notifyId}')
+        .set(notificationModel.toMap()!)
+        .then((value) {
+      if(user.deviceToken != ''){
+        NotificationsHelper().sendNotifications(
+          fcmToken: user.deviceToken!,
+          title: title,
+          body: message,
+          type: type,
+        );
+      }
+      emit(AdminSendNotificationSuccessState());
+    })
+        .catchError((e) {
+      emit(AdminSendNotificationErrorState());
+    });
+  }
+
+  notificationClicked(){
+    isNotificationOpened = true;
+    emit(NotificationClickedState());
+  }
+
+  updateNotificationClicks(NotificationModel notification){
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(uid)
+        .collection('User notification')
+        .doc('${notification.notifyId}').update({
+      'isOpened': true
+    })
+        .then((value) {
+      emit(UpdateNotificationSuccessState());
+    })
+        .catchError((e) {
+      emit(UpdateNotificationErrorState());
     });
   }
 }

@@ -211,7 +211,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                       if(orderModel.status == 'In Progress')
                       CustomButton(
                         onPressed: () {
-                          cubit.acceptOrder(orderModel.orderNumber!, orderModel.userModel!, orderModel.amount!, orderModel.offer!);
+                          cubit.acceptOrder(orderModel, orderModel.userModel!, orderModel.amount!, orderModel.offer!);
                         },
                         color: AppColor.greenColor,
                         text: 'Accept',
@@ -257,7 +257,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                                       Center(
                                         child: CustomButton(
                                           onPressed: () {
-                                            cubit.rejectOrder(orderModel.orderNumber!, orderModel.userModel!);
+                                            cubit.rejectOrder(orderModel, orderModel.userModel!);
                                             Navigator.pop(context);
                                           },
                                           width: MediaQuery.of(context).size.width / 4,

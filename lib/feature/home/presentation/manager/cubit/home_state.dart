@@ -111,5 +111,11 @@ final class StopCardState extends HomeState {}
 
 final class StopPaymentState extends HomeState {}
 
+final class NotificationClickedState extends HomeState {}
+
+
 final class UpdateCardManageSuccessState extends HomeState {}
 final class UpdateCardManageErrorState extends HomeState {}
+
+final class UpdateNotificationSuccessState extends HomeState {}
+final class UpdateNotificationErrorState extends HomeState {}

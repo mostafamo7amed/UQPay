@@ -72,3 +72,12 @@ final class AddUserOperationSuccessState extends CompanyState {}
 final class AddUserOperationErrorState extends CompanyState {}
 
 final class GetPushNotificationState extends CompanyState{}
+
+
+final class CompanySendSuccessState extends CompanyState {}
+final class CompanySendErrorState extends CompanyState {}
+
+final class NotificationClickedState extends CompanyState{}
+
+final class UpdateNotificationSuccessState extends CompanyState {}
+final class UpdateNotificationErrorState extends CompanyState {}

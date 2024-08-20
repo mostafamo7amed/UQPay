@@ -14,7 +14,9 @@ class CompanyNotificationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<CompanyCubit, CompanyState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if(state is GetNotificationSuccessState){
+          CompanyCubit.getCubit(context).notificationClicked();
+        }
       },
       builder: (context, state) {
         var cubit = CompanyCubit.getCubit(context);
@@ -44,6 +46,7 @@ class CompanyNotificationView extends StatelessWidget {
                   InkWell(
                       onTap: () {
                         cubit.getCompanyOrders();
+                        cubit.updateNotificationClicks(cubit.allCompanyNotification[index]);
                         PersistentNavBarNavigator.pushNewScreen(context,
                             screen: const CompanyManageOrderView());
                       },

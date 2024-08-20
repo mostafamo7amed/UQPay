@@ -10,6 +10,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
+import '../../../../core/functions/Notification_helper.dart';
 import '../../../../core/functions/get_operation_date_now.dart';
 import '../../../../core/functions/get_random_number.dart';
 import '../../../../core/utils/common.dart';
@@ -298,8 +299,11 @@ class CompanyCubit extends Cubit<CompanyState> {
 
 
   List<NotificationModel> allCompanyNotification =[];
+  bool isNotificationOpened = true;
+  int notificationCounter = 0;
   getCompanyNotifications(){
     allCompanyNotification =[];
+    notificationCounter = 0;
     FirebaseFirestore.instance
         .collection('Notification')
         .doc(companyModel!.uid!)
@@ -307,7 +311,12 @@ class CompanyCubit extends Cubit<CompanyState> {
         .get()
         .then((value) {
       for (var element in value.docs) {
+        NotificationModel notificationModel = NotificationModel.fromMap(element.data());
         allCompanyNotification.add(NotificationModel.fromMap(element.data()));
+        if(notificationModel.isOpened==false){
+          notificationCounter++;
+          isNotificationOpened = false;
+        }
       }
       emit(GetNotificationSuccessState());
     })
@@ -344,14 +353,14 @@ class CompanyCubit extends Cubit<CompanyState> {
     });
   }
 
-  acceptOrder(String orderNumber, UserModel userModel ,double amount,double offer){
+  acceptOrder(OrderModel order, UserModel userModel ,double amount,double offer){
     emit(AcceptOrderLoadingState());
     double cashback = (amount*offer)/100;
     FirebaseFirestore.instance
         .collection('All Orders')
         .doc(companyModel!.uid!)
         .collection('Company Order')
-        .doc(orderNumber)
+        .doc(order.orderNumber)
         .update({
       'status': 'Accepted'
     })
@@ -365,14 +374,16 @@ class CompanyCubit extends Cubit<CompanyState> {
         .collection('All Orders')
         .doc(userModel.uid!)
         .collection('User Order')
-        .doc(orderNumber)
+        .doc(order.orderNumber)
         .update({
       'status': 'Accepted'
     })
         .then((value) {
       emit(AcceptOrderSuccessState());
       updateUserMoney(userModel, amount,cashback);
-      userOperation(userModel, companyModel!, orderNumber, amount);
+      userOperation(userModel, companyModel!, order.orderNumber!, amount);
+      sendNotificationDB(userModel, 'Your order is Accepted', 'check your orders', 'Order', order.products!.image!);
+
     })
         .catchError((e) {
       emit(AcceptOrderErrorState());
@@ -380,12 +391,12 @@ class CompanyCubit extends Cubit<CompanyState> {
 
   }
 
-  rejectOrder(String orderNumber, UserModel userModel){
+  rejectOrder(OrderModel order, UserModel userModel){
     FirebaseFirestore.instance
         .collection('All Orders')
         .doc(companyModel!.uid!)
         .collection('Company Order')
-        .doc(orderNumber)
+        .doc(order.orderNumber)
         .update({
       'status': 'Rejected'
     })
@@ -399,12 +410,13 @@ class CompanyCubit extends Cubit<CompanyState> {
         .collection('All Orders')
         .doc(userModel.uid!)
         .collection('User Order')
-        .doc(orderNumber)
+        .doc(order.orderNumber)
         .update({
       'status': 'Rejected'
     })
         .then((value) {
       emit(RejectOrderSuccessState());
+      sendNotificationDB(userModel, 'Your order is Rejected', 'check your orders', 'Order', order.products!.image!);
     })
         .catchError((e) {
       emit(RejectOrderErrorState());
@@ -477,5 +489,53 @@ class CompanyCubit extends Cubit<CompanyState> {
     emit(GetPushNotificationState());
   }
 
+
+  sendNotificationDB(UserModel user, String title,String message, String type, String image){
+    int notifyId = getRandomNumber();
+    String date = getOperationDateNow();
+    NotificationModel notificationModel = NotificationModel(
+        notifyId, title, message, date, type ,image,false);
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(user.uid)
+        .collection('User notification')
+        .doc('${notificationModel.notifyId}')
+        .set(notificationModel.toMap()!)
+        .then((value) {
+      if(user.deviceToken != ''){
+        NotificationsHelper().sendNotifications(
+          fcmToken: user.deviceToken!,
+          title: title,
+          body: message,
+          type: type,
+        );
+      }
+      emit(CompanySendSuccessState());
+    })
+        .catchError((e) {
+      emit(CompanySendErrorState());
+    });
+  }
+
+  notificationClicked(){
+    isNotificationOpened = true;
+    emit(NotificationClickedState());
+  }
+
+  updateNotificationClicks(NotificationModel notification){
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(uid)
+        .collection('Company notification')
+        .doc('${notification.notifyId}').update({
+      'isOpened': true
+    })
+        .then((value) {
+      emit(UpdateNotificationSuccessState());
+    })
+        .catchError((e) {
+      emit(UpdateNotificationErrorState());
+    });
+  }
 
 }

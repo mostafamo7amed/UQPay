@@ -67,9 +67,27 @@ class CompanyHomeScreen extends StatelessWidget {
                   PersistentNavBarNavigator.pushNewScreen(context,
                       screen: const CompanyNotificationView());
                 },
-                child: const Icon(
-                  Icons.notifications_none_outlined,
-                  size: 28,
+                child: Stack(
+                  children: [
+                    const Icon(
+                      Icons.notifications_none_outlined,
+                      size: 32,
+                    ),
+                    if(cubit.isNotificationOpened==false)
+                    Container(
+                      height: 15,
+                      width: 15,
+                      padding: EdgeInsets.zero,
+                      decoration: BoxDecoration(
+                          color: AppColor.redColor, shape: BoxShape.circle),
+                      child: Center(
+                          child: Text(
+                              '${cubit.notificationCounter}',
+                            style: Styles.textStyle12
+                                .copyWith(color: AppColor.wihteColor,height:0),
+                          )),
+                    )
+                  ],
                 ),
               ),
             ),

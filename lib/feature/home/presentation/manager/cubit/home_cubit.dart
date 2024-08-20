@@ -242,14 +242,6 @@ class HomeCubit extends Cubit<HomeState> {
         .then((value) {
       emit(HomeTransferSuccessState());
       updateUserMoney(user, amount, 'receive');
-      if(user.deviceToken != ''){
-        NotificationsHelper().sendNotifications(
-            fcmToken: user.deviceToken!,
-            title: 'You received money',
-            body: 'check it now',
-            type: 'Transfer',
-            );
-      }
       sendNotificationDB(user, 'You received money', 'check it now', 'Transfer','');
     })
         .catchError((e) {
@@ -261,7 +253,7 @@ class HomeCubit extends Cubit<HomeState> {
     int notifyId = getRandomNumber();
     String date = getOperationDateNow();
     NotificationModel notificationModel = NotificationModel(
-        notifyId, title, message, date, type ,image);
+        notifyId, title, message, date, type ,image,false);
     FirebaseFirestore.instance
         .collection('Notification')
         .doc(user.uid)
@@ -269,15 +261,27 @@ class HomeCubit extends Cubit<HomeState> {
         .doc('${notificationModel.notifyId}')
         .set(notificationModel.toMap()!)
         .then((value) {
+      if(user.deviceToken != ''){
+        NotificationsHelper().sendNotifications(
+          fcmToken: user.deviceToken!,
+          title: title,
+          body: message,
+          type: type,
+        );
+      }
       emit(HomeSendNotificationSuccessState());
+
     })
         .catchError((e) {
       emit(HomeSendNotificationErrorState());
     });
   }
   List<NotificationModel> allNotification=[];
+  bool isNotificationOpened = true;
+  int notificationCounter = 0;
   getNotificationDB(){
     allNotification =[];
+    notificationCounter = 0;
     FirebaseFirestore.instance
         .collection('Notification')
         .doc(uid)
@@ -285,7 +289,12 @@ class HomeCubit extends Cubit<HomeState> {
         .get()
         .then((value) {
       for (var element in value.docs) {
+          NotificationModel notificationModel = NotificationModel.fromMap(element.data());
           allNotification.add(NotificationModel.fromMap(element.data()));
+          if(notificationModel.isOpened==false){
+            notificationCounter++;
+            isNotificationOpened = false;
+          }
         }
       emit(HomeGetNotificationSuccessState());
     })
@@ -655,7 +664,7 @@ class HomeCubit extends Cubit<HomeState> {
     int notifyId = getRandomNumber();
     String date = getOperationDateNow();
     NotificationModel notificationModel = NotificationModel(
-        notifyId, title, message, date, type,image);
+        notifyId, title, message, date, type,image,false);
     FirebaseFirestore.instance
         .collection('Notification')
         .doc(user.uid)
@@ -788,4 +797,27 @@ class HomeCubit extends Cubit<HomeState> {
       emit(UpdateCardManageErrorState());
     });
   }
+
+
+  notificationClicked(){
+    isNotificationOpened = true;
+    emit(NotificationClickedState());
+  }
+
+  updateNotificationClicks(NotificationModel notification){
+    FirebaseFirestore.instance
+        .collection('Notification')
+        .doc(uid)
+        .collection('User notification')
+        .doc('${notification.notifyId}').update({
+      'isOpened':true
+    })
+        .then((value) {
+      emit(UpdateNotificationSuccessState());
+    })
+        .catchError((e) {
+      emit(UpdateNotificationErrorState());
+    });
+  }
+
 }

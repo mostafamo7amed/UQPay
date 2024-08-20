@@ -19,7 +19,7 @@ class NotificationItemWidget extends StatelessWidget {
     return Card(
       elevation: 2,
       clipBehavior: Clip.hardEdge,
-      color: AppColor.wihteColor,
+      color: notificationModel.isOpened==false?AppColor.wihteColor:AppColor.wihteColor.withOpacity(.9),
       child: Container(
         width: size.width,
         decoration: const BoxDecoration(
@@ -66,13 +66,14 @@ class NotificationItemWidget extends StatelessWidget {
                       children: [
                         const Spacer(),
                         Text(
-                          'Today',
+                          '${notificationModel.dateTime}',
                           style: Styles.regularTextStyle14
                               .copyWith(color: AppColor.lightgrayColor),
                           textAlign: TextAlign.end,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        if(notificationModel.isOpened==false)
                         Container(
                           margin: const EdgeInsets.all(8),
                           height: 7,

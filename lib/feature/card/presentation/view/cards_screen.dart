@@ -156,6 +156,7 @@ class CardsScreen extends StatelessWidget {
                                             backgroundColor:
                                                 AppColor.backgroundColor,
                                             onTap: () {
+                                              cubit.getUserOperation();
                                               PersistentNavBarNavigator
                                                   .pushNewScreen(context,
                                                       screen: LatestOperationView(userModel: cubit.userModel!,));
