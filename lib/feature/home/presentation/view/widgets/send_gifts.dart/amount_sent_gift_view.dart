@@ -11,7 +11,6 @@ import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/feature/home/presentation/view/widgets/save_account/defualt_form.dart';
-import 'package:UQPay/feature/home/presentation/view/widgets/send_gifts.dart/send_gift_review_screen.dart';
 
 class AmountSentGiftView extends StatefulWidget {
   const AmountSentGiftView({super.key,required this.userModel});

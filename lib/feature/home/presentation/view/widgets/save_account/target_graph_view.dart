@@ -30,8 +30,18 @@ class TargetGraphView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        if (state is HomeEditTargetSuccessState ||
-            state is HomeDeleteTargetSuccessState) {
+        if (state is HomeEditTargetSuccessState) {
+          HomeCubit.getCubit(context).getUserTargets(uid);
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }
+        if(state is HomeDeleteTargetSuccessState){
+          HomeCubit.getCubit(context).getUserTargets(uid);
+          toast(message: 'Target Deleted successfully', data: ToastStates.success);
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }
+        if(state is AchieveTargetSuccessState){
           HomeCubit.getCubit(context).getUserTargets(uid);
           Navigator.pop(context);
           Navigator.pop(context);
@@ -133,10 +143,10 @@ class TargetGraphView extends StatelessWidget {
                               children: [
                                 CustomButton(
                                   onPressed: () {
+                                    cubit.achieveTarget(targetModel.targetId!);
                                     toast(
-                                        message: 'Target Archived',
+                                        message: 'Target Achieved',
                                         data: ToastStates.success);
-                                    Navigator.pop(context);
                                   },
                                   text: 'Done',
                                   isLoading: state is HomeAddTargetLoadingState,
@@ -193,7 +203,7 @@ class TargetGraphView extends StatelessWidget {
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
-                                                SeparatedLine(),
+                                                const SeparatedLine(),
                                                 const SizedBox(
                                                   height: 10,
                                                 ),

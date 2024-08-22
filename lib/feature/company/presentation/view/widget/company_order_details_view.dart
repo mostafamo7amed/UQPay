@@ -250,7 +250,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      SeparatedLine(),
+                                      const SeparatedLine(),
                                       const SizedBox(
                                         height: 10,
                                       ),

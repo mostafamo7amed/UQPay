@@ -44,6 +44,9 @@ class HomeScreen extends StatelessWidget {
           HomeCubit.getCubit(context).getUserOrders();
           HomeCubit.getCubit(context).getAllCompanyOffers();
         }
+        if(state is GetAllOffersSuccessState){
+          HomeCubit.getCubit(context).fillUserOffers();
+        }
       },
       builder: (context, state) {
         var cubit = HomeCubit.getCubit(context);

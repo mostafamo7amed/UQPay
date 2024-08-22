@@ -9,6 +9,7 @@ import 'package:UQPay/feature/admin/presentation/view/widgets/admin_notification
 import 'package:UQPay/feature/admin/presentation/view/widgets/admin_recharge_card_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../../core/widgets/basic_functions_widget.dart';
 
@@ -17,6 +18,9 @@ class AdminHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var now = DateTime.now();
+    var formatterTime = DateFormat('kk:mm a');
+    String actualTime = formatterTime.format(now);
     return BlocConsumer<AdminCubit, AdminState>(
       listener: (context, state) {
         if (state is GetAdminSuccessState) {
@@ -117,7 +121,7 @@ class AdminHomeScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Good morning',
+                                        'Good ${actualTime.contains('AM') ? 'morning' : 'evening'}',
                                         style: Styles.textStyle24.copyWith(
                                             color: AppColor.wihteColor,
                                             fontWeight: FontWeight.bold),

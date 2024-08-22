@@ -112,10 +112,10 @@ class CompanyCubit extends Cubit<CompanyState> {
     });
   }
 
-  addOffer(String image) {
+  addOffer(String image,String offerType) {
     emit(AddOfferLoadingState());
     int id = getRandomNumber();
-    OfferModel offerModel = OfferModel(id, image);
+    OfferModel offerModel = OfferModel(id, image,offerType);
     FirebaseFirestore.instance
         .collection('Offers')
         .doc(uid)

@@ -1,11 +1,15 @@
+import 'package:UQPay/core/functions/toast.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
 import 'package:UQPay/core/utils/app_manager/app_styles.dart';
 import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/seperated_line.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:UQPay/feature/home/presentation/manager/cubit/home_state.dart';
 import 'package:UQPay/feature/store/data/models/order_model.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/view_order_details.dart';
 import 'package:UQPay/feature/store/presentation/view/widgets/view_pickup_order_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class OrdersVerticalListView extends StatelessWidget {
@@ -17,9 +21,19 @@ class OrdersVerticalListView extends StatelessWidget {
   });
   bool? hideProgress = false;
   final List<OrderModel> orderList;
+  
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+    if(state is ReorderSuccessState){
+      HomeCubit.getCubit(context).getUserOrders();
+      toast(message: 'Your order requested again', data: ToastStates.success);
+    }
+  },
+  builder: (context, state) {
+    var cubit = HomeCubit.getCubit(context);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 10,
@@ -107,16 +121,18 @@ class OrdersVerticalListView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  hideProgress == false
+                  orderList[index].status!= 'In Progress'
                       ? CustomButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            cubit.reorderOrder(orderList[index]);
+                          },
                           color: AppColor.wihteColor,
                           textColor: AppColor.yellowColor,
                           text: 'Reorder',
                           width: MediaQuery.of(context).size.width / 3,
                         )
                       : const SizedBox(),
-                  hideProgress == false ? const Spacer() : const SizedBox(),
+                  orderList[index].status!= 'In Progress'? const Spacer() : const SizedBox(),
                   CustomButton(
                     onPressed: (){
                       if(orderList[index].orderType=='Service') {
@@ -147,5 +163,7 @@ class OrdersVerticalListView extends StatelessWidget {
         itemCount: orderList.length,
       ),
     );
+  },
+);
   }
 }

@@ -92,48 +92,96 @@ class CompanyAddOfferView extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        InkWell(
-                          onTap: () {
-                            if (cubit.offerImage != null &&
-                                cubit.offerImageUri != '') {
-                              cubit.addOffer(cubit.offerImageUri);
-                            }else{
-                              toast(message: 'Tap to Select an image', data: ToastStates.error);
-                            }
-                          },
-                          child: Center(
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 2.5,
-                              padding: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: AppColor.grayColor, width: 1),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(12)),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                if (cubit.offerImage != null &&
+                                    cubit.offerImageUri != '') {
+                                  cubit.addOffer(cubit.offerImageUri,'Student');
+                                }else{
+                                  toast(message: 'Tap to Select an image', data: ToastStates.error);
+                                }
+                              },
+                              child: Center(
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width-50,
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: AppColor.grayColor, width: 1),
+                                    borderRadius:
+                                        const BorderRadius.all(Radius.circular(12)),
+                                  ),
+                                  child: state is AddOfferLoadingState
+                                      ? const Center(child:  CircularProgressIndicator())
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.add_photo_alternate_outlined,
+                                              color: AppColor.primaryColor,
+                                              size: 35,
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              'Upload for students',
+                                              style: Styles.textStyle20.copyWith(
+                                                  color: AppColor.primaryColor),
+                                            )
+                                          ],
+                                        ),
+                                ),
                               ),
-                              child: state is AddOfferLoadingState
-                                  ? const Center(child:  CircularProgressIndicator())
-                                  : Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.add_photo_alternate_outlined,
-                                          color: AppColor.primaryColor,
-                                          size: 35,
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          'Upload',
-                                          style: Styles.textStyle20.copyWith(
-                                              color: AppColor.primaryColor),
-                                        )
-                                      ],
-                                    ),
                             ),
-                          ),
+                            const SizedBox(height: 10,),
+                            InkWell(
+                              onTap: () {
+                                if (cubit.offerImage != null &&
+                                    cubit.offerImageUri != '') {
+                                  cubit.addOffer(cubit.offerImageUri,'Academic');
+                                }else{
+                                  toast(message: 'Tap to Select an image', data: ToastStates.error);
+                                }
+                              },
+                              child: Center(
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width-50,
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: AppColor.grayColor, width: 1),
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(12)),
+                                  ),
+                                  child: state is AddOfferLoadingState
+                                      ? const Center(child:  CircularProgressIndicator())
+                                      : Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.add_photo_alternate_outlined,
+                                        color: AppColor.primaryColor,
+                                        size: 35,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        'Upload for academic',
+                                        style: Styles.textStyle20.copyWith(
+                                            color: AppColor.primaryColor),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 20,

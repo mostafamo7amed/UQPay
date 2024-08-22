@@ -119,3 +119,16 @@ final class UpdateCardManageErrorState extends HomeState {}
 
 final class UpdateNotificationSuccessState extends HomeState {}
 final class UpdateNotificationErrorState extends HomeState {}
+
+final class ChangeSendGiftUserState extends HomeState {}
+
+final class ChangeUserOffersState extends HomeState {}
+
+final class AchieveTargetSuccessState extends HomeState {}
+final class AchieveTargetErrorState extends HomeState {}
+
+final class GetOrderUserLoadingState extends HomeState {}
+
+final class ReorderSuccessState extends HomeState {}
+
+final class ReorderErrorState extends HomeState {}

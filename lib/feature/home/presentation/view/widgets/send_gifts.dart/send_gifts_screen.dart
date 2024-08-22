@@ -117,7 +117,7 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                                       textAlign: TextAlign.start,
                                       style: Styles.textStyle18,
                                     ),
-                                    value: cubit.selectedTransferUser,
+                                    value: cubit.selectedSendGiftUser,
                                     items: cubit.allStudent.map((user) {
                                       return DropdownMenuItem(
                                           value: user,
@@ -132,7 +132,7 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                                           ));
                                     }).toList(),
                                     onChanged: (value) {
-                                      cubit.changeSelectedTransferUser(value!);
+                                      cubit.changeSelectedSendGiftUser(value!);
                                     }),
                               ),
                             ],
@@ -166,7 +166,7 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                                       textAlign: TextAlign.start,
                                       style: Styles.textStyle18,
                                     ),
-                                    value: cubit.selectedTransferUser,
+                                    value: cubit.selectedSendGiftUser,
                                     items: cubit.allUsers.map((user) {
                                       return DropdownMenuItem(
                                           value: user,
@@ -181,7 +181,7 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                                           ));
                                     }).toList(),
                                     onChanged: (value) {
-                                      cubit.changeSelectedTransferUser(value!);
+                                      cubit.changeSelectedSendGiftUser(value!);
                                     }),
                               ),
                             ],
@@ -195,9 +195,9 @@ class _SendGiftsScreenState extends State<SendGiftsScreen> {
                           children: [
                             CustomButton(
                               onPressed: () {
-                                if(cubit.selectedTransferUser !=null){
+                                if(cubit.selectedSendGiftUser !=null){
                                   PersistentNavBarNavigator.pushNewScreen(context,
-                                      screen: AmountSentGiftView( userModel: cubit.selectedTransferUser!,));
+                                      screen: AmountSentGiftView( userModel: cubit.selectedSendGiftUser!,));
                                 }else{
                                   toast(message: 'Select account to send gift', data: ToastStates.error);
                                 }

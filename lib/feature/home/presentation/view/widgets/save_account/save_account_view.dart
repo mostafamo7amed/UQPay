@@ -83,7 +83,6 @@ class SaveAccountView extends StatelessWidget {
                 ),
                 CustomButton(
                   onPressed: () {
-
                        if(cubit.allTargets.isNotEmpty){
                          PersistentNavBarNavigator.pushNewScreen(context,
                              screen: const MyTargetsView());

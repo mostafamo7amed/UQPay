@@ -35,6 +35,7 @@ class OrderLocationView extends StatelessWidget {
     );
     return BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
+
   },
   builder: (context, state) {
     return SafeArea(
@@ -109,6 +110,9 @@ class StoreLocationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
+    if(state is HomeSendNotificationSuccessState){
+      HomeCubit.getCubit(context).getUserOrders();
+    }
   },
   builder: (context, state) {
     var cubit =HomeCubit.getCubit(context);
