@@ -121,7 +121,6 @@ class HomeCubit extends Cubit<HomeState> {
       toast(message: e.toString(), data: ToastStates.error);
     });
   }
-
   achieveTarget(int targetId) {
     FirebaseFirestore.instance
         .collection('Save Accounts')
@@ -672,14 +671,27 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   reorderOrder(OrderModel order){
+
+    OrderModel orderModel =OrderModel(
+        order.userModel,
+        order.customerId,
+        order.orderNumber,
+        order.orderType,
+        order.storeId,
+        order.companyModel,
+        order.amount,
+        order.products,
+        order.date,
+        order.offer,
+        "In Progress",
+        order.total);
+
     FirebaseFirestore.instance
         .collection('All Orders')
         .doc(order.companyModel!.uid!)
         .collection('Company Order')
         .doc(order.orderNumber)
-        .update({
-      'status': "In Progress"
-    })
+        .set(orderModel.toMap())
         .then((value) {
       emit(ReorderSuccessState());
     })
@@ -691,11 +703,19 @@ class HomeCubit extends Cubit<HomeState> {
         .doc(userModel!.uid!)
         .collection('User Order')
         .doc(order.orderNumber)
-        .update({
-      'status': "In Progress"
-    })
+        .set(orderModel.toMap())
         .then((value) {
       emit(ReorderSuccessState());
+      if (order.companyModel!.deviceToken != '') {
+        NotificationsHelper().sendNotifications(
+          fcmToken: order.companyModel!.deviceToken!,
+          title: 'You have new order',
+          body: 'check it now',
+          type: 'Order',
+        );
+      }
+      sendCompanyNotificationDB(orderModel.companyModel!, 'You have new order',
+          'check it now', 'Order', orderModel.products!.image!);
     })
         .catchError((e) {
       emit(ReorderErrorState());

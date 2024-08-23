@@ -30,11 +30,6 @@ class TargetGraphView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        if (state is HomeEditTargetSuccessState) {
-          HomeCubit.getCubit(context).getUserTargets(uid);
-          Navigator.pop(context);
-          Navigator.pop(context);
-        }
         if(state is HomeDeleteTargetSuccessState){
           HomeCubit.getCubit(context).getUserTargets(uid);
           toast(message: 'Target Deleted successfully', data: ToastStates.success);

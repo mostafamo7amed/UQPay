@@ -27,7 +27,7 @@ class OrdersVerticalListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
-    if(state is ReorderSuccessState){
+    if(state is HomeSendNotificationSuccessState){
       HomeCubit.getCubit(context).getUserOrders();
       toast(message: 'Your order requested again', data: ToastStates.success);
     }
