@@ -132,3 +132,5 @@ final class GetOrderUserLoadingState extends HomeState {}
 final class ReorderSuccessState extends HomeState {}
 
 final class ReorderErrorState extends HomeState {}
+
+final class UpdateNotificationId extends HomeState {}

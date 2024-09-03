@@ -21,7 +21,7 @@ import 'transfer/transfer_view.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final CarouselController _controller = CarouselController();
+  final CarouselSliderController _controller = CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {

@@ -7,6 +7,7 @@ class Operation {
   double? operationAmount;
   String? type;
   String? serviceType;
+  DateTime? createDate;
 
   Operation(
       this.receiverName,
@@ -16,7 +17,9 @@ class Operation {
       this.date,
       this.operationAmount,
       this.type,
-      this.serviceType);
+      this.serviceType,
+      this.createDate
+      );
 
   Operation.fromMap(Map<String, dynamic> map) {
     receiverName = map['receiverName'];
@@ -39,6 +42,7 @@ class Operation {
       'operationAmount': operationAmount,
       'type': type,
       'serviceType': serviceType,
+      'createDate': createDate,
     };
   }
 }

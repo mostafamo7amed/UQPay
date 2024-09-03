@@ -202,7 +202,7 @@ class SendGiftReviewScreen extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                '${cubit.selectedTransferUser!.name}',
+                                '${cubit.selectedSendGiftUser!.name}',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.blackColor),
                               ),
@@ -210,7 +210,7 @@ class SendGiftReviewScreen extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                '${cubit.selectedTransferUser!.cardNumber}',
+                                '${cubit.selectedSendGiftUser!.cardNumber}',
                                 style: Styles.regularTextStyle16
                                     .copyWith(color: AppColor.primaryColor),
                               ),
@@ -224,7 +224,7 @@ class SendGiftReviewScreen extends StatelessWidget {
                           onPressed: () {
                             if(cubit.isCardStop==false){
                               cubit.sendGift(
-                                  cubit.selectedTransferUser!,
+                                  cubit.selectedSendGiftUser!,
                                   cubit.giftAmount,
                                   cubit.giftMessage,
                                   cubit.giftName);

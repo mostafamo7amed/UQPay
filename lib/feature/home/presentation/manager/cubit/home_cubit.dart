@@ -227,7 +227,9 @@ class HomeCubit extends Cubit<HomeState> {
         operationDate,
         amount,
         'Send',
-        'Transfer');
+        'Transfer',
+        DateTime.now()
+    );
     Operation receiverOperation = Operation(
         user.name,
         userModel!.name,
@@ -236,7 +238,9 @@ class HomeCubit extends Cubit<HomeState> {
         operationDate,
         amount,
         'Receive',
-        'Transfer');
+        'Transfer',
+        DateTime.now()
+    );
 
     FirebaseFirestore.instance
         .collection('All Operation')
@@ -272,7 +276,7 @@ class HomeCubit extends Cubit<HomeState> {
     int notifyId = getRandomNumber();
     String date = getOperationDateNow();
     NotificationModel notificationModel =
-        NotificationModel(notifyId, title, message, date, type, image, false);
+        NotificationModel(notifyId, title, message, date, type, image, false,DateTime.now());
     FirebaseFirestore.instance
         .collection('Notification')
         .doc(user.uid)
@@ -324,13 +328,16 @@ class HomeCubit extends Cubit<HomeState> {
   // get user operations
   List<Operation> allOperation = [];
   getUserOperation() {
+    allOperation = [];
+
     FirebaseFirestore.instance
         .collection('All Operation')
         .doc(uid)
         .collection('Operation')
+        .orderBy('createDate')
         .get()
         .then((value) {
-      for (var element in value.docs) {
+      for (var element in value.docs.reversed) {
         allOperation.add(Operation.fromMap(element.data()));
       }
       emit(HomeGetUserOperationSuccessState());
@@ -426,7 +433,7 @@ class HomeCubit extends Cubit<HomeState> {
     var operationId = getRandomNumber();
     var operationDate = getOperationDateNow();
     Operation senderOperation = Operation(user.name, userModel!.name,
-        operationId, 'You send gift', operationDate, amount, 'Send', 'Gift');
+        operationId, 'You send gift', operationDate, amount, 'Send', 'Gift',DateTime.now());
     Operation receiverOperation = Operation(
         user.name,
         userModel!.name,
@@ -435,7 +442,9 @@ class HomeCubit extends Cubit<HomeState> {
         operationDate,
         amount,
         'Receive',
-        'Gift');
+        'Gift',
+        DateTime.now()
+    );
     FirebaseFirestore.instance
         .collection('All Operation')
         .doc(uid)
@@ -443,7 +452,7 @@ class HomeCubit extends Cubit<HomeState> {
         .doc('$operationId')
         .set(senderOperation.toMap()!)
         .then((value) {
-      emit(HomeSendGiftSuccessState());
+      //emit(HomeSendGiftSuccessState());
       updateUserMoney(userModel!, amount, 'send');
     }).catchError((e) {
       emit(HomeSendGiftErrorState());
@@ -485,20 +494,23 @@ class HomeCubit extends Cubit<HomeState> {
         .collection('All Operation')
         .doc(uid)
         .collection('Operation')
-        .where('serviceType', isEqualTo: 'Gift')
+        .orderBy('createDate')
         .get()
         .then((value) {
-      for (var element in value.docs) {
+      for (var element in value.docs.reversed) {
         Operation operation = Operation.fromMap(element.data());
-        if (operation.type == 'Receive') {
-          isReceivedGift = true;
-          allReceivedGifts.add(Operation.fromMap(element.data()));
-        }
-        if (operation.type == 'Send') {
-          isSendGift = true;
-          allSendGifts.add(Operation.fromMap(element.data()));
+        if(operation.serviceType == 'Gift') {
+          if (operation.type == 'Receive') {
+            isReceivedGift = true;
+            allReceivedGifts.add(Operation.fromMap(element.data()));
+          }
+          if (operation.type == 'Send') {
+            isSendGift = true;
+            allSendGifts.add(Operation.fromMap(element.data()));
+          }
         }
       }
+
       emit(HomeGetGiftSuccessState());
     }).catchError((e) {
       emit(HomeGetGiftErrorState());
@@ -634,7 +646,10 @@ class HomeCubit extends Cubit<HomeState> {
         date,
         companyModel.cashback,
         'In Progress',
-        total);
+        total,
+      DateTime.now(),
+      0
+    );
     FirebaseFirestore.instance
         .collection('All Orders')
         .doc(userModel!.uid!)
@@ -651,8 +666,10 @@ class HomeCubit extends Cubit<HomeState> {
           type: 'Order',
         );
       }
+      int notifyId = getRandomNumber();
       sendCompanyNotificationDB(companyModel, 'You have new order',
-          'check it now', 'Order', products.image!);
+          'check it now', 'Order', products.image!,notifyId);
+      updateNotificationOrderId(notifyId, orderModel);
     }).catchError((e) {
       emit(MakeOrderErrorState());
     });
@@ -684,7 +701,10 @@ class HomeCubit extends Cubit<HomeState> {
         order.date,
         order.offer,
         "In Progress",
-        order.total);
+        order.total,
+        DateTime.now(),
+      0
+    );
 
     FirebaseFirestore.instance
         .collection('All Orders')
@@ -714,8 +734,10 @@ class HomeCubit extends Cubit<HomeState> {
           type: 'Order',
         );
       }
+      int notifyId = getRandomNumber();
       sendCompanyNotificationDB(orderModel.companyModel!, 'You have new order',
-          'check it now', 'Order', orderModel.products!.image!);
+          'check it now', 'Order', orderModel.products!.image!,notifyId);
+      updateNotificationOrderId(notifyId, order);
     })
         .catchError((e) {
       emit(ReorderErrorState());
@@ -724,11 +746,10 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   sendCompanyNotificationDB(CompanyModel user, String title, String message,
-      String type, String image) {
-    int notifyId = getRandomNumber();
+      String type, String image,int notifyId) {
     String date = getOperationDateNow();
     NotificationModel notificationModel =
-        NotificationModel(notifyId, title, message, date, type, image, false);
+        NotificationModel(notifyId, title, message, date, type, image, false,DateTime.now());
     FirebaseFirestore.instance
         .collection('Notification')
         .doc(user.uid)
@@ -883,6 +904,35 @@ class HomeCubit extends Cubit<HomeState> {
       emit(UpdateNotificationSuccessState());
     }).catchError((e) {
       emit(UpdateNotificationErrorState());
+    });
+  }
+
+  updateNotificationOrderId(int notifyId, OrderModel order){
+    FirebaseFirestore.instance
+        .collection('All Orders')
+        .doc(order.companyModel!.uid!)
+        .collection('Company Order')
+        .doc(order.orderNumber)
+        .update({
+      'notifyId':notifyId
+    })
+        .then((value) {
+      emit(UpdateNotificationId());
+    })
+        .catchError((e) {
+    });
+    FirebaseFirestore.instance
+        .collection('All Orders')
+        .doc(order.userModel!.uid!)
+        .collection('User Order')
+        .doc(order.orderNumber)
+        .update({
+          'notifyId':notifyId
+        })
+        .then((value) {
+      emit(UpdateNotificationId());
+    })
+        .catchError((e) {
     });
   }
 }

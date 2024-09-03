@@ -1,4 +1,5 @@
 import 'package:UQPay/feature/login/presentation/manager/login_cubit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:UQPay/core/utils/app_manager/app_assets.dart';
 import 'package:UQPay/core/utils/app_manager/app_color.dart';
@@ -7,6 +8,7 @@ import 'package:UQPay/core/widgets/custom_button.dart';
 import 'package:UQPay/core/widgets/custom_text_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/common.dart';
+import '../../../../home/data/models/user_model.dart';
 
 class LoginViewBody extends StatelessWidget {
   LoginViewBody({super.key});
@@ -24,24 +26,33 @@ class LoginViewBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
-       /* AdminModel model = AdminModel(
-          'admin1@uqu.edu.sa',
-          'Admin 1',
-          '1',
-          '',
-          '',
-          'Admin',
-          '1999-01-14',
-          'Male',
-          'IcPEoZdpx0VCdSfWqYgYQPF8hfK2',
-          '+966472844309',
-        );
-        FirebaseFirestore.instance
-            .collection('Admins')
-            .doc(model.uid)
-            .set(model.toMap()!)
-            .then((value) {})
-            .catchError((e) {});*/
+/*UserModel model = UserModel(
+  's442001838@uqu.edu.sa',
+  'user 3',
+  '12302711',
+  '',
+  '',
+  '12345678910234',
+  'Student',
+  1300.0,
+  '2002-02-18',
+  'Male',
+  '4kDDZTJTUtOpPrfPmA5gEh0VJ152',
+  '+966572844309',
+  'Computer Science',
+  150.00,
+  false,
+  false
+);
+FirebaseFirestore.instance
+    .collection('Users')
+.doc(model.uid)
+    .set(model.toMap()!)
+    .then((value) {
+
+})
+    .catchError((e) {});*/
+
         var cubit = LoginCubit.getCubit(context);
         return SafeArea(
             child: Scaffold(
@@ -147,29 +158,3 @@ class LoginViewBody extends StatelessWidget {
     );
   }
 }
-/*
-UserModel model = UserModel(
-  's442345678@stu.uqu.edu.sa',
-  'Mohamed Ali',
-  '442345678',
-  'kk',
-  '',
-  '12345678910234',
-  'Student',
-  1300.0,
-  '2002-02-18',
-  'Male',
-  '7hcagmClQdfliBaKp2gd0KRyhNT2',
-  '+966572844309',
-  'Computer Science',
-
-  150.00,
-
-);
-FirebaseFirestore.instance
-    .collection('Users')
-.doc(model.id)
-    .update(model.toMap()!)
-    .then((value) {})
-    .catchError((e) {});
-*/

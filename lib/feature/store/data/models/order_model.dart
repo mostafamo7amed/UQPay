@@ -15,6 +15,8 @@ class OrderModel {
   double? offer;
   String? status;
   double? total;
+  DateTime? createDate;
+  int? notifyId;
 
   OrderModel(
       this.userModel,
@@ -28,7 +30,10 @@ class OrderModel {
       this.date,
       this.offer,
       this.status,
-      this.total);
+      this.total,
+      this.createDate,
+      this.notifyId
+      );
   OrderModel.fromMap(Map<String,dynamic> map){
     userModel =UserModel.fromMap(map['userModel']);
     customerId = map['customerId'];
@@ -42,6 +47,7 @@ class OrderModel {
     offer = map['offer'];
     status = map['status'];
     total = map['total'];
+    notifyId = map['notifyId'];
   }
 
   Map<String,dynamic> toMap(){
@@ -57,7 +63,10 @@ class OrderModel {
       'date':date,
       'offer':offer,
       'status':status,
-      'total':total
+      'total':total,
+      'createDate':createDate,
+      'notifyId':notifyId,
+
     };
   }
 }

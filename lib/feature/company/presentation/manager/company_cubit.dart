@@ -308,9 +308,10 @@ class CompanyCubit extends Cubit<CompanyState> {
         .collection('Notification')
         .doc(companyModel!.uid!)
         .collection('Company notification')
+        .orderBy('createDate')
         .get()
         .then((value) {
-      for (var element in value.docs) {
+      for (var element in value.docs.reversed) {
         NotificationModel notificationModel = NotificationModel.fromMap(element.data());
         allCompanyNotification.add(NotificationModel.fromMap(element.data()));
         if(notificationModel.isOpened==false){
@@ -335,9 +336,10 @@ class CompanyCubit extends Cubit<CompanyState> {
         .collection('All Orders')
         .doc(companyModel!.uid!)
         .collection('Company Order')
+        .orderBy('createDate')
         .get()
         .then((value) {
-      for (var element in value.docs) {
+      for (var element in value.docs.reversed) {
         OrderModel order =OrderModel.fromMap(element.data());
         if(order.status=='In Progress'){
           newOrders.add(OrderModel.fromMap(element.data()));
@@ -424,7 +426,7 @@ class CompanyCubit extends Cubit<CompanyState> {
 
   }
 
-  finishOrder(String orderNumber, UserModel userModel){
+  finishOrder(String orderNumber, UserModel userModel,OrderModel order){
     FirebaseFirestore.instance
         .collection('All Orders')
         .doc(companyModel!.uid!)
@@ -432,7 +434,17 @@ class CompanyCubit extends Cubit<CompanyState> {
         .doc(orderNumber)
         .delete()
         .then((value) {
-      emit(FinishOrderSuccessState());
+      FirebaseFirestore.instance
+          .collection('Notification')
+          .doc(userModel.uid)
+          .collection('User notification')
+          .doc('${order.notifyId}')
+          .delete()
+          .then((value) {
+        emit(FinishOrderSuccessState());})
+          .catchError((e) {
+        emit(FinishOrderErrorState());
+      });
     })
         .catchError((e) {
       emit(FinishOrderErrorState());
@@ -467,7 +479,9 @@ class CompanyCubit extends Cubit<CompanyState> {
         operationDate,
         amount,
         'Send',
-        'Payment');
+        'Payment',
+      DateTime.now(),
+    );
 
     FirebaseFirestore.instance
         .collection('All Operation')
@@ -494,7 +508,7 @@ class CompanyCubit extends Cubit<CompanyState> {
     int notifyId = getRandomNumber();
     String date = getOperationDateNow();
     NotificationModel notificationModel = NotificationModel(
-        notifyId, title, message, date, type ,image,false);
+        notifyId, title, message, date, type ,image,false,DateTime.now());
     FirebaseFirestore.instance
         .collection('Notification')
         .doc(user.uid)

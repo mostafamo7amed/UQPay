@@ -104,7 +104,7 @@ class MessageSendGiftView extends StatelessWidget {
                                       Row(
                                         children: [
                                           Text(
-                                            'To : ${cubit.selectedTransferUser!.name}',
+                                            'To : ${cubit.selectedSendGiftUser!.name}',
                                             style: Styles.regularTextStyle16
                                                 .copyWith(
                                                     color: AppColor.wihteColor),

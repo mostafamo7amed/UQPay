@@ -380,7 +380,7 @@ class AdminCubit extends Cubit<AdminState> {
     int notifyId = getRandomNumber();
     String date = getOperationDateNow();
     NotificationModel notificationModel = NotificationModel(
-        notifyId, title, message, date, type ,image,false);
+        notifyId, title, message, date, type ,image,false,DateTime.now());
     FirebaseFirestore.instance
         .collection('Notification')
         .doc(user.uid)

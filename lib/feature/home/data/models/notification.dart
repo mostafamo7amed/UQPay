@@ -6,6 +6,7 @@ class NotificationModel {
   String? notifyType;
   String? image;
   bool? isOpened;
+  DateTime? createDate;
 
   NotificationModel(
       this.notifyId,
@@ -14,7 +15,8 @@ class NotificationModel {
       this.dateTime,
       this.notifyType,
       this.image,
-      this.isOpened
+      this.isOpened,
+      this.createDate
       );
 
   NotificationModel.fromMap(Map<String, dynamic> map) {
@@ -35,7 +37,8 @@ class NotificationModel {
       'dateTime': dateTime,
       'notifyType': notifyType,
       'image':image,
-      'isOpened':isOpened
+      'isOpened':isOpened,
+      'createDate':createDate
     };
   }
 }

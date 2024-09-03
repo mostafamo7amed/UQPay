@@ -315,7 +315,7 @@ class CompanyOrderDetailsView extends StatelessWidget {
                                       Center(
                                         child: CustomButton(
                                           onPressed: () {
-                                            cubit.finishOrder(orderModel.orderNumber!, orderModel.userModel!);
+                                            cubit.finishOrder(orderModel.orderNumber!, orderModel.userModel!,orderModel);
                                             Navigator.pop(context);
                                           },
                                           width: MediaQuery.of(context).size.width / 4,

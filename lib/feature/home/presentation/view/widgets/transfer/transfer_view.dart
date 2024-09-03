@@ -31,7 +31,6 @@ class TransferView extends StatelessWidget {
               ),
             );
           }else{
-
             PersistentNavBarNavigator.pushNewScreen(
               context,
               screen: ConfirmTransferView(
